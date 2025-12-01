@@ -1,0 +1,27 @@
+{
+  "name": "todo-list-playwright",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vqhuy0925/todo-list-playwright.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vqhuy0925/todo-list-playwright/issues"
+  },
+  "homepage": "https://github.com/vqhuy0925/todo-list-playwright#readme",
+  "dependencies": {
+    "playwright": "^1.57.0"
+  }
+}
