@@ -48,6 +48,9 @@ style: |
     align-items: center;
     text-align: center;
   }
+  .comparison ul {
+    text-align: left;
+  }
   .metric-box {
     background: #f0f7ff;
     border-left: 4px solid #2E5CFF;
@@ -73,6 +76,9 @@ style: |
     padding: 1em;
     border-radius: 8px;
     background: #f8f9fa;
+  }
+  .icon-box ul {
+    text-align: left;
   }
   .icon-box-blue { background: #E3F2FD; }
   .icon-box-purple { background: #F3E5F5; }
@@ -125,7 +131,7 @@ style: |
 
 # Stop Fighting Your Tests 🛑
 
-## MCP + AI: From ~50% Maintenance to ~10%
+## MCP + AI: Cut Maintenance Time Significantly
 
 <div class="emoji-large">
 
@@ -134,7 +140,7 @@ style: |
 </div>
 
 **Axon Active**
-**November 2025**
+**January 2026**
 
 ---
 
@@ -145,7 +151,7 @@ style: |
 
 **Part 1: The Problem**
 - Why 50% of your time is wasted
-- The mechanic analogy
+- The chef analogy
 
 **Part 2: The Solution**
 - What is MCP?
@@ -191,14 +197,17 @@ style: |
 
 <div class="emoji-large">
 
-🔧
+📋
 
 </div>
 
 <div style="font-size: 1.3em; margin: 2em;">
 
-You're a **mechanic** spending half the week
-**fixing tools** instead of **fixing cars**
+You're a **chef** spending half your shift
+**rewriting recipes** instead of **cooking food**
+
+Every time ingredients change, you update the recipe.
+That's test maintenance.
 
 </div>
 
@@ -215,7 +224,7 @@ You're a **mechanic** spending half the week
 ⏰
 30 min/test
 😰
-50% maintenance
+High maintenance
 
 </div>
 <div>
@@ -231,9 +240,9 @@ You're a **mechanic** spending half the week
 
 **WITH MCP**
 ⚡
-3 min/test
+Minutes/test
 😊
-10% maintenance
+AI handles routine fixes
 
 </div>
 </div>
@@ -271,11 +280,11 @@ You have a robot that controls your browser.
 Instead of pressing buttons yourself, you **text the robot** what to do.
 
 ```
-You: "Go to GitHub trending
-      and click the first repo"
+You: "Add a task 'Buy milk'
+      and mark it complete"
 
-Robot: "Done! I'm now on
-        traefik/traefik page"
+Robot: "Done! Task added and
+        checked off. 3 pending."
 ```
 
 That's MCP. **Messages** → **Actions**
@@ -291,8 +300,8 @@ That's MCP. **Messages** → **Actions**
   "params": {
     "name": "browser_run_code",
     "arguments": {
-      "code": "await page.goto('...');\n
-               await page.click('...');"
+      "code": "await page.fill(input, 'Buy milk');\n
+               await page.click('Add task');"
     }
   }
 }
@@ -307,27 +316,28 @@ Claude speaks JSON fluently.
 
 ---
 
-## Live Example: Chain 5 Actions in 1 Message 🎯
+## Live Example: Todo App - 5 Actions in 1 Message 🎯
 
 <div style="font-size: 0.85em;">
 
 ```javascript
-// Navigate to GitHub Trending
-await page.goto('https://github.com/trending?spoken_language_code=en');
+// Navigate to Todo app
+await page.goto('http://localhost:3000');
 
-// Wait for trending list to load
-await page.waitForSelector('article h2 a');
+// Add a new task
+await page.getByPlaceholder('Add a new task...').fill('Buy groceries');
+await page.getByRole('button', { name: 'Add task' }).click();
 
-// Get first trending repo name for logging
-const firstRepo = await page.locator('article h2 a').first().textContent();
-console.log(`Clicking on: ${firstRepo}`);
+// Mark it as complete
+const newTodo = page.locator('li', { hasText: 'Buy groceries' });
+await newTodo.getByRole('checkbox').click();
 
-// Click the first trending repository
-await page.locator('article h2 a').first().click();
+// Verify pending count updated
+const pendingCount = await page.locator('text=Pending Tasks:').textContent();
+console.log(`Status: ${pendingCount}`);
 
-// Wait for navigation and log result
-await page.waitForLoadState('networkidle');
-console.log(`Navigated to: ${page.url()}`);
+// Clean up - clear completed
+await page.getByRole('button', { name: 'Clear Completed' }).click();
 ```
 
 </div>
@@ -367,25 +377,6 @@ console.log(`Navigated to: ${page.url()}`);
 ```
 
 </div>
-</div>
-
----
-
-## MCP Token Costs 📊
-
-<div class="metric-box" style="font-size: 0.95em;">
-
-**Total Context: 200k tokens**
-
-| Component | Tokens | % | What It Is |
-|-----------|--------|---|------------|
-| 🧠 **System prompt** | 6.3k | 3% | Core AI instructions |
-| 🔧 **System tools** | 13.4k | 7% | Built-in Claude tools (Read, Write, Bash, etc.) |
-| 🌉 **MCP tools** | 15.0k | **8%** | **Playwright MCP (22 tools)** |
-| 💬 **Messages** | 90k | 45% | Your conversation history |
-| 🆓 **Free space** | 31k | 15% | Available for new content |
-| 🔄 **Auto-compact** | 45k | 22% | Buffer for context management |
-
 </div>
 
 ---
@@ -479,14 +470,14 @@ Now let's see it in action!
 - Regression tests
 - Playwright + MCP
 - Run: `node tests/basic-automation.js`
-- **AI investigates here**
+- **Failed**
 
 </div>
 </div>
 
 <div style="text-align: center; margin-top: 1em;">
 
-**This is how real teams work: code and tests in separate repos**
+** Provide user story to AI, help me analyze the defect **
 
 </div>
 
@@ -553,12 +544,12 @@ when you change code
 
 **Managers**
 
-50% cost reduction
+Significant reduction
 in test maintenance
 
 - Team more productive
 - Faster releases
-- ROI in weeks
+- Clear ROI
 
 </div>
 </div>
@@ -573,7 +564,7 @@ in test maintenance
 |🔧 Fix selector|15 min                                |Auto                                    |<span class="highlight-green">100% automated</span> |
 |🎲 Find flaky  |Never                                 |Auto                                    |<span class="highlight-green">Catch before CI</span>|
 |🔍 Debug fail  |15 min                                |5 min                                   |<span class="highlight-green">3x faster</span>      |
-|⏰ Maintenance |<span class="highlight-red">50%</span>|<span class="highlight-green"><10%</span>|<span class="highlight-green">40%+ saved</span>      |
+|⏰ Maintenance |<span class="highlight-red">High</span>|<span class="highlight-green">Reduced</span>|<span class="highlight-green">Focus on new tests</span>      |
 
 ---
 
@@ -581,23 +572,21 @@ in test maintenance
 
 <div style="text-align: center;">
 
-**In money terms:**
+**Example scenario:**
 
 <div class="metric-box" style="font-size: 1.1em; margin: 2em auto; max-width: 600px;">
 
 3 QA engineers × 40 hrs/week = **120 hours**
 
-Save 38% = **45.6 hours/week** freed up
+If you save even **10-20%** = **12-24 hours/week** freed up
 
-= **~1 full-time person** worth of capacity
-
-= **~$60K+/year** in value
+That's **half a person** refocused on new test coverage
 
 </div>
 
 <div style="font-size: 1.3em; color: #10B981; font-weight: bold;">
 
-**AI & MCP pay for themselves in 1-2 months** 📈
+**Most teams see ROI within first month** 📈
 
 </div>
 
@@ -605,8 +594,46 @@ Save 38% = **45.6 hours/week** freed up
 
 <div style="font-size: 0.9em; color: #666; margin-top: 1em;">
 
-*Real teams, publicly documented results*
+*Results vary by team size, test complexity, and adoption*
 
+</div>
+
+---
+
+## MCP Token Costs 📊
+
+<div class="columns">
+<div>
+
+**Context Usage (per session)**
+
+| Component | Tokens | % |
+|-----------|--------|---|
+| 🧠 System prompt | 6.3k | 3% |
+| 🔧 System tools | 13.4k | 7% |
+| 🌉 **MCP tools** | 15.0k | **8%** |
+| 💬 Messages | - | - |
+| 🆓 Free space | - | - |
+| 🔄 Auto-compact | 45k | 22% |
+
+</div>
+<div>
+
+**What This Costs in $$**
+
+<div class="metric-box">
+
+**Per investigation:** ~$0.05-0.15
+**Per test written:** ~$0.02-0.08
+**Monthly (active use):** ~$20-50
+
+</div>
+
+**Bottom line:** MCP adds 8% overhead but enables automation that saves hours.
+
+15k tokens = ~$0.01 per call
+
+</div>
 </div>
 
 ---
@@ -691,13 +718,13 @@ Find coverage gaps
 </div>
 
 <div class="icon-box icon-box-orange">
-<div style="font-size: 2em;">📅 Month 3</div>
+<div style="font-size: 2em;">📅 Month 4</div>
 <strong>Add Pattern #4: Chaos</strong>
 Kill flaky tests
 </div>
 
 <div class="icon-box icon-box-green" style="grid-column: 1 / -1;">
-<div style="font-size: 2em;">📅 Month 4+</div>
+<div style="font-size: 2em;">📅 Month 6+</div>
 <strong>All Patterns Combined</strong>
 Full automation
 </div>
@@ -713,7 +740,7 @@ Full automation
 **Step 1: Install**
 
 ```bash
-npm install @anthropic/mcp-playwright
+npm install @playwright/mcp
 ```
 
 **Step 2: Configure Claude Desktop**
@@ -723,7 +750,7 @@ npm install @anthropic/mcp-playwright
   "mcpServers": {
     "playwright": {
       "command": "npx",
-      "args": ["@anthropic/mcp-playwright"]
+      "args": ["@playwright/mcp"]
     }
   }
 }
@@ -743,6 +770,45 @@ npm install @anthropic/mcp-playwright
 
 ---
 
+## Limitations - Be Honest ⚠️
+
+<div class="columns">
+<div>
+
+**MCP Does NOT Handle Well:**
+
+❌ **Complex visual assertions**
+- Pixel-perfect comparisons
+- Dynamic canvas/charts
+
+❌ **Non-deterministic content**
+- Real-time data feeds
+- Time-sensitive tests
+
+❌ **Heavy authentication flows**
+- Multi-factor auth, CAPTCHA, biometrics
+
+</div>
+<div>
+
+**Still Needs Human Review:**
+
+⚠️ **Business logic validation**
+- AI doesn't know your domain rules
+
+⚠️ **Edge case prioritization**
+- AI finds many issues, you decide importance
+
+⚠️ **Security-sensitive tests**
+- Don't expose credentials to AI
+
+**Rule of thumb:** AI = 80% of work, Human = 20% judgment
+
+</div>
+</div>
+
+---
+
 ## FAQs ❓
 
 <div style="font-size: 0.75em;">
@@ -753,25 +819,20 @@ npm install @anthropic/mcp-playwright
 **❓ Will AI replace me?**
 
 <div class="metric-box">
-No. AI replaces **tasks**, not **roles**.
-Studies show QA with AI: **60% more time** for exploratory testing, **3x more bugs found**.
+No. AI replaces *tasks*, not *roles*.
 You do creative work, AI does repetitive work.
 </div>
 
 **❓ What if AI makes mistakes?**
 
 <div class="metric-box">
-AI-generated tests: **92-95% accuracy** (industry studies).
-You review 5-8% errors - like any code review.
-Git protects you: AI creates PR, you approve.
+Git protects you.
 </div>
 
 **❓ Isn't it expensive?**
 
 <div class="metric-box">
-Cost: **$20-50**/engineer/month
-Savings: 16-24 hrs/week × $50/hr = **$800-1200/week**
-ROI: **24x-48x return**. Breaks even in **1-2 days**.
+Cost: $20-50/month
 </div>
 
 </div>
@@ -780,26 +841,30 @@ ROI: **24x-48x return**. Breaks even in **1-2 days**.
 **❓ Does it work with our setup?**
 
 <div class="metric-box">
-✅ Playwright 1.30+ (any version)
-✅ TypeScript or JavaScript
-✅ Windows, Mac, Linux
-✅ Existing tests - no rewrite needed
+✅ Nodejs 21+
+✅ Playwright (any)
 </div>
 
 **❓ Do I need to learn AI?**
 
 <div class="metric-box">
 No coding skills needed. You speak English.
-Learning curve: **5-10 hours** for prompt basics.
-Most productive in **Week 2**.
 </div>
 
 **❓ What if it breaks tests?**
 
 <div class="metric-box">
-Start with **read-only mode** - AI suggests, you approve.
-Git rollback if needed. **Zero risk** to existing tests.
-Pilot with 10-20 tests first.
+AI suggests, you approve via PR.
+Wrong? `git revert` in 10 seconds.
+Start with non-critical tests first.
+</div>
+
+**❓ What about sensitive data?**
+
+<div class="metric-box">
+✅ Use staging environments only
+✅ Never expose prod credentials
+✅ MCP runs locally - data stays on your machine
 </div>
 
 </div>
