@@ -468,6 +468,22 @@ Now let's see it in action!
 
 </div>
 
+---
+
+<div style="text-align: center;">
+
+![AI Investigation Screenshot](screenshots/ai_fixed_tests_screenshot.png)
+
+</div>
+
+<div style="font-size: 0.8em; margin-top: 1em;">
+
+**AI Found & Fixed:**
+1. Button selectors using FontAwesome icons without accessible names
+2. Wrong pending count assertions (test written for different initial data)
+3. Wrong task state assumption ("Eat sashimi" is pending, not completed)
+
+</div>
 
 ---
 
