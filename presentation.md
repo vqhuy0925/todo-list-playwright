@@ -204,7 +204,7 @@ It **beeps at 3 AM**.
 Is it a **real thief**? Or just **a cat**?
 You **can't ignore it** — what if it's real? 
 
-So you check cameras, adjust sensors, lose sleep...
+So you check cameras, adjust sensors, LOSE SLEEP...
 
 **It was a cat.** Again...
 
@@ -237,14 +237,14 @@ That's test maintenance.
 
 **✨++**
 ⚡ Background tests
-😊 ✨ handles routine fixes
+😊 ✨++ handles routine fixes
 
 </div>
 </div>
 
 ---
 
-## What is 🎭 🤖?
+## What if ✨ can actually **RUN** your tests, not just write them?
 
 <div style="text-align: center; margin: 3em 0;">
 
@@ -256,8 +256,6 @@ That's test maintenance.
 </div>
 
 </div>
-
-**Idea:** What if ✨ can actually **RUN** your tests, not just write them.
 
 ---
 
@@ -298,7 +296,7 @@ Robot: "Done! Task added and
 }
 ```
 
-Robot understands JSON => Action.
+🤖 understands JSON => Action 🎭
 
 **You just speak English.**
 
