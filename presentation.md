@@ -131,16 +131,15 @@ style: |
 
 # Stop Fighting Your Tests 🛑
 
-## MCP + AI: Cut Maintenance Time Significantly
+## Cut Maintenance Cost With Our 3 Friends
 
 <div class="emoji-large">
 
-🤖 ⚡ 🎭
+🤖 ✨ 🎭
 
 </div>
 
-**Axon Active**
-**January 2026**
+**Axon Active** · **January 2026**
 
 ---
 
@@ -238,27 +237,27 @@ That's test maintenance.
 
 **✨++**
 ⚡ Background tests
-😊 AI handles routine fixes
+😊 ✨ handles routine fixes
 
 </div>
 </div>
 
 ---
 
-## What is Playwright MCP?
+## What is 🎭 🤖?
 
 <div style="text-align: center; margin: 3em 0;">
 
 
 <div style="font-size: 1.2em;">
 
-**You** ↔️ **AI** ↔️ **Playwright MCP** ↔️ **Your App**
+**You** ↔️ **✨** ↔️ **🎭 🤖** ↔️ **Your App**
 
 </div>
 
 </div>
 
-**Idea:** What if AI can actually **RUN** your tests, not just write them.
+**Idea:** What if ✨ can actually **RUN** your tests, not just write them.
 
 ---
 
@@ -284,7 +283,7 @@ Robot: "Done! Task added and
 </div>
 <div>
 
-**AI Talks to the Robot:**
+**✨ Talks to the 🤖:**
 
 ```json
 {
@@ -340,11 +339,11 @@ await page.getByRole('button', { name: 'Clear Completed' }).click();
 
 **The Mechanism:**
 
-1️⃣ **Tool Schemas Sent**: Every AI request includes all tool definitions
+1️⃣ **Tool Schemas Sent**: Every ✨ request includes all tool definitions
 
-2️⃣ **Model Decides**: AI reads available tools, chooses which to use
+2️⃣ **Model Decides**: ✨ reads available tools, chooses which to use
 
-3️⃣ **Tools Execute**: MCP server runs Playwright, returns results to AI to continue workflow
+3️⃣ **Tools Execute**: 🤖 server runs 🎭, returns results to ✨ to continue workflow
 
 </div>
 <div>
@@ -380,7 +379,7 @@ await page.getByRole('button', { name: 'Clear Completed' }).click();
 
 <div style="font-size: 1.3em; margin: 2em;">
 
-You understand **MCP** - the bridge between AI and browser.
+You understand **🤖** - the bridge between ✨ and browser.
 
 Now let's see it in action!
 
@@ -406,14 +405,14 @@ Now let's see it in action!
 
 <div class="timeline-item">
 <div style="font-size: 2em;">3️⃣</div>
-<div style="font-size: 1.2em; font-weight: bold;">🔍 AI Investigates</div>
-<div>AI uses MCP to find why</div>
+<div style="font-size: 1.2em; font-weight: bold;">✨ AI Investigates</div>
+<div>✨ uses 🤖 to find why</div>
 </div>
 
 <div class="timeline-item">
 <div style="font-size: 2em;">4️⃣</div>
 <div style="font-size: 1.2em; font-weight: bold;">✅ Fixed</div>
-<div>AI explains + fixes</div>
+<div>✨ explains + fixes</div>
 </div>
 
 </div>
@@ -455,7 +454,7 @@ Now let's see it in action!
 `C:\work\workshop\todo-list-playwright`
 
 - Regression tests
-- Playwright + MCP
+- 🎭 + 🤖
 - Run: `node tests/basic-automation.js`
 - **Failed**
 
@@ -512,7 +511,7 @@ Tests fix themselves
 when you change code
 
 - No more "I broke tests"
-- AI updates tests for you, your team review
+- ✨ updates tests for you, your team review
 - Ship faster
 
 </div>
@@ -547,7 +546,7 @@ in test maintenance
 
 ---
 
-## MCP Token Costs 📊
+## 🤖 Token Costs 📊
 
 <div class="columns">
 <div>
@@ -576,7 +575,7 @@ in test maintenance
 
 </div>
 
-**Bottom line:** MCP adds 8% overhead but enables automation that saves hours.
+**Bottom line:** 🤖 adds 8% overhead but enables automation that saves hours.
 
 15k tokens = ~$0.01 per call
 
@@ -606,7 +605,7 @@ in test maintenance
 <div class="timeline-item">
 <div style="font-size: 2em;">📦</div>
 <strong>Day 1</strong>
-Install MCP
+Install 🤖
 <div style="color: #10B981;">5 min</div>
 </div>
 
@@ -682,7 +681,7 @@ Full automation
 
 ## Getting Started Today 🚀
 
-### Playwright MCP Setup (5 minutes)
+### 🎭 🤖 Setup (5 minutes)
 
 **Step 1: Install**
 
@@ -706,7 +705,7 @@ npm install @playwright/mcp
 **Step 3: Start Using**
 
 - Open Claude Desktop
-- Say: "Help me with Playwright testing"
+- Say: "Help me with 🎭 testing"
 - Done! ✅
 
 ---
@@ -722,7 +721,7 @@ npm install @playwright/mcp
 <div class="columns">
 <div>
 
-**MCP Does NOT Handle Well:**
+**🤖 Does NOT Handle Well:**
 
 ❌ **Complex visual assertions**
 - Pixel-perfect comparisons
@@ -741,15 +740,15 @@ npm install @playwright/mcp
 **Still Needs Human Review:**
 
 ⚠️ **Business logic validation**
-- AI doesn't know your domain rules
+- ✨ doesn't know your domain rules
 
 ⚠️ **Edge case prioritization**
-- AI finds many issues, you decide importance
+- ✨ finds many issues, you decide importance
 
 ⚠️ **Security-sensitive tests**
-- Don't expose credentials to AI
+- Don't expose credentials to ✨
 
-**Rule of thumb:** AI = 80% of work, Human = 20% judgment
+**Rule of thumb:** ✨ = 80% of work, Human = 20% judgment
 
 </div>
 </div>
@@ -763,14 +762,14 @@ npm install @playwright/mcp
 <div class="columns">
 <div>
 
-**❓ Will AI replace me?**
+**❓ Will ✨ replace me?**
 
 <div class="metric-box">
-No. AI replaces *tasks*, not *roles*.
-You do creative work, AI does repetitive work.
+No. ✨ replaces *tasks*, not *roles*.
+You do creative work, ✨ does repetitive work.
 </div>
 
-**❓ What if AI makes mistakes?**
+**❓ What if ✨ makes mistakes?**
 
 <div class="metric-box">
 Git protects you.
@@ -789,10 +788,10 @@ Cost: $20-50/month
 
 <div class="metric-box">
 ✅ Nodejs 21+
-✅ Playwright (any)
+✅ 🎭 (any)
 </div>
 
-**❓ Do I need to learn AI?**
+**❓ Do I need to learn ✨?**
 
 <div class="metric-box">
 No coding skills needed. You speak English.
@@ -801,7 +800,7 @@ No coding skills needed. You speak English.
 **❓ What if it breaks tests?**
 
 <div class="metric-box">
-AI suggests, you approve via PR.
+✨ suggests, you approve via PR.
 Wrong? `git revert` in 10 seconds.
 Start with non-critical tests first.
 </div>
@@ -811,7 +810,7 @@ Start with non-critical tests first.
 <div class="metric-box">
 ✅ Use staging environments only
 ✅ Never expose prod credentials
-✅ MCP runs locally - data stays on your machine
+✅ 🤖 runs locally - data stays on your machine
 </div>
 
 </div>
@@ -996,7 +995,7 @@ test('login fails', async ({ page }) => {
 
 **You tested:** ✅ Happy path
 
-**AI finds:** ❌ 12 missing test cases
+**✨ finds:** ❌ 12 missing test cases
 
 </div>
 <div>
@@ -1004,7 +1003,7 @@ test('login fails', async ({ page }) => {
 ```
 You: "Explore checkout"
 
-AI: [Clicks everything]
+✨: [Clicks everything]
     📋 Found: 3 forms, 2 dead buttons
     💡 Suggested: 12 new tests
 ```
@@ -1018,7 +1017,7 @@ AI: [Clicks everything]
 
 **You test:** `'test@test.com'` (1 case)
 
-**AI tests:** 1000+ variations including:
+**✨ tests:** 1000+ variations including:
 - `'test@test..com'`
 - `'💩@test.com'`
 - `'<script>alert(1)</script>'`
@@ -1034,7 +1033,7 @@ AI: [Clicks everything]
 **Solution:**
 ```
 You: "Run 100x with chaos"
-AI: Failed 7/100 times
+✨: Failed 7/100 times
     Root cause: Missing wait for animation
     Fix provided ✅
 ```
@@ -1047,7 +1046,7 @@ AI: Failed 7/100 times
 
 **Real user:** Random clicks, double submits, spaces in fields
 
-**AI finds:** App crashes on double submit, tab order broken
+**✨ finds:** App crashes on double submit, tab order broken
 
 ---
 
@@ -1058,7 +1057,7 @@ AI: Failed 7/100 times
 **Solution:**
 ```
 You: "Test failed. Investigate."
-AI: [Opens browser, compares expected vs actual]
+✨: [Opens browser, compares expected vs actual]
     🔍 Button text changed: "Add Task" → "Add Item"
     💡 Fix: Update selector
 ```
