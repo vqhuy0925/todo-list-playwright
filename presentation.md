@@ -151,14 +151,13 @@ style: |
 
 **Part 1: The Problem**
 - Why 50% of your time is wasted
-- The chef analogy
 
 **Part 2: The Solution**
 - What is MCP?
 - How AI controls browser
 
 **Part 3: Live Demo**
-- Break code → Test fails
+- New code → Test fails
 - AI investigates with MCP
 
 </div>
@@ -195,54 +194,51 @@ style: |
 
 ## The Simple Truth
 
-<div class="emoji-large">
-
-📋
-
+<div class="emoji-medium">
+🚨
 </div>
 
 <div style="font-size: 1.3em; margin: 2em;">
 
-You're a **chef** spending half your shift
-**rewriting recipes** instead of **cooking food**
+Like you installed a **thief alarm** to protect your house.
+It **beeps at 3 AM**. 
+Is it a **real thief**? Or just **a cat**?
+You **can't ignore it** — what if it's real? 
 
-Every time ingredients change, you update the recipe.
+So you check cameras, adjust sensors, lose sleep...
+
+**It was a cat.** Again...
+
 That's test maintenance.
 
 </div>
 
 ---
 
-## ✨
-
-### What if AI did the boring stuff?
+## What if AI did the boring stuff?
 
 <div class="comparison">
 <div>
 
 **TRADITIONAL**
-⏰
-30 min/test
-😰
-High maintenance
+⏰ 30 min/test
+😰 High maintenance
 
 </div>
 <div>
 
 <div class="emoji-medium">
 
-→ 🤖 →
+→ 
 
 </div>
 
 </div>
 <div>
 
-**WITH MCP**
-⚡
-Minutes/test
-😊
-AI handles routine fixes
+**✨++**
+⚡ Background tests
+😊 AI handles routine fixes
 
 </div>
 </div>
@@ -256,28 +252,26 @@ AI handles routine fixes
 
 <div style="font-size: 1.2em;">
 
-**You** ↔️ **Claude AI** ↔️ **Playwright** ↔️ **Your App**
+**You** ↔️ **AI** ↔️ **Playwright MCP** ↔️ **Your App**
 
 </div>
 
 </div>
 
-**Model Context Protocol (MCP)** = The bridge
-
-**Simple idea:** AI can actually **RUN** your tests, not just write them.
+**Idea:** What if AI can actually **RUN** your tests, not just write them.
 
 ---
 
-## Playwright MCP: Like Talking to a Robot 🤖
+## 🤖
 
 <div class="columns">
 <div>
 
-**Think of it like this:**
+**Think of it like**
 
 You have a robot that controls your browser.
 
-Instead of pressing buttons yourself, you **text the robot** what to do.
+Instead of pressing buttons yourself, you **text the "Robot"**.
 
 ```
 You: "Add a task 'Buy milk'
@@ -287,12 +281,10 @@ Robot: "Done! Task added and
         checked off. 3 pending."
 ```
 
-That's MCP. **Messages** → **Actions**
-
 </div>
 <div>
 
-**How You Talk to the Robot:**
+**AI Talks to the Robot:**
 
 ```json
 {
@@ -307,8 +299,8 @@ That's MCP. **Messages** → **Actions**
 }
 ```
 
-Robot understands JSON.
-Claude speaks JSON fluently.
+Robot understands JSON => Action.
+
 **You just speak English.**
 
 </div>
@@ -321,22 +313,17 @@ Claude speaks JSON fluently.
 <div style="font-size: 0.85em;">
 
 ```javascript
-// Navigate to Todo app
 await page.goto('http://localhost:3000');
 
-// Add a new task
 await page.getByPlaceholder('Add a new task...').fill('Buy groceries');
 await page.getByRole('button', { name: 'Add task' }).click();
 
-// Mark it as complete
 const newTodo = page.locator('li', { hasText: 'Buy groceries' });
 await newTodo.getByRole('checkbox').click();
 
-// Verify pending count updated
 const pendingCount = await page.locator('text=Pending Tasks:').textContent();
 console.log(`Status: ${pendingCount}`);
 
-// Clean up - clear completed
 await page.getByRole('button', { name: 'Clear Completed' }).click();
 ```
 
@@ -481,30 +468,6 @@ Now let's see it in action!
 
 </div>
 
----
-
-## Demo Steps (For Presenter) 🎮
-
-### Step-by-Step Guide
-
-**1. Show the Working State**
-- Start app: `npm run dev` in todo-list
-- Run tests: `npx playwright test` in todo-list-playwright
-- Tests pass ✅
-
-**2. Break Something**
-- In todo-list: change button text or element
-- Example: "Add Task" → "Add Item"
-
-**3. Show the Failure**
-- Run tests again → ❌ Test fails
-- "Now, let's ask AI to investigate..."
-
-**4. AI Investigation**
-- Open Claude Code in todo-list-playwright
-- Say: "Test failed. Use MCP to investigate why."
-- Watch: AI opens browser, compares expected vs actual
-- AI reports: "Button text changed from X to Y"
 
 ---
 
@@ -517,8 +480,7 @@ Now let's see it in action!
 
 **QA Engineers**
 
-Spend time on test **design**
-not test **maintenance**:
+Spend time on test **design** not test **maintenance**:
 
 - Write test code
 - Maintain selectors
@@ -566,37 +528,6 @@ in test maintenance
 |🔍 Debug fail  |15 min                                |5 min                                   |<span class="highlight-green">3x faster</span>      |
 |⏰ Maintenance |<span class="highlight-red">High</span>|<span class="highlight-green">Reduced</span>|<span class="highlight-green">Focus on new tests</span>      |
 
----
-
-## Real Numbers: Money 💰
-
-<div style="text-align: center;">
-
-**Example scenario:**
-
-<div class="metric-box" style="font-size: 1.1em; margin: 2em auto; max-width: 600px;">
-
-3 QA engineers × 40 hrs/week = **120 hours**
-
-If you save even **10-20%** = **12-24 hours/week** freed up
-
-That's **half a person** refocused on new test coverage
-
-</div>
-
-<div style="font-size: 1.3em; color: #10B981; font-weight: bold;">
-
-**Most teams see ROI within first month** 📈
-
-</div>
-
-</div>
-
-<div style="font-size: 0.9em; color: #666; margin-top: 1em;">
-
-*Results vary by team size, test complexity, and adoption*
-
-</div>
 
 ---
 
@@ -640,7 +571,7 @@ That's **half a person** refocused on new test coverage
 
 <!-- _class: lead -->
 
-## Your Plan 📅
+## Adoption plan 📅
 
 <div class="emoji-large">
 
@@ -743,7 +674,7 @@ Full automation
 npm install @playwright/mcp
 ```
 
-**Step 2: Configure Claude Desktop**
+**Step 2: Configure Claude**
 
 ```json
 {
@@ -872,39 +803,6 @@ Start with non-critical tests first.
 
 </div>
 
----
-
-<!-- _class: lead -->
-
-# Do This Monday 📅
-
-<div class="emoji-large">
-
-🚀
-
-</div>
-
----
-
-<!-- _class: lead -->
-
-## Simple Rule
-
-<div style="font-size: 1.5em; margin: 2em; line-height: 1.5;">
-
-If you're **not using AI** by next Monday,
-
-you're doing **extra work**
-
-for **no reason**
-
-</div>
-
-<div class="emoji-large">
-
-🤷
-
-</div>
 
 ---
 
@@ -948,7 +846,7 @@ UX testing<br>
 
 <div class="icon-box icon-box-green">
 🚀 <strong>#6: All-in-One</strong><br>
-Autonomous platforms<br>
+platforms<br>
 → TestSprite, Mabl, Katalon
 </div>
 
@@ -992,7 +890,7 @@ Never go back.
 
 <div class="emoji-large">
 
-🚀
+🐦
 
 </div>
 
