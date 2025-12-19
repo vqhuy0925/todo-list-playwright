@@ -25,7 +25,7 @@ pipeline {
 
         stage('Run Tests') {
             steps {
-                bat 'npx playwright test --reporter=html,junit'
+                bat 'npx playwright test'
             }
             post {
                 always {
