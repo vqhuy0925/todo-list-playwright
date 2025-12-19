@@ -19,7 +19,13 @@ pipeline {
 
         stage('Install Playwright Browsers') {
             steps {
-                bat 'npx playwright install chromium'
+                bat '''
+                    if not exist "%PLAYWRIGHT_BROWSERS_PATH%\\chromium-*" (
+                        npx playwright install chromium
+                    ) else (
+                        echo Playwright browsers already cached, skipping download
+                    )
+                '''
             }
         }
 
