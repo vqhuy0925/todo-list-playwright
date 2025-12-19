@@ -7,7 +7,7 @@ pipeline {
 
     environment {
         CI = 'true'
-        PLAYWRIGHT_BROWSERS_PATH = '0'
+        PLAYWRIGHT_BROWSERS_PATH = 'C:\\ProgramData\\Jenkins\\.jenkins\\tools\\playwright-browsers'
     }
 
     stages {
