@@ -79,8 +79,7 @@ This project includes a `Jenkinsfile` for CI/CD integration.
 ### Prerequisites
 1. Jenkins with NodeJS plugin installed
 2. Configure a NodeJS installation named `NodeJS` in Jenkins Global Tool Configuration
-3. Install the [HTML Publisher Plugin](https://plugins.jenkins.io/htmlpublisher/) for Playwright reports
-4. Ensure the Todo List app is accessible from Jenkins
+3. Ensure the Todo List app is accessible from Jenkins
 
 ### Setup in Jenkins
 1. Create a new Pipeline job
@@ -90,11 +89,15 @@ This project includes a `Jenkinsfile` for CI/CD integration.
 
 ### Pipeline Stages
 - **Install Dependencies** - Installs npm packages
-- **Install Playwright Browsers** - Downloads Chromium
-- **Run Tests** - Executes Playwright tests with HTML and JUnit reports
+- **Install Playwright Browsers** - Downloads Chromium (skipped if cached)
+- **Run Tests** - Executes Playwright tests with JUnit reports
+
+### Pipeline Optimizations
+- **Browser Caching** - Browsers cached in `C:\ProgramData\Jenkins\.jenkins\tools\playwright-browsers` (~280MB saved per build)
+- **Skip Install Check** - Skips browser download if already cached
+- **Build Time** - ~1 min with cached browsers vs ~2 min on first run
 
 ### Reports
-- **Playwright Report** - Interactive HTML report with screenshots and traces
 - **JUnit Report** - Test results integrated with Jenkins test tracking
 
 ### Troubleshooting
