@@ -8,7 +8,9 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npx playwright test",
+    "test:ui": "npx playwright test --ui",
+    "test:report": "npx playwright show-report"
   },
   "repository": {
     "type": "git",
@@ -23,5 +25,8 @@
   "homepage": "https://github.com/vqhuy0925/todo-list-playwright#readme",
   "dependencies": {
     "playwright": "^1.57.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.57.0"
   }
 }

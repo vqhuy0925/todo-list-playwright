@@ -13,9 +13,9 @@ To set up the project and run the automation script, follow these steps:
     npm init -y
     ```
 
-3.  **Install Playwright:**
+3.  **Install dependencies:**
     ```bash
-    npm install playwright
+    npm install --registry=https://registry.npmjs.org
     ```
 
 4.  **Install Playwright Browsers:**
@@ -23,34 +23,49 @@ To set up the project and run the automation script, follow these steps:
     npx playwright install
     ```
 
-5.  **Configure for ES Modules:** Add "type": "module" to your `package.json` file. It should look something like this:
+5.  **Configure for ES Modules:** Ensure your `package.json` has `"type": "module"` and the test scripts:
     ```json
     {
-      "name": "todo-list-playwright",
-      "version": "1.0.0",
-      "description": "",
-      "main": "index.js",
       "type": "module",
       "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "npx playwright test",
+        "test:ui": "npx playwright test --ui",
+        "test:report": "npx playwright show-report"
       },
-      "keywords": [],
-      "author": "",
-      "license": "ISC",
       "dependencies": {
-        "playwright": "^1.x.x"
+        "playwright": "^1.57.0"
+      },
+      "devDependencies": {
+        "@playwright/test": "^1.57.0"
       }
     }
     ```
 
-## Running the Script
+## Running Tests
 
-Before running the script, ensure your To-Do application is running on `http://localhost:3000/`.
+Before running tests, ensure your To-Do application is running on `http://localhost:3000/`.
 
-To execute the automation script, run the following command:
-
+### Run all tests
 ```bash
-node tests/basic-automation.js
+npm test
 ```
 
-This will launch a browser (Chromium by default), navigate to the To-Do application, and perform a series of automated tests.
+### Run tests with UI mode
+```bash
+npm run test:ui
+```
+
+### View HTML report
+```bash
+npm run test:report
+```
+
+## Test Structure
+
+The test suite (`tests/todo-app.spec.js`) covers:
+- Initial state verification
+- Adding a new task
+- Marking a task as complete
+- Deleting a task
+- Clear completed tasks
+- Clear all tasks
