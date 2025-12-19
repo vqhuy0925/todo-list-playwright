@@ -1,6 +1,8 @@
 # todo-list-playwright
 
-This project contains a Playwright automation script for testing a To-Do application.
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-blue)](https://github.com/vqhuy0925/todo-list-playwright)
+
+This project contains Playwright E2E tests for the [Todo List application](https://github.com/vqhuy0925/todo-list).
 
 ## Setup Instructions
 
@@ -69,3 +71,42 @@ The test suite (`tests/todo-app.spec.js`) covers:
 - Deleting a task
 - Clear completed tasks
 - Clear all tasks
+
+## Jenkins Integration
+
+This project includes a `Jenkinsfile` for CI/CD integration.
+
+### Prerequisites
+1. Jenkins with NodeJS plugin installed
+2. Configure a NodeJS installation named `NodeJS` in Jenkins Global Tool Configuration
+3. Install the [HTML Publisher Plugin](https://plugins.jenkins.io/htmlpublisher/) for Playwright reports
+4. Ensure the Todo List app is accessible from Jenkins
+
+### Setup in Jenkins
+1. Create a new Pipeline job
+2. Configure Pipeline from SCM (Git)
+3. Set the repository URL to this project
+4. Jenkins will automatically use the `Jenkinsfile`
+
+### Pipeline Stages
+- **Install Dependencies** - Installs npm packages
+- **Install Playwright Browsers** - Downloads Chromium
+- **Run Tests** - Executes Playwright tests with HTML and JUnit reports
+
+### Reports
+- **Playwright Report** - Interactive HTML report with screenshots and traces
+- **JUnit Report** - Test results integrated with Jenkins test tracking
+
+### Troubleshooting
+
+#### Git "dubious ownership" error on Windows
+If Jenkins runs as `NT AUTHORITY\SYSTEM` and fails with a Git ownership error, run this in an **Administrator Command Prompt**:
+```cmd
+git config --global --add safe.directory C:/work/workshop/todo-list-playwright
+```
+
+This adds the repository as a safe directory for the SYSTEM user.
+
+## Related Repositories
+
+- [Todo List App](https://github.com/vqhuy0925/todo-list) - The application under test
