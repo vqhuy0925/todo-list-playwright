@@ -2,45 +2,107 @@
 marp: true
 theme: default
 paginate: true
-backgroundColor: #ffffff
 style: |
+  /* ═══════════════════════════════════════════════════════════
+     AXON ACTIVE THEME - Professional Dark Style
+     ═══════════════════════════════════════════════════════════ */
+
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+  :root {
+    --bg-primary: #0d1b2a;
+    --bg-secondary: #1b2838;
+    --bg-card: #132a4a;
+    --accent-orange: #f97316;
+    --accent-cyan: #22d3ee;
+    --text-primary: #ffffff;
+    --text-secondary: rgba(255, 255, 255, 0.75);
+    --border-color: rgba(255, 255, 255, 0.1);
+  }
+
   section {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    padding: 50px 60px;
   }
+
+  section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+      radial-gradient(ellipse at 30% 0%, rgba(34, 211, 238, 0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at 70% 100%, rgba(249, 115, 22, 0.06) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
   h1 {
-    color: #2E5CFF;
-    font-size: 2.5em;
+    color: #ffffff;
+    font-size: 2.4em;
+    font-weight: 800;
+    letter-spacing: -0.02em;
   }
+
   h2 {
-    color: #333;
-    font-size: 1.8em;
+    color: #ffffff;
+    font-size: 1.7em;
+    font-weight: 700;
+    margin-bottom: 0.5em;
   }
+
   h3 {
-    font-size: 1.4em;
-    margin-bottom: 0.8em;
+    font-size: 1.2em;
+    font-weight: 600;
+    margin-bottom: 0.5em;
+    color: var(--accent-orange);
   }
+
+  /* Lead slides - darker theme */
+  section.lead {
+    background: linear-gradient(180deg, #0d1b2a 0%, #1b2838 100%);
+    text-align: center;
+  }
+
   .lead h1 {
-    font-size: 3em;
+    font-size: 2.8em;
+    color: #ffffff;
   }
+
   .emoji-large {
-    font-size: 5em;
+    font-size: 4em;
     text-align: center;
     margin: 0.2em 0;
   }
+
   .emoji-medium {
-    font-size: 3em;
+    font-size: 2.5em;
   }
+
+  /* ═══ DARK CARDS ═══ */
+  .glass-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 1.5em;
+  }
+
   .columns {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
+    gap: 1.5rem;
   }
+
   .three-columns {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
     text-align: center;
   }
+
   .comparison {
     display: grid;
     grid-template-columns: 1fr auto 1fr;
@@ -48,82 +110,187 @@ style: |
     align-items: center;
     text-align: center;
   }
+
   .comparison ul {
     text-align: left;
   }
+
+  /* Metric boxes - dark style */
   .metric-box {
-    background: #f0f7ff;
-    border-left: 4px solid #2E5CFF;
-    padding: 0.8em;
-    margin: 0.4em 0;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1em;
+    margin: 0.5em 0;
   }
+
   .highlight-red {
-    color: #EF4444;
+    color: #f87171;
     font-weight: bold;
   }
+
   .highlight-green {
-    color: #10B981;
+    color: #4ade80;
     font-weight: bold;
   }
+
+  /* Icon grid */
   .icon-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-    margin: 2em 0;
+    gap: 0.8rem;
+    margin: 1em 0;
   }
+
   .icon-box {
     text-align: center;
-    padding: 1em;
-    border-radius: 8px;
-    background: #f8f9fa;
+    padding: 0.8em;
+    border-radius: 12px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    font-size: 0.9em;
   }
+
   .icon-box ul {
     text-align: left;
   }
-  .icon-box-blue { background: #E3F2FD; }
-  .icon-box-purple { background: #F3E5F5; }
-  .icon-box-red { background: #FFEBEE; }
-  .icon-box-orange { background: #FFF3E0; }
-  .icon-box-yellow { background: #FFFDE7; }
-  .icon-box-green { background: #E8F5E9; }
-  .checklist {
-    font-size: 0.9em;
+
+  /* Colored icon boxes - Axon Active style */
+  .icon-box-blue {
+    background: linear-gradient(180deg, #1e3a5f 0%, #132a4a 100%);
+    border-color: rgba(34, 211, 238, 0.3);
   }
+  .icon-box-purple {
+    background: linear-gradient(180deg, #2d1f5e 0%, #1e1b4b 100%);
+    border-color: rgba(139, 92, 246, 0.3);
+  }
+  .icon-box-red {
+    background: linear-gradient(180deg, #5f1e1e 0%, #4a1313 100%);
+    border-color: rgba(239, 68, 68, 0.3);
+  }
+  .icon-box-orange {
+    background: linear-gradient(180deg, #5f3a1e 0%, #4a2a13 100%);
+    border-color: rgba(249, 115, 22, 0.3);
+  }
+  .icon-box-yellow {
+    background: linear-gradient(180deg, #5f4a1e 0%, #4a3a13 100%);
+    border-color: rgba(250, 204, 21, 0.3);
+  }
+  .icon-box-green {
+    background: linear-gradient(180deg, #1e5f3a 0%, #134a2a 100%);
+    border-color: rgba(34, 197, 94, 0.3);
+  }
+
   .timeline {
     display: flex;
     justify-content: space-around;
     margin: 2em 0;
   }
+
   .timeline-item {
     text-align: center;
     flex: 1;
+    padding: 1em;
+    background: var(--bg-card);
+    border-radius: 12px;
+    margin: 0 0.5em;
+    border: 1px solid var(--border-color);
   }
+
   strong {
-    color: #2E5CFF;
+    color: var(--accent-orange);
+    font-weight: 600;
   }
+
+  /* Code blocks - dark style */
   pre {
     text-align: left;
+    background: #1b2838 !important;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 0.8em !important;
+    font-size: 0.75em;
   }
+
+  pre code {
+    color: #e2e8f0 !important;
+  }
+
   code {
-    font-size: 0.85em;
+    font-size: 0.8em;
+    font-family: 'Consolas', 'Monaco', monospace;
+    color: var(--accent-cyan);
   }
+
+  /* Tables - forced dark background */
+  table {
+    width: auto;
+    border-collapse: collapse;
+    background: #0d1b2a !important;
+    font-size: 0.9em;
+    border-left: 3px solid var(--accent-orange);
+  }
+
+  th {
+    background: #0d1b2a !important;
+    padding: 0.5em 1em;
+    font-weight: 600;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    color: var(--accent-cyan) !important;
+  }
+
+  td {
+    padding: 0.5em 1em;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color: #ffffff !important;
+    background: #0d1b2a !important;
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+
+  /* Compact sections */
   section.compact {
     font-size: 0.9em;
   }
+
   section.compact h2 {
     font-size: 1.6em;
     margin-bottom: 0.4em;
   }
+
   section.compact h3 {
     font-size: 1.3em;
     margin-bottom: 0.4em;
   }
+
   section.compact .columns {
     gap: 0.9rem;
   }
+
   section.compact .metric-box {
     padding: 0.7em;
     margin: 0.35em 0;
+  }
+
+  /* Links */
+  a {
+    color: var(--accent-cyan);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s;
+  }
+
+  a:hover {
+    border-bottom-color: var(--accent-cyan);
+  }
+
+  /* Pagination styling */
+  section::after {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.8em;
   }
 ---
 
@@ -133,13 +300,23 @@ style: |
 
 ## Cut Maintenance Cost With Our 3 Friends
 
-<div class="emoji-large">
+<div class="emoji-large" style="margin: 0.5em 0;">
 
 🤖 ✨ 🎭
 
 </div>
 
+<div style="font-size: 1.2em; margin-top: 1em;">
+
+**MCP** · **Claude AI** · **Playwright**
+
+</div>
+
+<div style="margin-top: 2em; font-size: 0.9em; opacity: 0.8;">
+
 **Axon Active** · **January 2026**
+
+</div>
 
 ---
 
@@ -155,7 +332,7 @@ style: |
 - What is MCP?
 - How AI controls browser
 
-**Part 3: Live Demo**
+**Part 3: Demo**
 - New code → Test fails
 - AI investigates with MCP
 
@@ -199,16 +376,14 @@ style: |
 
 <div style="font-size: 1.3em; margin: 2em;">
 
-Like you installed a **thief alarm** to protect your house.
-It **beeps at 3 AM**. 
-Is it a **real thief**? Or just **a cat**?
-You **can't ignore it** — what if it's real? 
+If you installed a **thief alarm** to protect your house.
+It **beeps at 3 AM**, you **can't ignore it** — what if it's real? 
 
 So you check cameras, adjust sensors, LOSE SLEEP...
 
-**It was a cat.** Again...
+**It was a cat,** again...
 
-That's test maintenance.
+That's like test maintenance cost.
 
 </div>
 
@@ -268,22 +443,18 @@ That's test maintenance.
 
 You have a robot that controls your browser.
 
-Instead of pressing buttons yourself, you **text the "Robot"**.
+Instead of pressing buttons yourself, you **text in plain English**.
 
 ```
-You: "Add a task 'Buy milk'
-      and mark it complete"
-
-Robot: "Done! Task added and
-        checked off. 3 pending."
+"Add a task 'Buy milk' and mark it complete"
 ```
 
 </div>
 <div>
 
-**✨ Talks to the 🤖:**
+**Then ✨ Talks to the 🤖:**
 
-```json
+```
 {
   "method": "tools/call",
   "params": {
@@ -298,18 +469,16 @@ Robot: "Done! Task added and
 
 🤖 understands JSON => Action 🎭
 
-**You just speak English.**
-
 </div>
 </div>
 
 ---
 
-## Live Example: Todo App - 5 Actions in 1 Message 🎯
+## Example: Todo App - 5 Actions in 1 Message 🎯
 
 <div style="font-size: 0.85em;">
 
-```javascript
+```
 await page.goto('http://localhost:3000');
 
 await page.getByPlaceholder('Add a new task...').fill('Buy groceries');
@@ -348,7 +517,7 @@ await page.getByRole('button', { name: 'Clear Completed' }).click();
 
 **Example Tool Schema:**
 
-```json
+```
 {
   "name": "browser_click",
   "description": "Click element",
@@ -365,6 +534,69 @@ await page.getByRole('button', { name: 'Clear Completed' }).click();
 
 ---
 
+## MCP Browser Automation Landscape 🌐
+
+<div class="icon-grid" style="margin: 1em 0;">
+
+<div class="icon-box icon-box-blue">
+<div style="font-size: 1.5em;">🎭</div>
+<strong>Playwright MCP</strong><br>
+Microsoft
+</div>
+
+<div class="icon-box icon-box-red">
+<div style="font-size: 1.5em;">🔧</div>
+<strong>DevTools MCP</strong><br>
+Google
+</div>
+
+<div class="icon-box icon-box-green">
+<div style="font-size: 1.5em;">🌐</div>
+<strong>Browser MCP</strong><br>
+Extension
+</div>
+
+<div class="icon-box icon-box-orange">
+<div style="font-size: 1.5em;">🤖</div>
+<strong>Puppeteer</strong><br>
+CDP
+</div>
+
+<div class="icon-box icon-box-purple">
+<div style="font-size: 1.5em;">🧪</div>
+<strong>Selenium</strong><br>
+Multi-browser
+</div>
+
+<div class="icon-box icon-box-yellow">
+<div style="font-size: 1.5em;">☁️</div>
+<strong>Browserbase</strong><br>
+Cloud
+</div>
+
+</div>
+
+---
+
+## MCP Tools Comparison 📊
+
+| Tool | Best For |
+|------|----------|
+| **Playwright MCP** (Microsoft) | E2E testing, A11y trees |
+| **DevTools MCP** (Google) | Performance, debugging |
+| **Claude in Chrome MCP** (Anthropic) | Web automation with Claude |
+| **Browser MCP** (Community) | Local automation |
+| **Puppeteer MCP** | Web scraping, CDP |
+| **Selenium MCP** | Multi-browser, legacy |
+
+<div style="text-align: center; margin-top: 1.5em; font-size: 1.1em;">
+
+**Our Demo uses Playwright MCP** ✨
+
+</div>
+
+---
+
 <!-- _class: lead -->
 
 # Now You Know the Foundation 🎓
@@ -376,8 +608,6 @@ await page.getByRole('button', { name: 'Clear Completed' }).click();
 </div>
 
 <div style="font-size: 1.3em; margin: 2em;">
-
-You understand **🤖** - the bridge between ✨ and browser.
 
 Now let's see it in action!
 
@@ -467,6 +697,104 @@ Now let's see it in action!
 
 ---
 
+## Feature Evolution: Sprint 2 Features 🚀
+
+<div class="columns">
+<div style="text-align: center;">
+
+### Priority Badges
+
+![New App Default](screenshots/new-app-default.png)
+
+</div>
+<div style="text-align: center;">
+
+### Filter Dropdown
+
+![New App Filter](screenshots/new-app-filter.png)
+
+</div>
+</div>
+
+<div style="text-align: center; margin-top: 0.5em; font-size: 0.9em;">
+
+✨ **Color-coded priorities** · **Filtering** · **Edit/Delete icons**
+
+</div>
+
+---
+
+## Inline Edit Mode 📝
+
+<div class="columns">
+<div style="text-align: center;">
+
+![Edit Mode](screenshots/new-app-edit-mode.png)
+
+</div>
+<div class="glass-card">
+
+### Edit Workflow
+
+1. Click ✏️ **edit icon**
+2. Modify **task title**
+3. Change **priority** dropdown
+4. Click ✅ **save button**
+
+<div style="margin-top: 1em; padding: 0.8em; background: rgba(239,68,68,0.2); border-radius: 8px;">
+
+⚠️ **Test Challenge**: View mode and Edit mode have different DOM structures!
+
+</div>
+
+</div>
+</div>
+
+---
+
+## What This Means for Tests 🧪
+
+<div class="columns">
+<div class="glass-card">
+
+### ❌ Old Tests Break
+
+```
+// Expected simple button
+await page.click('button:has-text("Add")');
+
+// But now it's an icon button!
+// <button><i class="fa-plus"></i></button>
+```
+
+**New elements to test:**
+- Priority dropdown selector
+- Filter state changes
+- Edit mode toggle
+- Color-coded badges
+
+</div>
+<div class="glass-card">
+
+### ✅ AI Discovers Issues
+
+1. **Button has no name**
+   - FontAwesome icon only
+
+2. **New UI patterns untested**
+   - Priority filter changes visibility
+   - Edit mode replaces view mode
+
+3. **Data structure changed**
+   - Tasks now have `priority` field
+
+**AI generates coverage automatically!**
+
+</div>
+</div>
+
+---
+
 <div style="text-align: center;">
 
 ![AI Investigation Screenshot](screenshots/ai_fixed_tests_screenshot.png)
@@ -533,13 +861,13 @@ in test maintenance
 
 ## Real Numbers 📊
 
-|Metric        |Before                                |After                                   |Impact                                              |
-|--------------|--------------------------------------|----------------------------------------|----------------------------------------------------|
-|📝 Write test  |30 min                                |3 min                                   |<span class="highlight-green">10x faster</span>     |
-|🔧 Fix selector|15 min                                |Auto                                    |<span class="highlight-green">100% automated</span> |
-|🎲 Find flaky  |Never                                 |Auto                                    |<span class="highlight-green">Catch before CI</span>|
-|🔍 Debug fail  |15 min                                |5 min                                   |<span class="highlight-green">3x faster</span>      |
-|⏰ Maintenance |<span class="highlight-red">High</span>|<span class="highlight-green">Reduced</span>|<span class="highlight-green">Focus on new tests</span>      |
+| Metric | Before | After | Impact |
+|--------|--------|-------|--------|
+| 📝 Write test | 30 min | 3 min | **10x faster** |
+| 🔧 Fix selector | 15 min | Auto | **100% auto** |
+| 🎲 Find flaky | Never | Auto | **Catch early** |
+| 🔍 Debug fail | 15 min | 5 min | **3x faster** |
+| ⏰ Maintenance | High | Low | **More tests** |
 
 
 ---
@@ -549,33 +877,29 @@ in test maintenance
 <div class="columns">
 <div>
 
-**Context Usage (per session)**
+**Context Usage**
 
-| Component | Tokens | % |
-|-----------|--------|---|
-| 🧠 System prompt | 6.3k | 3% |
-| 🔧 System tools | 13.4k | 7% |
-| 🌉 **MCP tools** | 15.0k | **8%** |
-| 💬 Messages | - | - |
-| 🆓 Free space | - | - |
-| 🔄 Auto-compact | 45k | 22% |
+| Component | % |
+|-----------|---|
+| 🧠 System prompt | 3% |
+| 🔧 System tools | 7% |
+| 🌉 **MCP tools** | **8%** |
+| 🔄 Auto-compact | 22% |
 
 </div>
 <div>
 
-**What This Costs in $$**
+**What This Costs**
+
+- **Per investigation:** $0.05-0.15
+- **Per test written:** $0.02-0.08
+- **Monthly:** $20-50
 
 <div class="metric-box">
 
-**Per investigation:** ~$0.05-0.15
-**Per test written:** ~$0.02-0.08
-**Monthly (active use):** ~$20-50
+🤖 adds 8% overhead but saves hours!
 
 </div>
-
-**Bottom line:** 🤖 adds 8% overhead but enables automation that saves hours.
-
-15k tokens = ~$0.01 per call
 
 </div>
 </div>
@@ -679,32 +1003,45 @@ Full automation
 
 ## Getting Started Today 🚀
 
-### 🎭 🤖 Setup (5 minutes)
+<div class="columns">
+<div>
 
-**Step 1: Install**
+**1️⃣ Install**
 
 ```bash
 npm install @playwright/mcp
 ```
 
-**Step 2: Configure Claude**
+**2️⃣ Configure** (claude_desktop_config.json)
 
-```json
-{
+```
+{ 
   "mcpServers": {
     "playwright": {
       "command": "npx",
       "args": ["@playwright/mcp"]
     }
-  }
+  }  
 }
 ```
 
-**Step 3: Start Using**
+</div>
+<div>
+
+**3️⃣ Start Using**
 
 - Open Claude Desktop
-- Say: "Help me with 🎭 testing"
+- Say: *"Help me test my app"*
 - Done! ✅
+
+<div class="metric-box">
+
+**Total setup time: 5 minutes**
+
+</div>
+
+</div>
+</div>
 
 ---
 
@@ -819,50 +1156,70 @@ Start with non-critical tests first.
 
 ---
 
-## Market Alternatives 🔄
+## MCP vs Commercial Tools 🔄
 
-<div style="text-align: center; margin-bottom: 1em; font-size: 0.9em; color: #666;">
-<em>Commercial tools offering similar capabilities</em>
+<div class="columns">
+<div>
+
+### Open-Source MCP Tools 🆓
+
+| Tool | Provider | Focus |
+|------|----------|-------|
+| Playwright MCP | Microsoft | E2E Testing |
+| Chrome DevTools MCP | Google | Debugging |
+| Browser MCP | Community | Local automation |
+| Puppeteer MCP | Community | Scraping |
+| Selenium MCP | @angiejones | Multi-browser |
+
+**Pros:** Free, local, customizable
+**Cons:** DIY integration, self-hosted
+
+</div>
+<div>
+
+### Commercial Platforms 💰
+
+| Tool | Strength |
+|------|----------|
+| **TestSprite** | AI-native testing |
+| **Mabl** | Low-code + AI |
+| **Katalon** | Enterprise suite |
+| **Applitools** | Visual AI |
+| **BrowserStack** | Cloud browsers |
+
+**Pros:** Managed, support, CI/CD
+**Cons:** Subscription cost
+
+</div>
 </div>
 
-<div class="icon-grid">
+---
 
-<div class="icon-box icon-box-blue">
-🔧 <strong>#1: Writer</strong><br>
-Quick wins<br>
-→ Testim, Copilot
+## MCP Resources & Links 🔗
+
+<div class="columns">
+<div>
+
+**Official Repositories:**
+- 🎭 [microsoft/playwright-mcp](https://github.com/microsoft/playwright-mcp)
+- 🔧 [ChromeDevTools/chrome-devtools-mcp](https://github.com/ChromeDevTools/chrome-devtools-mcp)
+- 🌐 [BrowserMCP/mcp](https://github.com/BrowserMCP/mcp)
+- ☁️ [browserbase/mcp-server-browserbase](https://github.com/browserbase/mcp-server-browserbase)
+- 🧪 [angiejones/mcp-selenium](https://github.com/angiejones/mcp-selenium)
+
 </div>
+<div>
 
-<div class="icon-box icon-box-purple">
-👀 <strong>#2: Explorer</strong><br>
-Coverage<br>
-→ Applitools
+**Getting Started:**
+- [browsermcp.io](https://browsermcp.io/) - Chrome extension
+- [browserbase.com/mcp](https://www.browserbase.com/mcp) - Cloud option
+- [mcp.so](https://mcp.so/) - MCP directory
+
+**Key Blog Posts:**
+- [Addy Osmani: DevTools MCP](https://addyosmani.com/blog/devtools-mcp/)
+- [MS Blog: Playwright E2E + AI](https://developer.microsoft.com/blog/the-complete-playwright-end-to-end-story-tools-ai-and-real-world-workflows)
+
 </div>
-
-<div class="icon-box icon-box-red">
-👊 <strong>#3: Breaker</strong><br>
-Security<br>
-→ OSS-Fuzz, Mayhem
-</div>
-
-<div class="icon-box icon-box-orange">
-🌀 <strong>#4: Chaos</strong><br>
-Resilience<br>
-→ Gremlin, Chaos Monkey
-</div>
-
-<div class="icon-box icon-box-yellow">
-😇 <strong>#5: User Sim</strong><br>
-UX testing<br>
-→ test.ai, Rainforest
-</div>
-
-<div class="icon-box icon-box-green">
-🚀 <strong>#6: All-in-One</strong><br>
-platforms<br>
-→ TestSprite, Mabl, Katalon
-</div>
-
 </div>
 
 ---
@@ -875,25 +1232,29 @@ platforms<br>
 
 <!-- _class: lead -->
 
-# Remember
+# Key Takeaways 💡
 
-<div style="font-size: 1.8em; line-height: 1.6; margin: 2em;">
+<div class="glass-card" style="text-align: left; padding: 1.5em 2em; max-width: 600px; margin: 1em auto;">
 
-**Start small** → **Learn** → **Scale**
+<div style="font-size: 1.1em; line-height: 2;">
+
+✅ **MCP** bridges AI ↔ Browser automation
+
+✅ **AI investigates** test failures visually
+
+✅ **Priority + Edit features** = realistic regression
+
+✅ **$20-50/month** for 10x faster maintenance
+
+✅ **Start Monday** → results by Tuesday
 
 </div>
 
-<div style="font-size: 1.4em; margin: 2em;">
-
-Start Monday.
-Use Tuesday.
-Never go back.
-
 </div>
 
-<div style="font-size: 1.8em; font-weight: bold; color: #2E5CFF;">
+<div style="font-size: 1.5em; font-weight: bold; margin-top: 1em;">
 
-**It's that simple.** ✨
+**Start small** → **Learn** → **Scale** ✨
 
 </div>
 
@@ -903,13 +1264,24 @@ Never go back.
 
 <div class="emoji-large">
 
-🐦
+🚀
 
 </div>
 
 # Thank You!
 
+<div style="font-size: 1.3em; margin: 1em 0;">
+
 **Let's make testing fun again**
+
+</div>
+
+<div class="glass-card" style="display: inline-block; padding: 1.5em 3em; margin-top: 1em;">
+
+📧 Contact: **your-email@axonactive.com**
+💻 Demo repo: **github.com/your-org/todo-list-playwright**
+
+</div>
 
 ---
 
@@ -918,37 +1290,37 @@ Never go back.
 <div class="icon-grid" style="margin: 1em 0;">
 
 <div class="icon-box icon-box-blue">
-<div style="font-size: 2.5em;">🔧</div>
+<div style="font-size: 1.8em;">🔧</div>
 <strong>Pattern #1: Code Writer</strong>
 "You describe, I write"
 </div>
 
 <div class="icon-box icon-box-purple">
-<div style="font-size: 2.5em;">👀</div>
+<div style="font-size: 1.8em;">👀</div>
 <strong>Pattern #2: Explorer</strong>
 "I find what to test"
 </div>
 
 <div class="icon-box icon-box-red">
-<div style="font-size: 2.5em;">👊</div>
+<div style="font-size: 1.8em;">👊</div>
 <strong>Pattern #3: Breaker</strong>
 "I break 1000 ways"
 </div>
 
 <div class="icon-box icon-box-orange">
-<div style="font-size: 2.5em;">🌀</div>
+<div style="font-size: 1.8em;">🌀</div>
 <strong>Pattern #4: Chaos Maker</strong>
 "I find flaky tests"
 </div>
 
 <div class="icon-box icon-box-yellow">
-<div style="font-size: 2.5em;">😇</div>
+<div style="font-size: 1.8em;">😇</div>
 <strong>Pattern #5: Naive User</strong>
 "Like your grandma"
 </div>
 
 <div class="icon-box icon-box-green">
-<div style="font-size: 2.5em;">🔍</div>
+<div style="font-size: 1.8em;">🔍</div>
 <strong>Pattern #6: Investigator</strong>
 "Why did test fail?"
 </div>
@@ -970,7 +1342,7 @@ Never go back.
 </div>
 <div>
 
-```javascript
+```
 test('login fails', async ({ page }) => {
   await page.goto('/login');
   await page.fill('[data-testid="email"]',
