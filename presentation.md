@@ -302,13 +302,13 @@ style: |
 
 <div class="emoji-large" style="margin: 0.5em 0;">
 
-🤖 ✨ 🎭
+✨ 🤖 🎭
 
 </div>
 
 <div style="font-size: 1.2em; margin-top: 1em;">
 
-**MCP** · **Claude AI** · **Playwright**
+**AI** · **MCP** · **Playwright**
 
 </div>
 
@@ -366,25 +366,35 @@ style: |
 
 ---
 
-<!-- _class: lead -->
-
 ## The Simple Truth
 
-<div class="emoji-medium">
-🚨
+<div class="columns" style="align-items: start; gap: 2rem;">
+<div style="flex: 1.2;">
+
+<div style="font-size: 1.1em; line-height: 1.8;">
+
+🕐 If you installed a **thief alarm** to protect your house.
+
+🕐 It **beeps at 3 AM**, you can't ignore it — what if it's real?
+
+🕐 So you check cameras, adjust sensors, **lose sleep**...
+
+🕐 **It was a cat,** again...
+
 </div>
 
-<div style="font-size: 1.3em; margin: 2em;">
+<div style="margin-top: 1.5em; font-size: 1.4em; font-weight: bold; color: var(--accent-orange);">
 
-If you installed a **thief alarm** to protect your house.
-It **beeps at 3 AM**, you **can't ignore it** — what if it's real? 
+That's like TEST MAINTENANCE COST.
 
-So you check cameras, adjust sensors, LOSE SLEEP...
+</div>
 
-**It was a cat,** again...
+</div>
+<div style="flex: 1;">
 
-That's like test maintenance cost.
+![Sleepless developer at 3 AM](screenshots/sleepless-man-3am.jpg)
 
+</div>
 </div>
 
 ---
@@ -424,12 +434,6 @@ That's like test maintenance cost.
 <div style="text-align: center; margin: 3em 0;">
 
 
-<div style="font-size: 1.2em;">
-
-**You** ↔️ **✨** ↔️ **🎭 🤖** ↔️ **Your App**
-
-</div>
-
 </div>
 
 ---
@@ -441,7 +445,7 @@ That's like test maintenance cost.
 
 **Think of it like**
 
-You have a robot that controls your browser.
+You have a robot that controls your browser. 
 
 Instead of pressing buttons yourself, you **text in plain English**.
 
@@ -452,7 +456,7 @@ Instead of pressing buttons yourself, you **text in plain English**.
 </div>
 <div>
 
-**Then ✨ Talks to the 🤖:**
+**Then ✨ Talks to the 🤖**
 
 ```
 {
@@ -467,7 +471,7 @@ Instead of pressing buttons yourself, you **text in plain English**.
 }
 ```
 
-🤖 understands JSON => Action 🎭
+**Finally 🤖 talk to 🎭 for browser actions**
 
 </div>
 </div>
@@ -574,6 +578,12 @@ Multi-browser
 Cloud
 </div>
 
+<div class="icon-box" style="background: linear-gradient(180deg, #d97706 0%, #92400e 100%); border-color: rgba(251, 191, 36, 0.4);">
+<div style="font-size: 1.5em;">✨</div>
+<strong>Claude in Chrome</strong><br>
+Anthropic
+</div>
+
 </div>
 
 ---
@@ -584,14 +594,53 @@ Cloud
 |------|----------|
 | **Playwright MCP** (Microsoft) | E2E testing, A11y trees |
 | **DevTools MCP** (Google) | Performance, debugging |
-| **Claude in Chrome MCP** (Anthropic) | Web automation with Claude |
+| **Claude in Chrome** (Anthropic) | Real browser, visual AI |
 | **Browser MCP** (Community) | Local automation |
 | **Puppeteer MCP** | Web scraping, CDP |
-| **Selenium MCP** | Multi-browser, legacy |
+| **Browserbase** | Cloud browsers |
 
 <div style="text-align: center; margin-top: 1.5em; font-size: 1.1em;">
 
-**Our Demo uses Playwright MCP** ✨
+**Our Demo uses Playwright MCP** ✨ ...but why?
+
+</div>
+
+---
+
+## Why Playwright MCP? The Accessibility Tree
+
+<div class="columns">
+<div>
+
+### How AI "Sees" Your App
+
+| Approach | What AI Sees | Tokens |
+|----------|--------------|--------|
+| Full DOM | `<div class=...` | 🔴 High |
+| Screenshot | Pixels → OCR | 🔴 High+ |
+| **A11y Tree** | `button "Add Task"` | 🟢 **Low** |
+
+</div>
+<div>
+
+### Why A11y Trees Win
+
+✅ **Semantic** — AI sees meaning
+
+✅ **Compact** — 10-50x smaller
+
+✅ **Stable** — Roles don't change like classes
+
+✅ **Framework-agnostic** — Same tree
+
+</div>
+</div>
+
+<div class="glass-card" style="margin-top: 1em; padding: 1em;">
+
+**Example:** `<div class="sc-bdfBwQ"><button class="sc-gsnTZi` → `button "Add task"`
+
+AI understands UI like — **"click the Add button"** not **"click div.sc-gsnTZi"**
 
 </div>
 
@@ -599,7 +648,7 @@ Cloud
 
 <!-- _class: lead -->
 
-# Now You Know the Foundation 🎓
+# Now You Know the Base 🎓
 
 <div class="emoji-large">
 
@@ -836,7 +885,7 @@ Spend time on test **design** not test **maintenance**:
 Tests fix themselves
 when you change code
 
-- No more "I broke tests"
+- No "I broke tests"
 - ✨ updates tests for you, your team review
 - Ship faster
 
@@ -852,7 +901,7 @@ in test maintenance
 
 - Team more productive
 - Faster releases
-- Clear ROI
+- Clear return on investment
 
 </div>
 </div>
@@ -867,7 +916,7 @@ in test maintenance
 | 🔧 Fix selector | 15 min | Auto | **100% auto** |
 | 🎲 Find flaky | Never | Auto | **Catch early** |
 | 🔍 Debug fail | 15 min | 5 min | **3x faster** |
-| ⏰ Maintenance | High | Low | **More tests** |
+| ⏰ Maintenance | High | Low | **More test coverage** |
 
 
 ---
@@ -877,7 +926,7 @@ in test maintenance
 <div class="columns">
 <div>
 
-**Context Usage**
+**Context Usage (200K tokens)**
 
 | Component | % |
 |-----------|---|
@@ -1264,7 +1313,7 @@ Start with non-critical tests first.
 
 <div class="emoji-large">
 
-🚀
+🍀
 
 </div>
 
@@ -1275,11 +1324,6 @@ Start with non-critical tests first.
 **Let's make testing fun again**
 
 </div>
-
-<div class="glass-card" style="display: inline-block; padding: 1.5em 3em; margin-top: 1em;">
-
-📧 Contact: **your-email@axonactive.com**
-💻 Demo repo: **github.com/your-org/todo-list-playwright**
 
 </div>
 
@@ -1324,6 +1368,12 @@ Start with non-critical tests first.
 <strong>Pattern #6: Investigator</strong>
 "Why did test fail?"
 </div>
+
+</div>
+
+<div style="text-align: center; margin-top: 0.5em; font-size: 0.9em;">
+
+📄 **Copy-paste prompts:** `presentation_cheatsheet.md`
 
 </div>
 

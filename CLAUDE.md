@@ -1,90 +1,127 @@
-# Project: Todo List Playwright Tests
+# Todo List Playwright Tests - Claude Code Instructions
 
-## Overview
-This project contains Playwright E2E tests for the Todo List application located at `C:\work\workshop\todo-list`.
+## Project Overview
+Playwright E2E tests for the Todo List Vue application. Used in the AI-assisted test investigation workshop.
 
 ## Architecture
-- **Application**: `C:\work\workshop\todo-list` - The main Todo List web app
+- **Application**: `C:\work\workshop\todo-list` - Vue.js Todo app (port 3000)
 - **Tests**: `C:\work\workshop\todo-list-playwright` - Playwright test suite
+- **Investigator**: `C:\work\workshop\test-investigator-ai` - AI analysis service (port 3500)
 
-## Playwright MCP Usage Guidelines
+## Quick Commands
 
-### Token Efficiency Rule
-When using Playwright MCP for browser operations, **always delegate to a new agent  @agent-general-purpose** instead of running MCP tools directly. This reduces token consumption significantly.
-
-### How to Delegate Playwright MCP Operations
-
-Instead of calling MCP tools directly, use the Task tool with clear context:
-
-```
-Task tool:
-- subagent_type: "general-purpose"
-- prompt: Include these details:
-  1. What URL to navigate to
-  2. What actions to perform (click, type, screenshot)
-  3. What to look for or verify
-  4. What information to report back
+### Run Tests
+```bash
+npx playwright test                    # Run all tests
+npx playwright test --ui               # UI mode
+npx playwright test --reporter=json,html  # Generate reports
 ```
 
-### Example: Investigating Test Failure
-
-```markdown
-Prompt for agent:
-"Navigate to http://localhost:3000 using Playwright MCP.
-Take a screenshot of the initial state.
-Try to add a todo item with text 'Test item'.
-Report back:
-- Did the add button work?
-- Any console errors?
-- Screenshot of final state"
+### Serve Reports
+```bash
+npx http-server playwright-report -p 8888 --cors
 ```
 
-### Example: Visual Verification
-
-```markdown
-Prompt for agent:
-"Using Playwright MCP, navigate to http://localhost:3000.
-1. Take snapshot of the page accessibility tree
-2. Check if 'Add Todo' button exists
-3. Check if input field is visible
-4. Report the UI structure back"
+### View HTML Report
+```bash
+npx playwright show-report
 ```
 
-## Commands (always use public registry --registry=https://registry.npmjs.org)
-- `npx playwright test --registry=https://registry.npmjs.org` - Run all tests
-- `npx playwright test --ui --registry=https://registry.npmjs.org` - Run with UI mode
-- `npx playwright test <test-file> --registry=https://registry.npmjs.org` - Run specific test
+### Presentation (Marp)
+```bash
+npx --registry=https://registry.npmjs.org @marp-team/marp-cli presentation.md --preview
+npx --registry=https://registry.npmjs.org @marp-team/marp-cli presentation.md --pdf --allow-local-files
+```
 
-## Demo Scenario
-This project demonstrates AI-assisted test failure investigation:
-1. Code changes in todo-list app cause regression
-2. Tests in this project start failing
-3. AI agent uses Playwright MCP to investigate the issue visually
+## Workshop Services
+| Service | Port | URL |
+|---------|------|-----|
+| Todo App | 3000 | http://localhost:3000 |
+| Test Investigator API | 3500 | http://localhost:3500 |
+| MailHog Web UI | 8025 | http://localhost:8025 |
+| Report Server | 8888 | http://localhost:8888 |
+| Jenkins | 5555 | http://localhost:5555 |
+
+## Starting Workshop Environment
+
+```bash
+# Terminal 1: Todo App
+cd C:\work\workshop\todo-list && npm run dev
+
+# Terminal 2: MailHog
+docker start mailhog || docker run -d -p 1025:1025 -p 8025:8025 --name mailhog mailhog/mailhog
+
+# Terminal 3: Report Server
+npx http-server playwright-report -p 8888 --cors
+
+# Terminal 4: Test Investigator
+cd C:\work\workshop\test-investigator-ai && CLAUDE_MODEL=haiku npm start
+```
+
+## Running Full Investigation
+
+```bash
+# 1. Run tests
+npx playwright test --reporter=json,html
+
+# 2. Trigger AI investigation
+curl -X POST http://localhost:3500/api/investigate \
+  -H "Content-Type: application/json" \
+  -d '{"jobName":"todo-list-playwright","buildNumber":"1","branch":"main","commit":"abc123","reportUrl":"http://localhost:8888/report.json","emailTo":"your@email.com"}'
+
+# 3. View email report at http://localhost:8025
+```
+
+## Test Structure
+
+Tests in `tests/todo-app.spec.js`:
+- `should display initial tasks` - Verify default tasks shown
+- `should add a new task` - Add task functionality
+- `should mark a task as complete` - Checkbox toggle + strikethrough
+- `should delete a task` - Delete button
+- `should clear completed tasks` - Clear completed button
+- `should clear all tasks` - Clear all button
 
 ## CI/CD Integration
-This project includes a `Jenkinsfile` for CI/CD integration.
-- Jenkins workspace: `C:\ProgramData\Jenkins\.jenkins\workspace\todo-list-playwright`
-- Jenkins server URL: `http://localhost:5555/`
-- Playwright browsers cache: `C:\ProgramData\Jenkins\.jenkins\tools\playwright-browsers`
+- **Jenkins URL**: http://localhost:5555
+- **Job**: todo-list-playwright
+- **Browsers Cache**: `C:\ProgramData\Jenkins\.jenkins\tools\playwright-browsers`
 
 ## Workshop Cleanup
-
-After completing the workshop, run these commands to clean up:
 
 ```cmd
 :: Delete cached Playwright browsers (~280MB)
 rmdir /s /q "C:\ProgramData\Jenkins\.jenkins\tools\playwright-browsers"
 
-:: Delete Jenkins job (via Jenkins UI or API)
-:: Go to http://localhost:5555/job/todo-list-playwright/ -> Delete Pipeline
-
-:: Optional: Clean npm cache
-npm cache clean --force
+:: Stop MailHog
+docker stop mailhog && docker rm mailhog
 ```
 
-### Files/Folders Created During Workshop
-| Location | Description | Size |
-|----------|-------------|------|
-| `C:\ProgramData\Jenkins\.jenkins\tools\playwright-browsers` | Cached Chromium browsers | ~280MB |
-| `C:\ProgramData\Jenkins\.jenkins\jobs\todo-list-playwright` | Jenkins job config | ~1MB |
-| `C:\ProgramData\Jenkins\.jenkins\tools\jenkins.plugins.nodejs.tools.NodeJSInstallation\NodeJS` | NodeJS installation | ~80MB |
+## Playwright MCP Usage
+
+When using Playwright MCP for browser automation, delegate to agents:
+
+```
+Task tool:
+- subagent_type: "general-purpose"
+- prompt: "Navigate to http://localhost:3000, take screenshot, verify UI elements"
+```
+
+## Common Issues
+
+### Tests fail with "connection refused"
+Ensure Todo app is running on port 3000:
+```bash
+cd C:\work\workshop\todo-list && npm run dev
+```
+
+### Report URL returns 404
+Start the report server:
+```bash
+npx http-server playwright-report -p 8888 --cors
+```
+
+### Git "dubious ownership" error
+```cmd
+git config --global --add safe.directory C:/work/workshop/todo-list-playwright
+```

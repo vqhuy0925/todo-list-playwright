@@ -1,115 +1,210 @@
-# todo-list-playwright
+# Todo List Playwright Tests
 
 [![GitHub](https://img.shields.io/badge/GitHub-Repository-blue)](https://github.com/vqhuy0925/todo-list-playwright)
 
-This project contains Playwright E2E tests for the [Todo List application](https://github.com/vqhuy0925/todo-list).
+Playwright E2E tests for the [Todo List application](https://github.com/vqhuy0925/todo-list). This project is used in the **AI-Assisted Test Investigation Workshop**.
 
-## Setup Instructions
+## Table of Contents
 
-To set up the project and run the automation script, follow these steps:
+- [Setup](#setup)
+- [Running Tests](#running-tests)
+- [Workshop Guide](#workshop-guide)
+- [Jenkins Integration](#jenkins-integration)
+- [Presentation](#presentation)
+- [Related Projects](#related-projects)
 
-1.  **Ensure Node.js is installed:** If you don't have Node.js installed, download it from [nodejs.org](https://nodejs.org/).
+## Setup
 
-2.  **Initialize Node.js project (if not already done):**
-    ```bash
-    npm init -y
-    ```
+### Prerequisites
+- Node.js 18+ installed
+- Todo List app running on http://localhost:3000
 
-3.  **Install dependencies:**
-    ```bash
-    npm install --registry=https://registry.npmjs.org
-    ```
+### 1. Install Dependencies
+```bash
+npm install --registry=https://registry.npmjs.org
+```
 
-4.  **Install Playwright Browsers:**
-    ```bash
-    npx playwright install
-    ```
+### 2. Install Playwright Browsers
+```bash
+npx playwright install
+```
 
-5.  **Configure for ES Modules:** Ensure your `package.json` has `"type": "module"` and the test scripts:
-    ```json
-    {
-      "type": "module",
-      "scripts": {
-        "test": "npx playwright test",
-        "test:ui": "npx playwright test --ui",
-        "test:report": "npx playwright show-report"
-      },
-      "dependencies": {
-        "playwright": "^1.57.0"
-      },
-      "devDependencies": {
-        "@playwright/test": "^1.57.0"
-      }
-    }
-    ```
+### 3. Start Todo App
+```bash
+cd C:\work\workshop\todo-list
+npm run dev
+```
 
 ## Running Tests
 
-Before running tests, ensure your To-Do application is running on `http://localhost:3000/`.
-
-### Run all tests
+### Run All Tests
 ```bash
 npm test
+# or
+npx playwright test
 ```
 
-### Run tests with UI mode
+### Run with UI Mode
 ```bash
 npm run test:ui
+# or
+npx playwright test --ui
 ```
 
-### View HTML report
+### Generate Reports
+```bash
+npx playwright test --reporter=json,html
+```
+
+### View HTML Report
 ```bash
 npm run test:report
+# or
+npx playwright show-report
 ```
 
-## Test Structure
+## Workshop Guide
 
-The test suite (`tests/todo-app.spec.js`) covers:
-- Initial state verification
-- Adding a new task
-- Marking a task as complete
-- Deleting a task
-- Clear completed tasks
-- Clear all tasks
+This project demonstrates AI-assisted test failure investigation.
+
+### Workshop Services
+
+| Service | Port | URL | Purpose |
+|---------|------|-----|---------|
+| Todo App | 3000 | http://localhost:3000 | Application under test |
+| Test Investigator | 3500 | http://localhost:3500 | AI analysis API |
+| MailHog | 8025 | http://localhost:8025 | Email capture |
+| Report Server | 8888 | http://localhost:8888 | Serve test reports |
+| Jenkins | 5555 | http://localhost:5555 | CI/CD pipeline |
+
+### Starting Workshop Environment
+
+```bash
+# Terminal 1: Todo App
+cd C:\work\workshop\todo-list && npm run dev
+
+# Terminal 2: MailHog (Docker)
+docker start mailhog || docker run -d -p 1025:1025 -p 8025:8025 --name mailhog mailhog/mailhog
+
+# Terminal 3: Report Server
+npx http-server playwright-report -p 8888 --cors
+
+# Terminal 4: Test Investigator AI
+cd C:\work\workshop\test-investigator-ai && CLAUDE_MODEL=haiku npm start
+```
+
+### Demo Flow
+
+1. **Run Tests** (should pass initially)
+   ```bash
+   npx playwright test --reporter=json,html
+   ```
+
+2. **Introduce Bug** - Modify todo-list app to break completion styling
+
+3. **Run Tests Again** (will fail)
+   ```bash
+   npx playwright test --reporter=json,html
+   ```
+
+4. **Trigger AI Investigation**
+   ```bash
+   curl -X POST http://localhost:3500/api/investigate \
+     -H "Content-Type: application/json" \
+     -d '{"jobName":"todo-list-playwright","buildNumber":"1","branch":"main","commit":"abc123","reportUrl":"http://localhost:8888/report.json","emailTo":"your@email.com"}'
+   ```
+
+5. **View Results** at http://localhost:8025
+
+### Test Structure
+
+| Test | Description |
+|------|-------------|
+| `should display initial tasks` | Verify default tasks are shown |
+| `should add a new task` | Test add task functionality |
+| `should mark a task as complete` | Test checkbox + strikethrough styling |
+| `should delete a task` | Test delete button |
+| `should clear completed tasks` | Test clear completed button |
+| `should clear all tasks` | Test clear all button |
 
 ## Jenkins Integration
 
-This project includes a `Jenkinsfile` for CI/CD integration.
-
 ### Prerequisites
 1. Jenkins with NodeJS plugin installed
-2. Configure a NodeJS installation named `NodeJS` in Jenkins Global Tool Configuration
-3. Ensure the Todo List app is accessible from Jenkins
+2. NodeJS installation named `NodeJS` in Global Tool Configuration
+3. Todo List app accessible from Jenkins
 
-### Setup in Jenkins
+### Setup
 1. Create a new Pipeline job
 2. Configure Pipeline from SCM (Git)
-3. Set the repository URL to this project
+3. Set repository URL to this project
 4. Jenkins will automatically use the `Jenkinsfile`
 
 ### Pipeline Stages
-- **Install Dependencies** - Installs npm packages
-- **Install Playwright Browsers** - Downloads Chromium (skipped if cached)
-- **Run Tests** - Executes Playwright tests with JUnit reports
+1. **Install Dependencies** - npm packages
+2. **Install Playwright Browsers** - Chromium (skipped if cached)
+3. **Run Tests** - Execute Playwright tests with JUnit reports
 
-### Pipeline Optimizations
-- **Browser Caching** - Browsers cached in `C:\ProgramData\Jenkins\.jenkins\tools\playwright-browsers` (~280MB saved per build)
-- **Skip Install Check** - Skips browser download if already cached
-- **Build Time** - ~1 min with cached browsers vs ~2 min on first run
-
-### Reports
-- **JUnit Report** - Test results integrated with Jenkins test tracking
+### Optimizations
+- Browser caching at `C:\ProgramData\Jenkins\.jenkins\tools\playwright-browsers`
+- Skip download if cached (~280MB saved per build)
 
 ### Troubleshooting
 
-#### Git "dubious ownership" error on Windows
-If Jenkins runs as `NT AUTHORITY\SYSTEM` and fails with a Git ownership error, run this in an **Administrator Command Prompt**:
+**Git "dubious ownership" error:**
 ```cmd
 git config --global --add safe.directory C:/work/workshop/todo-list-playwright
 ```
 
-This adds the repository as a safe directory for the SYSTEM user.
+## Presentation
 
-## Related Repositories
+This project includes a Marp presentation (`presentation.md`).
 
-- [Todo List App](https://github.com/vqhuy0925/todo-list) - The application under test
+### Preview Slides
+```bash
+npx --registry=https://registry.npmjs.org @marp-team/marp-cli presentation.md --preview
+```
+
+### Generate PDF
+```bash
+npx --registry=https://registry.npmjs.org @marp-team/marp-cli presentation.md --pdf --allow-local-files
+```
+
+### Export to HTML
+```bash
+npx --registry=https://registry.npmjs.org @marp-team/marp-cli presentation.md --html --allow-local-files
+```
+
+## Workshop Cleanup
+
+After completing the workshop:
+
+```cmd
+:: Delete cached Playwright browsers (~280MB)
+rmdir /s /q "C:\ProgramData\Jenkins\.jenkins\tools\playwright-browsers"
+
+:: Delete Jenkins job (via Jenkins UI)
+:: Go to http://localhost:5555/job/todo-list-playwright/ -> Delete Pipeline
+
+:: Stop MailHog
+docker stop mailhog && docker rm mailhog
+
+:: Optional: Clean npm cache
+npm cache clean --force
+```
+
+### Files Created During Workshop
+
+| Location | Description | Size |
+|----------|-------------|------|
+| `C:\ProgramData\Jenkins\.jenkins\tools\playwright-browsers` | Cached browsers | ~280MB |
+| `C:\ProgramData\Jenkins\.jenkins\jobs\todo-list-playwright` | Job config | ~1MB |
+
+## Related Projects
+
+- [Todo List App](https://github.com/vqhuy0925/todo-list) - Application under test
+- [Test Investigator AI](../test-investigator-ai) - AI analysis service
+
+## License
+
+MIT
