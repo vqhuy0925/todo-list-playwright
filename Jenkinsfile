@@ -59,7 +59,9 @@ pipeline {
 
         stage('Run Tests') {
             steps {
-                bat 'npx playwright test --reporter=html,json,junit'
+                // CI=true is set in environment, so playwright.config.js will use
+                // the CI reporter config which outputs junit to test-results/results.xml
+                bat 'npx playwright test'
             }
         }
     }
@@ -84,7 +86,7 @@ pipeline {
 
             // Publish JUnit results
             junit(
-                testResults: '**/test-results/**/*.xml',
+                testResults: 'test-results/results.xml',
                 allowEmptyResults: true
             )
         }
