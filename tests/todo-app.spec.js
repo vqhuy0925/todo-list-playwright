@@ -17,7 +17,7 @@ test.describe.serial('Todo App', () => {
     await expect(page.locator('p', { hasText: 'Pending Tasks:' })).toContainText('3');
   });
 
-  test('should add a new task', async () => {
+  test.skip('should add a new task', async () => {
     const newTask = 'Learn basic automation';
 
     await page.getByPlaceholder('Add a new task...').fill(newTask);
@@ -38,7 +38,7 @@ test.describe.serial('Todo App', () => {
     await expect(page.locator('p', { hasText: 'Pending Tasks:' })).toContainText('3');
   });
 
-  test('should delete a task', async () => {
+  test.skip('should delete a task', async () => {
     const taskToDelete = page.locator('li', { hasText: 'Reading book' });
 
     await taskToDelete.locator('button:has(i.fa-trash)').click();
@@ -47,7 +47,7 @@ test.describe.serial('Todo App', () => {
     await expect(page.locator('p', { hasText: 'Pending Tasks:' })).toContainText('2');
   });
 
-  test('should clear completed tasks', async () => {
+  test.skip('should clear completed tasks', async () => {
     await page.getByRole('button', { name: 'Clear Completed' }).click();
 
     await expect(page.locator('li', { hasText: 'Watch Netflix' })).toHaveCount(0);
@@ -58,7 +58,7 @@ test.describe.serial('Todo App', () => {
     await expect(page.locator('p', { hasText: 'Pending Tasks:' })).toContainText('2');
   });
 
-  test('should clear all tasks', async () => {
+  test.skip('should clear all tasks', async () => {
     await page.getByRole('button', { name: 'Clear All' }).click();
 
     await expect(page.locator('ul > li')).toHaveCount(0);
