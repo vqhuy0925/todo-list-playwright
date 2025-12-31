@@ -76,58 +76,41 @@ pipeline {
 }
 
 /**
- * Trigger AI Investigation for test failures
+ * Trigger AI Investigation for test failures using curl
  */
 def triggerAIInvestigation() {
     echo "=== Triggering AI Investigation ==="
 
     def reportUrl = "${env.BUILD_URL}artifact/playwright-report/index.html"
+    def branch = env.GIT_BRANCH ?: 'unknown'
+    def commit = env.GIT_COMMIT ?: 'unknown'
+    def emailTo = env.NOTIFICATION_EMAIL ?: ''
 
-    def payload = [
-        jobName: env.JOB_NAME,
-        buildNumber: env.BUILD_NUMBER,
-        branch: env.GIT_BRANCH ?: 'unknown',
-        commit: env.GIT_COMMIT ?: 'unknown',
-        reportUrl: reportUrl,
-        emailTo: env.NOTIFICATION_EMAIL ?: ''
-    ]
-
-    def payloadJson = groovy.json.JsonOutput.toJson(payload)
-
-    echo "Investigation payload: ${payloadJson}"
+    echo "Report URL: ${reportUrl}"
 
     try {
-        def response
+        // Write payload to a temp file to avoid escaping issues
+        writeFile file: 'investigation-payload.json', text: """{
+            "jobName": "${env.JOB_NAME}",
+            "buildNumber": "${env.BUILD_NUMBER}",
+            "branch": "${branch}",
+            "commit": "${commit}",
+            "reportUrl": "${reportUrl}",
+            "emailTo": "${emailTo}"
+        }"""
 
-        if (env.INVESTIGATOR_API_KEY) {
-            // With authentication
-            response = httpRequest(
-                url: "${env.INVESTIGATOR_URL}/api/investigate",
-                httpMode: 'POST',
-                contentType: 'APPLICATION_JSON',
-                requestBody: payloadJson,
-                customHeaders: [
-                    [name: 'Authorization', value: "Bearer ${env.INVESTIGATOR_API_KEY}"]
-                ],
-                validResponseCodes: '200:599',
-                timeout: 120
-            )
-        } else {
-            // Without authentication
-            response = httpRequest(
-                url: "${env.INVESTIGATOR_URL}/api/investigate",
-                httpMode: 'POST',
-                contentType: 'APPLICATION_JSON',
-                requestBody: payloadJson,
-                validResponseCodes: '200:599',
-                timeout: 120
-            )
-        }
+        // Use curl to call the API
+        def curlCmd = "curl -s -X POST \"${env.INVESTIGATOR_URL}/api/investigate\" -H \"Content-Type: application/json\" -d @investigation-payload.json -o investigation-response.json -w \"%%{http_code}\""
 
-        echo "Investigation API response: ${response.status}"
+        def statusCode = bat(script: curlCmd, returnStdout: true).trim()
+        // Extract just the status code (last 3 characters)
+        statusCode = statusCode.tokenize('\n').last().trim()
 
-        if (response.status == 200) {
-            def result = readJSON(text: response.content)
+        echo "Investigation API response status: ${statusCode}"
+
+        if (statusCode == '200' && fileExists('investigation-response.json')) {
+            def responseText = readFile('investigation-response.json')
+            def result = readJSON(text: responseText)
 
             if (result.success) {
                 def analysis = result.investigation.analysis
@@ -155,7 +138,10 @@ ${analysis.suggestedActions.collect { "║  - ${it}" }.join('\n')}
                 echo "Investigation failed: ${result.error}"
             }
         } else {
-            echo "Investigation API returned status ${response.status}: ${response.content}"
+            echo "Investigation API returned status ${statusCode}"
+            if (fileExists('investigation-response.json')) {
+                echo "Response: ${readFile('investigation-response.json')}"
+            }
         }
 
     } catch (Exception e) {
