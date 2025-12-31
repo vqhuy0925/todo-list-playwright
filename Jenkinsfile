@@ -66,7 +66,13 @@ pipeline {
 
     post {
         always {
-            // Publish HTML report
+            // Archive artifacts for AI investigation (must be before cleanWs)
+            archiveArtifacts(
+                artifacts: 'playwright-report/**',
+                allowEmptyArchive: true
+            )
+
+            // Publish HTML report for Jenkins UI
             publishHTML(target: [
                 allowMissing: true,
                 alwaysLinkToLastBuild: true,
