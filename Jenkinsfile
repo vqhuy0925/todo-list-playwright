@@ -115,7 +115,7 @@ pipeline {
 def triggerAIInvestigation() {
     echo "=== Triggering AI Investigation ==="
 
-    def reportUrl = "${env.BUILD_URL}artifact/playwright-report/index.html"
+    def reportUrl = "${env.BUILD_URL}artifact/playwright-report/report.json"
 
     def payload = [
         jobName: env.JOB_NAME,
@@ -172,7 +172,7 @@ def triggerAIInvestigation() {
 ╠════════════════════════════════════════════════════════════╣
 ║  Category: ${analysis.overallCategory}
 ║  Priority: ${analysis.priority}
-║  Confidence: ${Math.round(analysis.confidence * 100)}%
+║  Confidence: ${(int)(analysis.confidence * 100)}%
 ║
 ║  Root Cause:
 ║  ${analysis.rootCause}

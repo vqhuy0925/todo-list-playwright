@@ -14,6 +14,7 @@ export default defineConfig({
     ? [
         ['list'],
         ['html', { open: 'never' }],
+        ['json', { outputFile: 'playwright-report/report.json' }],
         ['junit', { outputFile: 'test-results/results.xml' }],
       ]
     : [
