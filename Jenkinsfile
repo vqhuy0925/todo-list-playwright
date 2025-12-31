@@ -1,3 +1,23 @@
+/**
+ * Jenkins Pipeline for Playwright Tests with AI Investigation
+ *
+ * This pipeline:
+ * 1. Runs Playwright tests
+ * 2. On failure, triggers AI investigation API
+ * 3. Publishes test reports
+ *
+ * Requirements:
+ * - NodeJS plugin installed
+ * - HTML Publisher plugin installed
+ * - HTTP Request plugin installed
+ * - Test Investigator AI service running
+ *
+ * Environment variables to configure:
+ * - INVESTIGATOR_URL: URL of the Test Investigator AI service (default: http://localhost:3500)
+ * - INVESTIGATOR_API_KEY: API key for authentication (optional)
+ * - NOTIFICATION_EMAIL: Email for investigation results (optional)
+ */
+
 pipeline {
     agent any
 
@@ -10,6 +30,12 @@ pipeline {
         PLAYWRIGHT_BROWSERS_PATH = 'C:\\ProgramData\\Jenkins\\.jenkins\\tools\\playwright-browsers'
         // Test Investigator AI configuration
         INVESTIGATOR_URL = "${env.INVESTIGATOR_URL ?: 'http://localhost:3500'}"
+    }
+
+    options {
+        timeout(time: 30, unit: 'MINUTES')
+        buildDiscarder(logRotator(numToKeepStr: '20'))
+        timestamps()
     }
 
     stages {
@@ -97,14 +123,32 @@ def triggerAIInvestigation() {
     echo "Investigation payload: ${payloadJson}"
 
     try {
-        def response = httpRequest(
-            url: "${env.INVESTIGATOR_URL}/api/investigate",
-            httpMode: 'POST',
-            contentType: 'APPLICATION_JSON',
-            requestBody: payloadJson,
-            validResponseCodes: '200:599',
-            timeout: 120
-        )
+        def response
+
+        if (env.INVESTIGATOR_API_KEY) {
+            // With authentication
+            response = httpRequest(
+                url: "${env.INVESTIGATOR_URL}/api/investigate",
+                httpMode: 'POST',
+                contentType: 'APPLICATION_JSON',
+                requestBody: payloadJson,
+                customHeaders: [
+                    [name: 'Authorization', value: "Bearer ${env.INVESTIGATOR_API_KEY}"]
+                ],
+                validResponseCodes: '200:599',
+                timeout: 120
+            )
+        } else {
+            // Without authentication
+            response = httpRequest(
+                url: "${env.INVESTIGATOR_URL}/api/investigate",
+                httpMode: 'POST',
+                contentType: 'APPLICATION_JSON',
+                requestBody: payloadJson,
+                validResponseCodes: '200:599',
+                timeout: 120
+            )
+        }
 
         echo "Investigation API response: ${response.status}"
 
