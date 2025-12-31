@@ -150,7 +150,7 @@ def triggerAIInvestigation() {
                     [name: 'Authorization', value: "Bearer ${env.INVESTIGATOR_API_KEY}"]
                 ],
                 validResponseCodes: '200:599',
-                timeout: 300  // 5 min for MCP investigation
+                timeout: 900  // 15 min buffer for MCP investigation
             )
         } else {
             // Without authentication
@@ -160,7 +160,7 @@ def triggerAIInvestigation() {
                 contentType: 'APPLICATION_JSON',
                 requestBody: payloadJson,
                 validResponseCodes: '200:599',
-                timeout: 300  // 5 min for MCP investigation
+                timeout: 900  // 15 min buffer for MCP investigation
             )
         }
 
