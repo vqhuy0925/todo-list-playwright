@@ -33,12 +33,11 @@ Playwright E2E tests for the Todo List Vue application. Used in the AI-assisted 
 
 ## Manual Startup (Alternative)
 
-If slash commands don't work, run these 4 commands:
+If slash commands don't work, run these 3 commands:
 ```
 1. docker start mailhog
 2. cd C:/work/workshop/todo-list && npm run dev  (background)
-3. cd C:/work/workshop/todo-list-playwright && npx http-server playwright-report -p 8888 --cors  (background)
-4. cd C:/work/workshop/test-investigator-ai && set CLAUDE_MODEL=haiku && npm start  (background)
+3. cd C:/work/workshop/test-investigator-ai && set CLAUDE_MODEL=haiku && npm start  (background)
 ```
 
 Verify with PowerShell: `(Invoke-WebRequest -Uri 'http://localhost:PORT' -UseBasicParsing).StatusCode`
@@ -50,11 +49,6 @@ Verify with PowerShell: `(Invoke-WebRequest -Uri 'http://localhost:PORT' -UseBas
 npx playwright test                    # Run all tests
 npx playwright test --ui               # UI mode
 npx playwright test --reporter=json,html  # Generate reports
-```
-
-### Serve Reports
-```bash
-npx http-server playwright-report -p 8888 --cors
 ```
 
 ### View HTML Report
@@ -74,7 +68,6 @@ npx --registry=https://registry.npmjs.org @marp-team/marp-cli presentation.md --
 | Todo App | 3000 | http://localhost:3000 |
 | Test Investigator API | 3500 | http://localhost:3500 |
 | MailHog Web UI | 8025 | http://localhost:8025 |
-| Report Server | 8888 | http://localhost:8888 |
 | Jenkins | 5555 | http://localhost:5555 |
 
 ## Starting Workshop Environment
@@ -86,25 +79,8 @@ cd C:\work\workshop\todo-list && npm run dev
 # Terminal 2: MailHog
 docker start mailhog || docker run -d -p 1025:1025 -p 8025:8025 --name mailhog mailhog/mailhog
 
-# Terminal 3: Report Server
-npx http-server playwright-report -p 8888 --cors
-
-# Terminal 4: Test Investigator
+# Terminal 3: Test Investigator
 cd C:\work\workshop\test-investigator-ai && CLAUDE_MODEL=haiku npm start
-```
-
-## Running Full Investigation
-
-```bash
-# 1. Run tests
-npx playwright test --reporter=json,html
-
-# 2. Trigger AI investigation
-curl -X POST http://localhost:3500/api/investigate \
-  -H "Content-Type: application/json" \
-  -d '{"jobName":"todo-list-playwright","buildNumber":"1","branch":"main","commit":"abc123","reportUrl":"http://localhost:8888/report.json","emailTo":"your@email.com"}'
-
-# 3. View email report at http://localhost:8025
 ```
 
 ## Test Structure
@@ -120,11 +96,72 @@ Tests in `tests/todo-app.spec.js`:
 ## CI/CD Integration
 - **Jenkins URL**: http://localhost:5555
 - **Job**: todo-list-playwright
+- **Credentials**: admin / pleaseCh@nge1t
 - **Browsers Cache**: `C:\ProgramData\Jenkins\.jenkins\tools\playwright-browsers`
+
+## Jenkins Helper Scripts
+
+PowerShell scripts for Jenkins automation (handles CSRF crumb authentication):
+
+### Trigger a Build
+```powershell
+powershell -ExecutionPolicy Bypass -File "C:/work/workshop/todo-list-playwright/trigger-jenkins.ps1"
+```
+
+### Check Build Status
+```powershell
+# Get last build status (JSON: building, number, result)
+powershell -ExecutionPolicy Bypass -File "C:/work/workshop/todo-list-playwright/check-jenkins.ps1"
+
+# Get console log for specific build (last 4000 chars)
+powershell -ExecutionPolicy Bypass -File "C:/work/workshop/todo-list-playwright/check-jenkins.ps1" -BuildNumber 30
+```
+
+### Kill Process on Port
+```powershell
+powershell -ExecutionPolicy Bypass -File "C:/work/workshop/todo-list-playwright/kill-port.ps1" -Port 3000
+```
+
+## Jenkins CSP Configuration (Required for HTML Reports)
+
+Playwright HTML reports require JavaScript. Jenkins CSP blocks this by default.
+
+### Setup (One-time)
+Edit `C:\Program Files\Jenkins\jenkins.xml` and add the CSP property to the `<arguments>` line:
+
+**Before:**
+```xml
+<arguments>-Xrs -Xmx256m -Dhudson.lifecycle=hudson.lifecycle.WindowsServiceLifecycle -jar "C:\Program Files\Jenkins\jenkins.war" --httpPort=5555 --webroot="%ProgramData%\Jenkins\war"</arguments>
+```
+
+**After:**
+```xml
+<arguments>-Xrs -Xmx256m -Dhudson.lifecycle=hudson.lifecycle.WindowsServiceLifecycle -Dhudson.model.DirectoryBrowserSupport.CSP="sandbox allow-scripts allow-same-origin; default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline';" -jar "C:\Program Files\Jenkins\jenkins.war" --httpPort=5555 --webroot="%ProgramData%\Jenkins\war"</arguments>
+```
+
+Then restart Jenkins:
+```cmd
+net stop jenkins
+net start jenkins
+```
+
+### Cleanup After Workshop
+To restore default Jenkins CSP security:
+1. Remove `-Dhudson.model.DirectoryBrowserSupport.CSP="..."` from jenkins.xml
+2. Restart: `net stop jenkins && net start jenkins`
+
+### Alternative: Temporary (Script Console)
+Go to `http://localhost:5555/script` and run:
+```groovy
+System.setProperty("hudson.model.DirectoryBrowserSupport.CSP", "sandbox allow-scripts allow-same-origin; default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline';")
+```
+(Resets on Jenkins restart)
 
 ## Workshop Cleanup
 
 ```cmd
+:: Restore Jenkins CSP (remove the -D line from jenkins.xml and restart)
+
 :: Delete cached Playwright browsers (~280MB)
 rmdir /s /q "C:\ProgramData\Jenkins\.jenkins\tools\playwright-browsers"
 
@@ -150,20 +187,10 @@ Ensure Todo app is running on port 3000:
 cd C:\work\workshop\todo-list && npm run dev
 ```
 
-### Report URL returns 404
-Start the report server:
-```bash
-npx http-server playwright-report -p 8888 --cors
-```
-
 ### Port already in use (EADDRINUSE)
 If a service fails to start with "address already in use" error, kill the process on that port:
-```bash
-# Find and kill process on a specific port (e.g., 8888)
-netstat -ano | grep ":8888" | awk '{print $5}' | head -1 | xargs -I {} taskkill //PID {} //F
-
-# Or check all workshop ports at once
-netstat -ano | findstr ":3000 :3500 :8025 :8888"
+```powershell
+Get-NetTCPConnection -LocalPort 3000 -ErrorAction SilentlyContinue | ForEach-Object { Stop-Process -Id $_.OwningProcess -Force }
 ```
 
 ### Git "dubious ownership" error
@@ -178,7 +205,6 @@ Services have different startup times. When verifying after `/workshop-start`:
 |---------|--------------|-------|
 | MailHog | ~1s | Docker container, fastest |
 | Test Investigator | ~2s | Node.js Express server |
-| Report Server | ~2s | http-server, but see note below |
 | Todo App | ~8s | Vue dev server, **slowest** |
 
 **Verification tips:**
@@ -186,15 +212,52 @@ Services have different startup times. When verifying after `/workshop-start`:
 - Use `localhost` (not `127.0.0.1`) for verification - some services bind to IPv6 `[::1]` only
 - If first verification fails, retry once after 3 more seconds
 
-```powershell
-# Use localhost (handles both IPv4 and IPv6)
-(Invoke-WebRequest -Uri 'http://localhost:3000' -UseBasicParsing -TimeoutSec 5).StatusCode
-(Invoke-WebRequest -Uri 'http://localhost:8888' -UseBasicParsing -TimeoutSec 5).StatusCode
-```
-
 ### /workshop-end cleanup message is normal
 When running `/workshop-end` followed by `/exit`, you may see:
 ```
 ● Background command "Start Todo App on port 3000" was killed.
 ```
-This is **normal** - Claude Code is cleaning up its internal task tracking. The process was already terminated by `taskkill`; this message just confirms the background task reference was cleaned up on exit.
+This is **normal** - Claude Code is cleaning up its internal task tracking.
+
+### MCP Investigation Timeout
+The AI investigation with Playwright MCP can take 1-2 minutes. Timeouts are configured:
+- Claude CLI: 10 minutes (`CLAUDE_TIMEOUT_MS`)
+- Jenkins httpRequest: 15 minutes (`timeout: 900`)
+
+### Email Not Sent
+If MailHog inbox is empty:
+1. Check Test Investigator logs for `[EMAIL]` messages
+2. Verify `emailTo` parameter is provided or `EMAIL_TO` env var is set
+3. Check MailHog is running: http://localhost:8025
+
+## Demo Checklist
+
+### Before Demo
+- [ ] Configure Jenkins CSP (see above) - **one-time setup**
+- [ ] Start Docker Desktop
+- [ ] Run `/workshop-start` and verify all 3 services are running
+- [ ] Open http://localhost:8025 to verify MailHog is ready
+
+### Demo Flow
+1. **Show the failing test** - Run `npx playwright test` to see failure
+2. **Trigger Jenkins build** - http://localhost:5555/job/todo-list-playwright/build
+3. **Watch console output** - AI Investigation Results box appears
+4. **Check email** - Open http://localhost:8025 for investigation report
+5. **View full report** - Click "Playwright Report" link in Jenkins build page
+
+### Quick Recovery
+If something goes wrong during demo:
+```powershell
+# Kill all workshop processes
+Get-NetTCPConnection -LocalPort 3000,3500 -ErrorAction SilentlyContinue | ForEach-Object { Stop-Process -Id $_.OwningProcess -Force -ErrorAction SilentlyContinue }
+
+# Restart everything
+/workshop-start
+```
+
+### Environment Variables
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `CLAUDE_MODEL` | haiku | AI model (haiku/sonnet/opus) |
+| `INVESTIGATOR_URL` | http://localhost:3500 | Test Investigator API URL |
+| `NOTIFICATION_EMAIL` | team@workshop.local | Default email recipient |
