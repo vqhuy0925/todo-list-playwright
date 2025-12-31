@@ -161,7 +161,7 @@ def triggerAIInvestigation() {
         echo "Investigation API response: ${response.status}"
 
         if (response.status == 200) {
-            def result = readJSON(text: response.content)
+            def result = new groovy.json.JsonSlurper().parseText(response.content)
 
             if (result.success) {
                 def analysis = result.investigation.analysis
