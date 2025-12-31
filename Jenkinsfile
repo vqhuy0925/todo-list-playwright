@@ -41,7 +41,13 @@ pipeline {
     stages {
         stage('Install Dependencies') {
             steps {
-                bat 'npm ci --registry=https://registry.npmjs.org'
+                bat '''
+                    if not exist "node_modules" (
+                        npm ci --registry=https://registry.npmjs.org
+                    ) else (
+                        echo node_modules already exists, skipping install
+                    )
+                '''
             }
         }
 
