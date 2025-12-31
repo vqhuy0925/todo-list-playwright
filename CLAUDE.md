@@ -8,6 +8,41 @@ Playwright E2E tests for the Todo List Vue application. Used in the AI-assisted 
 - **Tests**: `C:\work\workshop\todo-list-playwright` - Playwright test suite
 - **Investigator**: `C:\work\workshop\test-investigator-ai` - AI analysis service (port 3500)
 
+## Workshop Slash Commands
+
+### `/workshop-start` - Start All Services
+```
+/workshop-start              # Start with default model (haiku)
+/workshop-start --model sonnet   # Use Sonnet model
+/workshop-start --model opus     # Use Opus model
+/workshop-start -h               # Show help
+```
+
+### `/workshop-end` - Stop All Services
+```
+/workshop-end                # Stop all services
+/workshop-end --keep-mailhog # Keep MailHog running
+/workshop-end -h             # Show help
+```
+
+### Other Commands
+| Command | Description |
+|---------|-------------|
+| `/verify` | Verify app state with Playwright |
+| `/investigate` | Run AI test failure investigation |
+
+## Manual Startup (Alternative)
+
+If slash commands don't work, run these 4 commands:
+```
+1. docker start mailhog
+2. cd C:/work/workshop/todo-list && npm run dev  (background)
+3. cd C:/work/workshop/todo-list-playwright && npx http-server playwright-report -p 8888 --cors  (background)
+4. cd C:/work/workshop/test-investigator-ai && set CLAUDE_MODEL=haiku && npm start  (background)
+```
+
+Verify with PowerShell: `(Invoke-WebRequest -Uri 'http://localhost:PORT' -UseBasicParsing).StatusCode`
+
 ## Quick Commands
 
 ### Run Tests
@@ -121,7 +156,45 @@ Start the report server:
 npx http-server playwright-report -p 8888 --cors
 ```
 
+### Port already in use (EADDRINUSE)
+If a service fails to start with "address already in use" error, kill the process on that port:
+```bash
+# Find and kill process on a specific port (e.g., 8888)
+netstat -ano | grep ":8888" | awk '{print $5}' | head -1 | xargs -I {} taskkill //PID {} //F
+
+# Or check all workshop ports at once
+netstat -ano | findstr ":3000 :3500 :8025 :8888"
+```
+
 ### Git "dubious ownership" error
 ```cmd
 git config --global --add safe.directory C:/work/workshop/todo-list-playwright
 ```
+
+### Workshop startup timing issues
+Services have different startup times. When verifying after `/workshop-start`:
+
+| Service | Startup Time | Notes |
+|---------|--------------|-------|
+| MailHog | ~1s | Docker container, fastest |
+| Test Investigator | ~2s | Node.js Express server |
+| Report Server | ~2s | http-server, but see note below |
+| Todo App | ~8s | Vue dev server, **slowest** |
+
+**Verification tips:**
+- Wait at least 8 seconds before verifying all services
+- Use `localhost` (not `127.0.0.1`) for verification - some services bind to IPv6 `[::1]` only
+- If first verification fails, retry once after 3 more seconds
+
+```powershell
+# Use localhost (handles both IPv4 and IPv6)
+(Invoke-WebRequest -Uri 'http://localhost:3000' -UseBasicParsing -TimeoutSec 5).StatusCode
+(Invoke-WebRequest -Uri 'http://localhost:8888' -UseBasicParsing -TimeoutSec 5).StatusCode
+```
+
+### /workshop-end cleanup message is normal
+When running `/workshop-end` followed by `/exit`, you may see:
+```
+● Background command "Start Todo App on port 3000" was killed.
+```
+This is **normal** - Claude Code is cleaning up its internal task tracking. The process was already terminated by `taskkill`; this message just confirms the background task reference was cleaned up on exit.
