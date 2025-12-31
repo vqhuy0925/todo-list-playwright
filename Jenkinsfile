@@ -129,7 +129,7 @@ def triggerAIInvestigation() {
         branch: env.GIT_BRANCH ?: 'unknown',
         commit: env.GIT_COMMIT ?: 'unknown',
         reportUrl: reportUrl,
-        emailTo: env.NOTIFICATION_EMAIL ?: ''
+        emailTo: env.NOTIFICATION_EMAIL ?: 'team@workshop.local'
     ]
 
     def payloadJson = groovy.json.JsonOutput.toJson(payload)
