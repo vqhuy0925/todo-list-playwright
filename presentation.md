@@ -103,6 +103,13 @@ style: |
     text-align: center;
   }
 
+  .four-columns {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    text-align: center;
+  }
+
   .comparison {
     display: grid;
     grid-template-columns: 1fr auto 1fr;
@@ -196,6 +203,61 @@ style: |
     margin: 0 0.5em;
     border: 1px solid var(--border-color);
   }
+
+  /* Todo list style - like the app we're testing! */
+  .todo-list {
+    list-style: none;
+    padding: 0;
+    margin: 1em 0;
+  }
+
+  .todo-list li {
+    display: flex;
+    align-items: center;
+    gap: 0.8em;
+    padding: 0.7em 1em;
+    margin: 0.4em 0;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    font-size: 1.1em;
+  }
+
+  .todo-list li::before {
+    content: '☐';
+    font-size: 1.3em;
+    color: var(--accent-cyan);
+  }
+
+  .todo-list li.done::before {
+    content: '☑';
+    color: #4ade80;
+  }
+
+  .todo-list li.done {
+    text-decoration: line-through;
+    opacity: 0.7;
+  }
+
+  .todo-list .time {
+    margin-left: auto;
+    color: #10B981;
+    font-size: 0.85em;
+    font-weight: 500;
+  }
+
+  .todo-list .badge {
+    margin-left: auto;
+    padding: 0.2em 0.6em;
+    border-radius: 8px;
+    font-size: 0.75em;
+    font-weight: 600;
+  }
+
+  .badge-blue { background: rgba(34, 211, 238, 0.2); color: #22d3ee; }
+  .badge-purple { background: rgba(139, 92, 246, 0.2); color: #a78bfa; }
+  .badge-orange { background: rgba(249, 115, 22, 0.2); color: #fb923c; }
+  .badge-green { background: rgba(74, 222, 128, 0.2); color: #4ade80; }
 
   strong {
     color: var(--accent-orange);
@@ -326,7 +388,7 @@ style: |
 <div>
 
 **Part 1: The Problem**
-- Why 50% of your time is wasted
+- Why your time is wasted
 
 **Part 2: The Solution**
 - What is MCP?
@@ -366,7 +428,7 @@ style: |
 
 ---
 
-## The Simple Truth
+## Simple Truth
 
 <div class="columns" style="align-items: start; gap: 2rem;">
 <div style="flex: 1.2;">
@@ -377,15 +439,15 @@ style: |
 
 🕐 It **beeps at 3 AM**, you can't ignore it — what if it's real?
 
-🕐 So you check cameras, adjust sensors, **lose sleep**...
+🕐 So you check cameras, check the alarm, **lose sleep**...
 
-🕐 **It was a cat,** again...
+🕐 Just to realize **it was a cat** ...
 
 </div>
 
 <div style="margin-top: 1.5em; font-size: 1.4em; font-weight: bold; color: var(--accent-orange);">
 
-That's like TEST MAINTENANCE COST.
+**Tests are like that thief alarm.**
 
 </div>
 
@@ -399,141 +461,132 @@ That's like TEST MAINTENANCE COST.
 
 ---
 
-## What if AI did the boring stuff?
+## AI is Changing Everything 🤯
 
-<div class="comparison">
+<div class="four-columns">
 <div>
 
-**TRADITIONAL**
+**Before 2022**
 ⏰ 30 min/test
 😰 High maintenance
 
 </div>
 <div>
 
-<div class="emoji-medium">
-
-→ 
-
-</div>
+**2022: ChatGPT**
+🤯 AI can code!
+🧪 Auto complete test spec. 
 
 </div>
+
 <div>
 
-**✨++**
-⚡ Background tests
-😊 ✨++ handles routine fixes
+**2024: AI Agent**
+🤖 AI interacts with outside world.
+🎯 It runs tests and suggests fixes.
+</div>
+
+<div>
+
+**2026**
+🤔 What's next?
+🔮 You can imagine...
 
 </div>
+</div>
+
+<div style="text-align: center; margin-top: 1.5em; font-size: 1.2em; color: var(--text-secondary);">
+
 </div>
 
 ---
 
-## What if ✨ can actually **RUN** your tests, not just write them?
-
-<div style="text-align: center; margin: 3em 0;">
-
-
-</div>
-
----
-
-## 🤖
+## What if ✨ can actually **SEE your UI**?
 
 <div class="columns">
-<div>
+<div style="text-align: center;">
 
-**Think of it like**
-
-You have a robot that controls your browser. 
-
-Instead of pressing buttons yourself, you **text in plain English**.
-
-```
-"Add a task 'Buy milk' and mark it complete"
-```
+![AI Vision Comparison](screenshots/ai-vision-comparison.jpg)
 
 </div>
 <div>
 
-**Then ✨ Talks to the 🤖**
+### The Challenge
 
-```
-{
-  "method": "tools/call",
-  "params": {
-    "name": "browser_run_code",
-    "arguments": {
-      "code": "await page.fill(input, 'Buy milk');\n
-               await page.click('Add task');"
-    }
-  }
-}
-```
+| Method | What AI Gets |
+|--------|--------------|
+| 📸 Screenshot | Pixels → OCR needed |
+| 🌳 Full DOM | `<div class="sc-bdfBwQ">...` |
+| ✅ **A11y Tree** | `button "Add Task"` |
 
-**Finally 🤖 talk to 🎭 for browser actions**
+<div style="margin-top: 1em; font-size: 0.9em; color: var(--text-secondary);">
+
+Now it sees, it thinks. What if...
+
+</div>
 
 </div>
 </div>
 
 ---
 
-## Example: Todo App - 5 Actions in 1 Message 🎯
+## What if ✨ can actually **DEBUG your test**?
 
-<div style="font-size: 0.85em;">
+<div style="text-align: center; margin: 1.5em 0; line-height: 1.8;">
 
-```
-await page.goto('http://localhost:3000');
-
-await page.getByPlaceholder('Add a new task...').fill('Buy groceries');
-await page.getByRole('button', { name: 'Add task' }).click();
-
-const newTodo = page.locator('li', { hasText: 'Buy groceries' });
-await newTodo.getByRole('checkbox').click();
-
-const pendingCount = await page.locator('text=Pending Tasks:').textContent();
-console.log(`Status: ${pendingCount}`);
-
-await page.getByRole('button', { name: 'Clear Completed' }).click();
-```
+<div style="font-size: 1.4em;">👤 You → ✨ → 🤖 → 🎭 → 🌐 Browser → 🎭 → 🤖</div>
+<div style="font-size: 1.5em;">&emsp;&emsp;&emsp;&emsp;&emsp;↑ <span style="opacity: 0.5;">─────────────────────────</span> ↓</div>
+<div style="font-size: 1em; color: var(--text-secondary);">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;🔄 result back to ✨</div>
 
 </div>
 
+
+
 ---
 
-## How MCP Works Under the Hood 🔍
+## Introducing: MCP 🤖
 
-### Every Request Includes Tool Definitions
+<div style="text-align: center; margin: 0.5em 0;">
+
+<div style="font-size: 1.2em; margin-bottom: 0.8em;">
+
+**Model Context Protocol** — The universal language for AI ↔ Tools
+
+</div>
+
+<div style="font-size: 1.3em; margin: 1em 0; padding: 0.8em; background: var(--bg-card); border-radius: 12px; display: inline-block;">
+
+👤 You → ✨ AI ←→ 🤖 MCP ←→ 🔧 Any Tool
+
+</div>
+
+</div>
 
 <div class="columns">
-<div>
+<div class="glass-card">
 
-**The Mechanism:**
+### Without MCP ❌
 
-1️⃣ **Tool Schemas Sent**: Every ✨ request includes all tool definitions
-
-2️⃣ **Model Decides**: ✨ reads available tools, chooses which to use
-
-3️⃣ **Tools Execute**: 🤖 server runs 🎭, returns results to ✨ to continue workflow
+- Custom integration per tool
+- Different APIs, formats
+- Fragile, breaks often
 
 </div>
-<div>
+<div class="glass-card">
 
-**Example Tool Schema:**
+### With MCP ✅
 
-```
-{
-  "name": "browser_click",
-  "description": "Click element",
-  "parameters": { 
-    "element": "string",
-    "ref": "string",
-    "button": "left|right|middle"
-  }
-}
-```
+- One standard protocol
+- Any AI ↔ Any tool
+- Plug and play
 
 </div>
+</div>
+
+<div style="text-align: center; margin-top: 1em; font-size: 1em; color: var(--text-secondary);">
+
+Think of MCP as **USB for AI** — one connector, many devices
+
 </div>
 
 ---
@@ -560,12 +613,6 @@ Google
 Extension
 </div>
 
-<div class="icon-box icon-box-orange">
-<div style="font-size: 1.5em;">🤖</div>
-<strong>Puppeteer</strong><br>
-CDP
-</div>
-
 <div class="icon-box icon-box-purple">
 <div style="font-size: 1.5em;">🧪</div>
 <strong>Selenium</strong><br>
@@ -586,63 +633,155 @@ Anthropic
 
 </div>
 
----
+<div style="text-align: center; margin-top: 0.5em; font-size: 1em; color: var(--text-secondary);">
 
-## MCP Tools Comparison 📊
-
-| Tool | Best For |
-|------|----------|
-| **Playwright MCP** (Microsoft) | E2E testing, A11y trees |
-| **DevTools MCP** (Google) | Performance, debugging |
-| **Claude in Chrome** (Anthropic) | Real browser, visual AI |
-| **Browser MCP** (Community) | Local automation |
-| **Puppeteer MCP** | Web scraping, CDP |
-| **Browserbase** | Cloud browsers |
-
-<div style="text-align: center; margin-top: 1.5em; font-size: 1.1em;">
-
-**Our Demo uses Playwright MCP** ✨ ...but why?
+Many options — which one fits our needs?
 
 </div>
 
 ---
 
-## Why Playwright MCP? The Accessibility Tree
+## Why Playwright MCP? 🎭
 
 <div class="columns">
 <div>
 
-### How AI "Sees" Your App
+| Tool | Best For |
+|------|----------|
+| **Playwright MCP** | E2E testing, A11y trees |
+| **DevTools MCP** | Performance, debugging |
+| **Claude in Chrome** | Real browser, visual AI |
+| **Browser MCP** | Local automation |
+| **Selenium MCP** | Multi-browser, legacy |
+| **Browserbase** | Cloud browsers |
 
-| Approach | What AI Sees | Tokens |
-|----------|--------------|--------|
-| Full DOM | `<div class=...` | 🔴 High |
-| Screenshot | Pixels → OCR | 🔴 High+ |
-| **A11y Tree** | `button "Add Task"` | 🟢 **Low** |
+</div>
+<div class="glass-card">
+
+### Our Choice: Playwright 🎭
+
+✅ **Built-in A11y Tree** — AI vision
+
+✅ **Modern API** — auto-wait
+
+✅ **Microsoft backed** — reliable
+
+✅ **MCP-native** — designed for AI agents
+
+</div>
+</div>
+
+<div style="text-align: center; margin-top: 1em; font-size: 1.1em;">
+
+Now let's see **how** AI uses Playwright MCP...
+
+</div>
+
+---
+
+## The Loop: See → Think → Act → Repeat 🔄
+
+<div class="columns">
+<div>
+
+**1️⃣ 🎭 reads browser → ✨**
+
+```
+button "Add task"
+textbox "Add a new task..."
+checkbox "Buy groceries" [checked]
+```
+
+<div style="font-size: 0.85em; color: var(--text-secondary);">A11y Tree: semantic, compact</div>
 
 </div>
 <div>
 
-### Why A11y Trees Win
+**2️⃣ You tell ✨ what you want**
 
-✅ **Semantic** — AI sees meaning
+> "Add 'Buy milk' and mark it complete"
 
-✅ **Compact** — 10-50x smaller
+**3️⃣ ✨ generates → 🎭 executes**
 
-✅ **Stable** — Roles don't change like classes
+```
+await page.getByRole('textbox').fill('Buy milk');
+await page.getByRole('button', {name: 'Add'}).click();
+```
 
-✅ **Framework-agnostic** — Same tree
+</div>
+</div>
+
+<div style="text-align: center; margin-top: 0.8em; font-size: 1.1em;">
+
+**4️⃣** ✨ sees the updated browser state → continues or reports back
+
+</div>
+
+---
+
+## Example: Multiple Actions in 1 Message 🎯
+
+<div style="font-size: 0.85em; margin-bottom: 0.5em;">
+
+<pre style="padding: 1em; border-radius: 8px; overflow-x: auto; background: #1e1e1e; font-size: 0.7em;">
+<code style="color: #9cdcfe; !important;">
+{
+  "method": "tools/call",
+  "params": {
+    "name": "browser_run_code",
+    "arguments": {
+      "code": "async (page) => { await page.goto('http://localhost:3000'); await page.getByPlaceholder('Add a new task...').fill('Buy groceries'); await page.getByPlaceholder('Add a new task...').press('Enter'); const newTodo = page.locator('li', { hasText: 'Buy groceries' }); /*await newTodo.getByRole('checkbox').click();*/ /*const pendingCount = await page.locator('text=Pending Tasks:').textContent();console.log(`Status: ${pendingCount}`);  await page.getByRole('button', { name: 'Clear Completed' }).click();*/        }"
+    }
+  }
+}
+</code>
+</pre>
+
+</div>
+
+---
+
+## Under the Hood: MCP Tool Calls 🔍
+
+<div class="columns">
+<div>
+
+**`browser_run_code`** - The Power Tool
+
+```
+{
+  "name": "browser_run_code",
+  "arguments": {
+    "code": "async (page) => {
+      await page.getByRole('button',
+        {name: 'Add'}).click();
+    }"
+  }
+}
+```
+
+</div>
+<div>
+
+**Other Key Tools:**
+
+| Tool | Purpose |
+|------|---------|
+| `browser_snapshot` | Get A11y tree |
+| `browser_click` | Click elements |
+| `browser_type` | Input text |
+| `browser_navigate` | Go to URL |
+| `browser_wait_for` | Wait for text |
+
+<div style="font-size: 0.8em; margin-top: 0.5em;">
+
+[microsoft/playwright-mcp](https://github.com/microsoft/playwright-mcp)
+
+</div>
 
 </div>
 </div>
 
-<div class="glass-card" style="margin-top: 1em; padding: 1em;">
-
-**Example:** `<div class="sc-bdfBwQ"><button class="sc-gsnTZi` → `button "Add task"`
-
-AI understands UI like — **"click the Add button"** not **"click div.sc-gsnTZi"**
-
-</div>
 
 ---
 
@@ -659,6 +798,21 @@ AI understands UI like — **"click the Add button"** not **"click div.sc-gsnTZi
 <div style="font-size: 1.3em; margin: 2em;">
 
 Now let's see it in action!
+
+</div>
+
+---
+
+## Common AI Testing Patterns 🤖
+
+<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.8em; font-size: 0.9em;">
+
+<div>1. 🔧 <b>Test Spec Writer</b> — "You describe, I write"</div>
+<div>2. 👀 <b>Explorer</b> — "I find what to test"</div>
+<div>3. 👊 <b>Breaker</b> — "I break 1000 ways"</div>
+<div>4. 🌀 <b>Chaos Maker</b> — "I find flaky tests"</div>
+<div>5. 😇 <b>Naive User</b> — "Like your grandma"</div>
+<div>6. 🔍 <b>Investigator</b> — "Why did test fail (bug or test setup)?" <== <b>Today's demo</b></div> 
 
 </div>
 
@@ -683,13 +837,11 @@ Now let's see it in action!
 <div class="timeline-item">
 <div style="font-size: 2em;">3️⃣</div>
 <div style="font-size: 1.2em; font-weight: bold;">✨ AI Investigates</div>
-<div>✨ uses 🤖 to find why</div>
 </div>
 
 <div class="timeline-item">
 <div style="font-size: 2em;">4️⃣</div>
-<div style="font-size: 1.2em; font-weight: bold;">✅ Fixed</div>
-<div>✨ explains + fixes</div>
+<div>✨ explains + recommends</div>
 </div>
 
 </div>
@@ -708,7 +860,6 @@ Now let's see it in action!
 <div>
 
 **todo-list** (App)
-`C:\work\workshop\todo-list`
 
 - The application code
 - Nuxt 3 + Vue 3
@@ -728,20 +879,25 @@ Now let's see it in action!
 <div>
 
 **todo-list-playwright** (Tests)
-`C:\work\workshop\todo-list-playwright`
 
 - Regression tests
-- 🎭 + 🤖
-- Run: `node tests/basic-automation.js`
-- **Failed**
+- Run: `npx playwright test`
+- Jenkins: http://localhost:5555/job/todo-list-playwright
 
 </div>
 </div>
 
 <div style="text-align: center; margin-top: 1em;">
 
-** Provide user story to AI, help me analyze the defect **
+**Provide user story to AI, help me analyze the defect**
 
+</div>
+
+---
+## Baseline: Simple Todo App ✅
+<div style="text-align: center;">
+
+![Initial App](screenshots/base_todo_list.png)
 </div>
 
 ---
@@ -846,16 +1002,19 @@ await page.click('button:has-text("Add")');
 
 <div style="text-align: center;">
 
-![AI Investigation Screenshot](screenshots/ai_fixed_tests_screenshot.png)
+**Screenshot: AI investigates the issue**
+
+![AI Investigation Screenshot](screenshots/jenkins-ai-investigation-report.png)
 
 </div>
 
-<div style="font-size: 0.8em; margin-top: 1em;">
+---
 
-**AI Found & Fixed:**
-1. Button selectors using FontAwesome icons without accessible names
-2. Wrong pending count assertions (test written for different initial data)
-3. Wrong task state assumption ("Eat sashimi" is pending, not completed)
+<div style="text-align: center;">
+
+**Screenshot: Notification email**
+
+![AI Investigation Screenshot](screenshots/notification-email-when-test-fail.png)
 
 </div>
 
@@ -942,7 +1101,7 @@ in test maintenance
 
 - **Per investigation:** $0.05-0.15
 - **Per test written:** $0.02-0.08
-- **Monthly:** $20-50
+- **Monthly:** ~$20
 
 <div class="metric-box">
 
@@ -971,46 +1130,15 @@ in test maintenance
 
 ## Week 1: Baby Steps 👶
 
-<div class="timeline">
+<ul class="todo-list">
+<li>📦 <strong>Day 1:</strong> Install Claude Code <span class="time">5 min</span></li>
+<li>🤖 <strong>Day 2:</strong> Write first AI-generated test <span class="time">15 min</span></li>
+<li>🔍 <strong>Day 3:</strong> Explore app with AI <span class="time">10 min</span></li>
+<li>🔧 <strong>Day 4:</strong> Fix a failing test <span class="time">10 min</span></li>
+<li>🎉 <strong>Day 5:</strong> Show the team! <span class="time">5 min</span></li>
+</ul>
 
-<div class="timeline-item">
-<div style="font-size: 2em;">📦</div>
-<strong>Day 1</strong>
-Install 🤖
-<div style="color: #10B981;">5 min</div>
-</div>
-
-<div class="timeline-item">
-<div style="font-size: 2em;">🤖</div>
-<strong>Day 2</strong>
-First test
-<div style="color: #10B981;">15 min</div>
-</div>
-
-<div class="timeline-item">
-<div style="font-size: 2em;">🔍</div>
-<strong>Day 3</strong>
-Explore app
-<div style="color: #10B981;">10 min</div>
-</div>
-
-<div class="timeline-item">
-<div style="font-size: 2em;">🔧</div>
-<strong>Day 4</strong>
-Fix test
-<div style="color: #10B981;">10 min</div>
-</div>
-
-<div class="timeline-item">
-<div style="font-size: 2em;">🎉</div>
-<strong>Day 5</strong>
-Show team
-<div style="color: #10B981;">5 min</div>
-</div>
-
-</div>
-
-<div style="text-align: center; margin-top: 2em; font-size: 1.2em;">
+<div style="text-align: center; margin-top: 1.5em; font-size: 1.2em;">
 
 **That's it. Don't overthink it.** 🎯
 
@@ -1020,37 +1148,16 @@ Show team
 
 ## The Roadmap 🗓️
 
-<div class="icon-grid">
-
-<div class="icon-box icon-box-blue">
-<div style="font-size: 2em;">📅 Month 1</div>
-<strong>Pattern #1: Code Writer</strong>
-Save 5 hrs/week
-</div>
-
-<div class="icon-box icon-box-purple">
-<div style="font-size: 2em;">📅 Month 2</div>
-<strong>Add Pattern #2: Explorer</strong>
-Find coverage gaps
-</div>
-
-<div class="icon-box icon-box-orange">
-<div style="font-size: 2em;">📅 Month 4</div>
-<strong>Add Pattern #4: Chaos</strong>
-Kill flaky tests
-</div>
-
-<div class="icon-box icon-box-green" style="grid-column: 1 / -1;">
-<div style="font-size: 2em;">📅 Month 6+</div>
-<strong>All Patterns Combined</strong>
-Full automation
-</div>
-
-</div>
+<ul class="todo-list">
+<li>📅 <strong>Month 1:</strong> Pattern #1 - Code Writer <span class="badge badge-blue">Save 5 hrs/week</span></li>
+<li>📅 <strong>Month 2:</strong> Pattern #2 - Explorer <span class="badge badge-purple">Find coverage gaps</span></li>
+<li>📅 <strong>Month 4:</strong> Pattern #4 - Chaos Agent <span class="badge badge-orange">Kill flaky tests</span></li>
+<li>📅 <strong>Month 6+:</strong> All Patterns Combined <span class="badge badge-green">Full automation</span></li>
+</ul>
 
 ---
 
-## Getting Started Today 🚀
+## Getting Started Today (just 5 minutes) 🚀
 
 <div class="columns">
 <div>
@@ -1082,12 +1189,6 @@ npm install @playwright/mcp
 - Open Claude Desktop
 - Say: *"Help me test my app"*
 - Done! ✅
-
-<div class="metric-box">
-
-**Total setup time: 5 minutes**
-
-</div>
 
 </div>
 </div>
@@ -1214,11 +1315,10 @@ Start with non-critical tests first.
 
 | Tool | Provider | Focus |
 |------|----------|-------|
-| Playwright MCP | Microsoft | E2E Testing |
-| Chrome DevTools MCP | Google | Debugging |
-| Browser MCP | Community | Local automation |
-| Puppeteer MCP | Community | Scraping |
-| Selenium MCP | @angiejones | Multi-browser |
+| **Playwright** | Microsoft | E2E Testing |
+| **Chrome DevTools** | Google | Debugging |
+| **Puppeteer** | Community | Scraping |
+| **Selenium** | @angiejones | Multi-browser |
 
 **Pros:** Free, local, customizable
 **Cons:** DIY integration, self-hosted
@@ -1322,8 +1422,6 @@ Start with non-critical tests first.
 <div style="font-size: 1.3em; margin: 1em 0;">
 
 **Let's make testing fun again**
-
-</div>
 
 </div>
 
