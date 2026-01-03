@@ -202,6 +202,36 @@ def triggerAIInvestigation() {
                 // Priority emoji
                 def priorityEmoji = [HIGH: '🔴', MEDIUM: '🟡', LOW: '🟢'][analysis.priority] ?: '⚪'
 
+                // Build investigation journey section if steps are available
+                def investigationSteps = analysis.investigationSteps ?: []
+                def journeySection = ''
+                if (investigationSteps.size() > 0) {
+                    def resultIcons = [SUCCESS: '✓', FAIL: '✗', INFO: 'ℹ', WARN: '⚠']
+                    def stepsText = investigationSteps.collect { step ->
+                        def icon = resultIcons[step.result] ?: '?'
+                        "║  ${step.step ?: ''}. [${icon} ${step.result}] ${step.action}"
+                    }.join('\n')
+                    journeySection = """║
+╠════════════════════════════════════════════════════════════════════════════╣
+║  🔬 INVESTIGATION JOURNEY (How AI reached this conclusion)
+║
+${stepsText}"""
+                }
+
+                // Build evidence section if available
+                def evidence = analysis.evidence ?: [:]
+                def evidenceSection = ''
+                if (evidence.selectorsAttempted) {
+                    def selectorsText = evidence.selectorsAttempted.collect { s ->
+                        def found = s.found ? '✓ FOUND' : '✗ NOT FOUND'
+                        "║    ${found}: ${s.selector}"
+                    }.join('\n')
+                    evidenceSection = """║
+╠════════════════════════════════════════════════════════════════════════════╣
+║  📸 EVIDENCE: Selectors Tested
+${selectorsText}"""
+                }
+
                 echo """
 ╔════════════════════════════════════════════════════════════════════════════╗
 ║                    AI INVESTIGATION RESULTS                                ║
@@ -221,6 +251,8 @@ def triggerAIInvestigation() {
 ║  ${analysis.rootCause}
 ${fileLocation ? "║\n║  📄 File: ${fileLocation}" : ''}
 ${quickFix}
+${journeySection}
+${evidenceSection}
 ║
 ╠════════════════════════════════════════════════════════════════════════════╣
 ║  ⚡ SUGGESTED ACTIONS
