@@ -81,6 +81,7 @@ pipeline {
             )
 
             // Publish HTML report for Jenkins UI
+            // Requires CSP configuration - see CLAUDE.md for setup
             publishHTML(target: [
                 allowMissing: true,
                 alwaysLinkToLastBuild: true,
@@ -121,7 +122,10 @@ pipeline {
 def triggerAIInvestigation() {
     echo "=== Triggering AI Investigation ==="
 
+    // JSON report for AI analysis (Jenkins artifact)
     def reportUrl = "${env.BUILD_URL}artifact/playwright-report/report.json"
+    // HTML report for email links (Jenkins artifact - requires CSP configuration)
+    def htmlReportUrl = "${env.BUILD_URL}artifact/playwright-report/index.html"
 
     def payload = [
         jobName: env.JOB_NAME,
@@ -129,6 +133,7 @@ def triggerAIInvestigation() {
         branch: env.GIT_BRANCH ?: 'unknown',
         commit: env.GIT_COMMIT ?: 'unknown',
         reportUrl: reportUrl,
+        htmlReportUrl: htmlReportUrl,
         emailTo: env.NOTIFICATION_EMAIL ?: 'team@workshop.local'
     ]
 
@@ -170,26 +175,66 @@ def triggerAIInvestigation() {
             def result = new groovy.json.JsonSlurper().parseText(response.content)
 
             if (result.success) {
-                def analysis = result.investigation.analysis
+                def investigation = result.investigation
+                def analysis = investigation.analysis
+                def timing = investigation.timing ?: [investigationTimeSec: 0, estimatedManualTimeMin: 30, timeSavedMin: 29]
+
+                // Extract quick fix info from first failure (if available)
+                def quickFix = ''
+                def fileLocation = ''
+                if (analysis.failures && analysis.failures.size() > 0) {
+                    def firstFailure = analysis.failures[0]
+                    fileLocation = firstFailure.file ?: ''
+                    def line = firstFailure.line ?: ''
+                    if (fileLocation && line) {
+                        fileLocation = "${fileLocation}:${line}"
+                    }
+                    // Build quick fix section if suggestedFix contains code-like content
+                    def fix = firstFailure.suggestedFix
+                    if (fix) {
+                        def fixText = fix instanceof List ? fix.join('\n║    ') : fix
+                        quickFix = """║
+║  💡 QUICK FIX:
+║    ${fixText}"""
+                    }
+                }
+
+                // Priority emoji
+                def priorityEmoji = [HIGH: '🔴', MEDIUM: '🟡', LOW: '🟢'][analysis.priority] ?: '⚪'
 
                 echo """
-╔════════════════════════════════════════════════════════════╗
-║               AI INVESTIGATION RESULTS                     ║
-╠════════════════════════════════════════════════════════════╣
-║  Category: ${analysis.overallCategory}
+╔════════════════════════════════════════════════════════════════════════════╗
+║                    AI INVESTIGATION RESULTS                                ║
+╠════════════════════════════════════════════════════════════════════════════╣
+║  ${priorityEmoji} Category: ${analysis.overallCategory}
 ║  Priority: ${analysis.priority}
 ║  Confidence: ${(int)(analysis.confidence * 100)}%
 ║
-║  Root Cause:
-║  ${analysis.rootCause}
+╠════════════════════════════════════════════════════════════════════════════╣
+║  ⏱️  TIMING METRICS
+║  Investigation Time: ${timing.investigationTimeSec} seconds
+║  Estimated Manual Time: ${timing.estimatedManualTimeMin}+ minutes
+║  Time Saved: ~${timing.timeSavedMin} minutes
 ║
-║  Suggested Actions:
-${analysis.suggestedActions.collect { "║  - ${it}" }.join('\n')}
-╚════════════════════════════════════════════════════════════╝
+╠════════════════════════════════════════════════════════════════════════════╣
+║  🔍 ROOT CAUSE
+║  ${analysis.rootCause}
+${fileLocation ? "║\n║  📄 File: ${fileLocation}" : ''}
+${quickFix}
+║
+╠════════════════════════════════════════════════════════════════════════════╣
+║  ⚡ SUGGESTED ACTIONS
+${analysis.suggestedActions.collect { "║  • ${it}" }.join('\n')}
+║
+╠════════════════════════════════════════════════════════════════════════════╣
+║  🔗 LINKS
+║  📊 Playwright Report: ${htmlReportUrl}
+║  🏗️  Build: ${env.BUILD_URL}
+╚════════════════════════════════════════════════════════════════════════════╝
 """
 
-                // Add summary to build description
-                currentBuild.description = "[${analysis.overallCategory}] ${analysis.rootCause}"
+                // Add summary to build description with emoji
+                currentBuild.description = "${priorityEmoji} [${analysis.overallCategory}] ${analysis.rootCause}"
 
             } else {
                 echo "Investigation failed: ${result.error}"
