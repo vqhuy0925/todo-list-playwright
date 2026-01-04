@@ -177,20 +177,6 @@ def triggerAIInvestigation() {
             if (result.success) {
                 def investigation = result.investigation
                 def analysis = investigation.analysis
-                // Get timing from API response, with AI-calculated estimate fallback
-                def apiTiming = investigation.timing ?: [:]
-                def aiTiming = analysis.timing ?: [:]
-
-                // Prefer AI-calculated manual time estimate over hardcoded default
-                def estimatedManual = aiTiming.estimatedManualTimeMin ?: apiTiming.estimatedManualTimeMin ?: 30
-                def investigationSec = apiTiming.investigationTimeSec ?: 0
-                def timeSaved = Math.max(0, estimatedManual - Math.ceil(investigationSec / 60))
-
-                def timing = [
-                    investigationTimeSec: investigationSec,
-                    estimatedManualTimeMin: estimatedManual,
-                    timeSavedMin: timeSaved
-                ]
 
                 // Priority emoji
                 def priorityEmoji = [HIGH: '🔴', MEDIUM: '🟡', LOW: '🟢'][analysis.priority] ?: '⚪'
@@ -215,19 +201,13 @@ def triggerAIInvestigation() {
                         fixText = fix instanceof List ? fix.collect { "║      • ${it}" }.join('\n') : "║      ${fix}"
                     }
 
-                    // Build per-failure investigation journey (3-column format)
+                    // Build per-failure investigation journey
                     def journeySteps = failure.investigationJourney ?: []
                     def journeyText = ''
                     if (journeySteps.size() > 0) {
-                        // Add header row
-                        journeyText = "║   #  Result  Action                              Tool/Code\n"
-                        journeyText += "║   ─────────────────────────────────────────────────────────────\n"
-                        journeyText += journeySteps.collect { step ->
+                        journeyText = journeySteps.collect { step ->
                             def icon = resultIcons[step.result] ?: '?'
-                            def tool = step.tool ?: ''
-                            def code = step.code ?: ''
-                            def toolCode = tool ? "[${tool}] ${code}".take(30) : ''
-                            "║   ${step.step}.  [${icon}]   ${step.action.take(40).padRight(40)} ${toolCode}"
+                            "║      ${step.step}. [${icon}] ${step.action}"
                         }.join('\n')
                     }
 
@@ -266,12 +246,6 @@ ${evidenceText}""" : ''}"""
 ║  Priority: ${analysis.priority}
 ║  Confidence: ${(int)(analysis.confidence * 100)}%
 ║  Failures: ${failures.size()}
-║
-╠════════════════════════════════════════════════════════════════════════════╣
-║  ⏱️  TIMING METRICS
-║  Investigation Time: ${timing.investigationTimeSec} seconds
-║  Estimated Manual Time: ${timing.estimatedManualTimeMin}+ minutes
-║  Time Saved: ~${timing.timeSavedMin} minutes
 ║
 ╠════════════════════════════════════════════════════════════════════════════╣
 ║  🔍 ROOT CAUSE SUMMARY
