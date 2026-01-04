@@ -74,7 +74,6 @@ This project demonstrates AI-assisted test failure investigation.
 | Todo App | 3000 | http://localhost:3000 | Application under test |
 | Test Investigator | 3500 | http://localhost:3500 | AI analysis API |
 | MailHog | 8025 | http://localhost:8025 | Email capture |
-| Report Server | 8888 | http://localhost:8888 | Serve test reports |
 | Jenkins | 5555 | http://localhost:5555 | CI/CD pipeline |
 
 ### Starting Workshop Environment
@@ -86,10 +85,7 @@ cd C:\work\workshop\todo-list && npm run dev
 # Terminal 2: MailHog (Docker)
 docker start mailhog || docker run -d -p 1025:1025 -p 8025:8025 --name mailhog mailhog/mailhog
 
-# Terminal 3: Report Server
-npx http-server playwright-report -p 8888 --cors
-
-# Terminal 4: Test Investigator AI
+# Terminal 3: Test Investigator AI
 cd C:\work\workshop\test-investigator-ai && CLAUDE_MODEL=haiku npm start
 ```
 
@@ -107,12 +103,9 @@ cd C:\work\workshop\test-investigator-ai && CLAUDE_MODEL=haiku npm start
    npx playwright test --reporter=json,html
    ```
 
-4. **Trigger AI Investigation**
-   ```bash
-   curl -X POST http://localhost:3500/api/investigate \
-     -H "Content-Type: application/json" \
-     -d '{"jobName":"todo-list-playwright","buildNumber":"1","branch":"main","commit":"abc123","reportUrl":"http://localhost:8888/report.json","emailTo":"your@email.com"}'
-   ```
+4. **Trigger AI Investigation** (or use Jenkins)
+   - Run Jenkins build: http://localhost:5555/job/todo-list-playwright/build
+   - AI investigation triggers automatically on test failure
 
 5. **View Results** at http://localhost:8025
 

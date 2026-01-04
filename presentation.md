@@ -1069,7 +1069,7 @@ in test maintenance
 
 ---
 
-## Real Numbers 📊
+## Give me a number 📊
 
 | Metric | Before | After | Impact |
 |--------|--------|-------|--------|
@@ -1133,11 +1133,11 @@ in test maintenance
 ## Week 1: Baby Steps 👶
 
 <ul class="todo-list">
-<li>📦 <strong>Day 1:</strong> Install Claude Code <span class="time">5 min</span></li>
-<li>🤖 <strong>Day 2:</strong> Write first AI-generated test <span class="time">15 min</span></li>
-<li>🔍 <strong>Day 3:</strong> Explore app with AI <span class="time">10 min</span></li>
-<li>🔧 <strong>Day 4:</strong> Fix a failing test <span class="time">10 min</span></li>
-<li>🎉 <strong>Day 5:</strong> Show the team! <span class="time">5 min</span></li>
+<li><strong>Day 1:</strong> Install Claude Code 📦 <span class="time">5 min</span></li>
+<li><strong>Day 2:</strong> Write first AI-generated test 🤖 <span class="time">15 min</span></li>
+<li><strong>Day 3:</strong> Explore app with AI 🔍 <span class="time">10 min</span></li>
+<li><strong>Day 4:</strong> Fix a failing test 🔧 <span class="time">10 min</span></li>
+<li><strong>Day 5:</strong> Show the team! 🎉 <span class="time">5 min</span></li>
 </ul>
 
 <div style="text-align: center; margin-top: 1.5em; font-size: 1.2em;">
@@ -1151,10 +1151,10 @@ in test maintenance
 ## The Roadmap 🗓️
 
 <ul class="todo-list">
-<li>📅 <strong>Month 1:</strong> Pattern #1 - Code Writer <span class="badge badge-blue">Save 5 hrs/week</span></li>
-<li>📅 <strong>Month 2:</strong> Pattern #2 - Explorer <span class="badge badge-purple">Find coverage gaps</span></li>
-<li>📅 <strong>Month 4:</strong> Pattern #4 - Chaos Agent <span class="badge badge-orange">Kill flaky tests</span></li>
-<li>📅 <strong>Month 6+:</strong> All Patterns Combined <span class="badge badge-green">Full automation</span></li>
+<li><strong>Month 1:</strong> Pattern #1 - Code Writer <span class="badge badge-blue">Save 5 hrs/week</span></li>
+<li><strong>Month 2:</strong> Pattern #2 - Explorer <span class="badge badge-purple">Find coverage gaps</span></li>
+<li><strong>Month 4:</strong> Pattern #4 - Chaos Agent <span class="badge badge-orange">Kill flaky tests</span></li>
+<li><strong>Month 6+:</strong> All Patterns Combined <span class="badge badge-green">Full automation</span></li>
 </ul>
 
 ---
@@ -1315,7 +1315,7 @@ Start with non-critical tests first.
 
 ### Open-Source MCP Tools 🆓
 
-| Tool | Provider | Focus |
+| Tool | Provider | Strength |
 |------|----------|-------|
 | **Playwright** | Microsoft | E2E Testing |
 | **Chrome DevTools** | Google | Debugging |
@@ -1377,7 +1377,7 @@ Start with non-critical tests first.
 
 <!-- _class: lead -->
 
-# Questions? 🙋
+# Question? 🙋
 
 ---
 
@@ -1395,7 +1395,7 @@ Start with non-critical tests first.
 
 ✅ **Priority + Edit features** = realistic regression
 
-✅ **$20-50/month** for 10x faster maintenance
+✅ **$20/month** for 10x faster maintenance
 
 ✅ **Start Monday** → results by Tuesday
 
