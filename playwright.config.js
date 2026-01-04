@@ -22,7 +22,8 @@ export default defineConfig({
         ['html', { open: 'never' }],
       ],
   use: {
-    baseURL: 'http://localhost:3000',
+    // APP_URL can be set via environment variable (e.g., in Jenkins)
+    baseURL: process.env.APP_URL || 'http://localhost:3000',
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
   },

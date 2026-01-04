@@ -13,6 +13,7 @@
  * - Test Investigator AI service running
  *
  * Environment variables to configure:
+ * - APP_URL: URL of the application under test (default: http://localhost:3000)
  * - INVESTIGATOR_URL: URL of the Test Investigator AI service (default: http://localhost:3500)
  * - INVESTIGATOR_API_KEY: API key for authentication (optional)
  * - NOTIFICATION_EMAIL: Email for investigation results (optional)
@@ -28,6 +29,8 @@ pipeline {
     environment {
         CI = 'true'
         PLAYWRIGHT_BROWSERS_PATH = 'C:\\ProgramData\\Jenkins\\.jenkins\\tools\\playwright-browsers'
+        // Application under test (editable in Jenkins job config)
+        APP_URL = "${env.APP_URL ?: 'http://localhost:3000'}"
         // Test Investigator AI configuration
         INVESTIGATOR_URL = "${env.INVESTIGATOR_URL ?: 'http://localhost:3500'}"
     }
@@ -134,6 +137,7 @@ def triggerAIInvestigation() {
         commit: env.GIT_COMMIT ?: 'unknown',
         reportUrl: reportUrl,
         htmlReportUrl: htmlReportUrl,
+        appUrl: env.APP_URL,
         emailTo: env.NOTIFICATION_EMAIL ?: 'team@workshop.local'
     ]
 
