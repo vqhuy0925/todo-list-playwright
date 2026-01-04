@@ -177,7 +177,20 @@ def triggerAIInvestigation() {
             if (result.success) {
                 def investigation = result.investigation
                 def analysis = investigation.analysis
-                def timing = investigation.timing ?: [investigationTimeSec: 0, estimatedManualTimeMin: 30, timeSavedMin: 29]
+                // Get timing from API response, with AI-calculated estimate fallback
+                def apiTiming = investigation.timing ?: [:]
+                def aiTiming = analysis.timing ?: [:]
+
+                // Prefer AI-calculated manual time estimate over hardcoded default
+                def estimatedManual = aiTiming.estimatedManualTimeMin ?: apiTiming.estimatedManualTimeMin ?: 30
+                def investigationSec = apiTiming.investigationTimeSec ?: 0
+                def timeSaved = Math.max(0, estimatedManual - Math.ceil(investigationSec / 60))
+
+                def timing = [
+                    investigationTimeSec: investigationSec,
+                    estimatedManualTimeMin: estimatedManual,
+                    timeSavedMin: timeSaved
+                ]
 
                 // Priority emoji
                 def priorityEmoji = [HIGH: '🔴', MEDIUM: '🟡', LOW: '🟢'][analysis.priority] ?: '⚪'
@@ -202,13 +215,19 @@ def triggerAIInvestigation() {
                         fixText = fix instanceof List ? fix.collect { "║      • ${it}" }.join('\n') : "║      ${fix}"
                     }
 
-                    // Build per-failure investigation journey
+                    // Build per-failure investigation journey (3-column format)
                     def journeySteps = failure.investigationJourney ?: []
                     def journeyText = ''
                     if (journeySteps.size() > 0) {
-                        journeyText = journeySteps.collect { step ->
+                        // Add header row
+                        journeyText = "║   #  Result  Action                              Tool/Code\n"
+                        journeyText += "║   ─────────────────────────────────────────────────────────────\n"
+                        journeyText += journeySteps.collect { step ->
                             def icon = resultIcons[step.result] ?: '?'
-                            "║      ${step.step}. [${icon}] ${step.action}"
+                            def tool = step.tool ?: ''
+                            def code = step.code ?: ''
+                            def toolCode = tool ? "[${tool}] ${code}".take(30) : ''
+                            "║   ${step.step}.  [${icon}]   ${step.action.take(40).padRight(40)} ${toolCode}"
                         }.join('\n')
                     }
 
