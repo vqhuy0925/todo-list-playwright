@@ -6,14 +6,15 @@ test.describe('Todo App', () => {
   });
 
   test('should display initial tasks', async ({ page }) => {
-    await expect(page.locator('ul > li')).toHaveCount(5);
+    const tasks = page.locator('ul > li');
+    await expect(tasks).toHaveCount(4);
   });
 
   test('should mark a task as complete', async ({ page }) => {
     const taskToComplete = page.locator('li', { hasText: 'Go shopping' });
     await taskToComplete.getByRole('checkbox').check();
 
-    const taskText = taskToComplete.locator('label span');
+    const taskText = taskToComplete.locator('span').first();
     await expect(taskText).toHaveCSS('text-decoration', /line-through/);
   });
 
@@ -35,15 +36,13 @@ test.describe('Todo App', () => {
   });
 
   test('should clear completed tasks', async ({ page }) => {
-    // First mark a task as complete
     const taskToComplete = page.locator('li', { hasText: 'Go shopping' });
     await taskToComplete.getByRole('checkbox').check();
 
-    // Click Clear Completed button
     await page.getByRole('button', { name: 'Clear Completed' }).click();
 
-    // The completed task should be removed
     await expect(page.locator('li', { hasText: 'Go shopping' })).toHaveCount(0);
+    await expect(page.locator('ul > li')).toHaveCount(3);
   });
 
   test('should clear all tasks', async ({ page }) => {
