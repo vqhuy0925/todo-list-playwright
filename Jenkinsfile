@@ -179,57 +179,64 @@ def triggerAIInvestigation() {
                 def analysis = investigation.analysis
                 def timing = investigation.timing ?: [investigationTimeSec: 0, estimatedManualTimeMin: 30, timeSavedMin: 29]
 
-                // Extract quick fix info from first failure (if available)
-                def quickFix = ''
-                def fileLocation = ''
-                if (analysis.failures && analysis.failures.size() > 0) {
-                    def firstFailure = analysis.failures[0]
-                    fileLocation = firstFailure.file ?: ''
-                    def line = firstFailure.line ?: ''
+                // Priority emoji
+                def priorityEmoji = [HIGH: '🔴', MEDIUM: '🟡', LOW: '🟢'][analysis.priority] ?: '⚪'
+                def resultIcons = [SUCCESS: '✓', FAIL: '✗', INFO: 'ℹ', WARN: '⚠']
+
+                // Build per-failure sections (each failure has its own investigation journey)
+                def failuresSection = ''
+                def failures = analysis.failures ?: []
+
+                failures.eachWithIndex { failure, idx ->
+                    def failureNum = idx + 1
+                    def fileLocation = failure.file ?: ''
+                    def line = failure.line ?: ''
                     if (fileLocation && line) {
                         fileLocation = "${fileLocation}:${line}"
                     }
-                    // Build quick fix section if suggestedFix contains code-like content
-                    def fix = firstFailure.suggestedFix
+
+                    // Build suggested fix section
+                    def fixText = ''
+                    def fix = failure.suggestedFix
                     if (fix) {
-                        def fixText = fix instanceof List ? fix.join('\n║    ') : fix
-                        quickFix = """║
-║  💡 QUICK FIX:
-║    ${fixText}"""
+                        fixText = fix instanceof List ? fix.collect { "║      • ${it}" }.join('\n') : "║      ${fix}"
                     }
-                }
 
-                // Priority emoji
-                def priorityEmoji = [HIGH: '🔴', MEDIUM: '🟡', LOW: '🟢'][analysis.priority] ?: '⚪'
+                    // Build per-failure investigation journey
+                    def journeySteps = failure.investigationJourney ?: []
+                    def journeyText = ''
+                    if (journeySteps.size() > 0) {
+                        journeyText = journeySteps.collect { step ->
+                            def icon = resultIcons[step.result] ?: '?'
+                            "║      ${step.step}. [${icon}] ${step.action}"
+                        }.join('\n')
+                    }
 
-                // Build investigation journey section if steps are available
-                def investigationSteps = analysis.investigationSteps ?: []
-                def journeySection = ''
-                if (investigationSteps.size() > 0) {
-                    def resultIcons = [SUCCESS: '✓', FAIL: '✗', INFO: 'ℹ', WARN: '⚠']
-                    def stepsText = investigationSteps.collect { step ->
-                        def icon = resultIcons[step.result] ?: '?'
-                        "║  ${step.step ?: ''}. [${icon} ${step.result}] ${step.action}"
-                    }.join('\n')
-                    journeySection = """║
-╠════════════════════════════════════════════════════════════════════════════╣
-║  🔬 INVESTIGATION JOURNEY (How AI reached this conclusion)
+                    // Build evidence section for this failure
+                    def evidence = failure.evidence ?: [:]
+                    def evidenceText = ''
+                    if (evidence.selectorsAttempted) {
+                        evidenceText = evidence.selectorsAttempted.collect { s ->
+                            def found = s.found ? '✓' : '✗'
+                            "║        ${found} ${s.selector}"
+                        }.join('\n')
+                    }
+
+                    failuresSection += """║
+╠────────────────────────────────────────────────────────────────────────────╣
+║  📋 FAILURE #${failureNum}: ${failure.testName}
+║  📄 ${fileLocation}
+║  🏷️  Category: ${failure.category}
 ║
-${stepsText}"""
-                }
-
-                // Build evidence section if available
-                def evidence = analysis.evidence ?: [:]
-                def evidenceSection = ''
-                if (evidence.selectorsAttempted) {
-                    def selectorsText = evidence.selectorsAttempted.collect { s ->
-                        def found = s.found ? '✓ FOUND' : '✗ NOT FOUND'
-                        "║    ${found}: ${s.selector}"
-                    }.join('\n')
-                    evidenceSection = """║
-╠════════════════════════════════════════════════════════════════════════════╣
-║  📸 EVIDENCE: Selectors Tested
-${selectorsText}"""
+║  ❌ CAUSE: ${failure.cause}
+║
+║  💡 SUGGESTED FIX:
+${fixText}
+${journeyText ? """║
+║  🔬 INVESTIGATION JOURNEY:
+${journeyText}""" : ''}${evidenceText ? """║
+║  📸 SELECTORS TESTED:
+${evidenceText}""" : ''}"""
                 }
 
                 echo """
@@ -239,6 +246,7 @@ ${selectorsText}"""
 ║  ${priorityEmoji} Category: ${analysis.overallCategory}
 ║  Priority: ${analysis.priority}
 ║  Confidence: ${(int)(analysis.confidence * 100)}%
+║  Failures: ${failures.size()}
 ║
 ╠════════════════════════════════════════════════════════════════════════════╣
 ║  ⏱️  TIMING METRICS
@@ -247,12 +255,9 @@ ${selectorsText}"""
 ║  Time Saved: ~${timing.timeSavedMin} minutes
 ║
 ╠════════════════════════════════════════════════════════════════════════════╣
-║  🔍 ROOT CAUSE
+║  🔍 ROOT CAUSE SUMMARY
 ║  ${analysis.rootCause}
-${fileLocation ? "║\n║  📄 File: ${fileLocation}" : ''}
-${quickFix}
-${journeySection}
-${evidenceSection}
+${failuresSection}
 ║
 ╠════════════════════════════════════════════════════════════════════════════╣
 ║  ⚡ SUGGESTED ACTIONS
@@ -266,7 +271,7 @@ ${analysis.suggestedActions.collect { "║  • ${it}" }.join('\n')}
 """
 
                 // Add summary to build description with emoji
-                currentBuild.description = "${priorityEmoji} [${analysis.overallCategory}] ${analysis.rootCause}"
+                currentBuild.description = "${priorityEmoji} [${analysis.overallCategory}] ${failures.size()} failure(s) - ${analysis.rootCause}"
 
             } else {
                 echo "Investigation failed: ${result.error}"

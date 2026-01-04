@@ -6,20 +6,13 @@ test.describe('Todo App', () => {
   });
 
   test('should display initial tasks', async ({ page }) => {
-    // Master branch has 5 initial tasks
-    // BUG: Feature branch removed "Play Valorant" task, now only has 4
     await expect(page.locator('ul > li')).toHaveCount(5);
   });
 
   test('should mark a task as complete', async ({ page }) => {
-    // Find a pending task and mark it complete
     const taskToComplete = page.locator('li', { hasText: 'Go shopping' });
-
-    // Click the checkbox
     await taskToComplete.getByRole('checkbox').check();
 
-    // Verify strikethrough is applied (master uses label > span structure)
-    // TEST_ISSUE: Feature branch changed to div > span, this selector won't work
     const taskText = taskToComplete.locator('label span');
     await expect(taskText).toHaveCSS('text-decoration', /line-through/);
   });
