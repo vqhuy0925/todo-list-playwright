@@ -719,28 +719,6 @@ await page.getByRole('button', {name: 'Add'}).click();
 
 ---
 
-## Example: Multiple Actions in 1 Message 🎯
-
-<div style="font-size: 0.85em; margin-bottom: 0.5em;">
-
-<pre style="padding: 1em; border-radius: 8px; overflow-x: auto; background: #1e1e1e; font-size: 0.7em;">
-<code style="color: #9cdcfe; !important;">
-{
-  "method": "tools/call",
-  "params": {
-    "name": "browser_run_code",
-    "arguments": {
-      "code": "async (page) => { await page.goto('http://localhost:3000'); await page.getByPlaceholder('Add a new task...').fill('Buy groceries'); await page.getByPlaceholder('Add a new task...').press('Enter'); const newTodo = page.locator('li', { hasText: 'Buy groceries' }); /*await newTodo.getByRole('checkbox').click();*/ /*const pendingCount = await page.locator('text=Pending Tasks:').textContent();console.log(`Status: ${pendingCount}`);  await page.getByRole('button', { name: 'Clear Completed' }).click();*/        }"
-    }
-  }
-}
-</code>
-</pre>
-
-</div>
-
----
-
 ## Under the Hood: MCP Tool Calls 🔍
 
 <div class="columns">
@@ -781,6 +759,30 @@ await page.getByRole('button', {name: 'Add'}).click();
 
 </div>
 </div>
+
+---
+
+## Example: Multiple Actions in 1 Message 🎯
+
+<div style="font-size: 0.85em; margin-bottom: 0.5em;">
+
+<pre style="padding: 1em; border-radius: 8px; overflow-x: auto; background: #1e1e1e; font-size: 0.7em;">
+<code style="color: #9cdcfe; !important;">
+{
+  "method": "tools/call",
+  "params": {
+    "name": "browser_run_code",
+    "arguments": {
+      "code": "async (page) => { await page.goto('http://localhost:3000'); await page.getByPlaceholder('Add a new task...').fill('Buy groceries'); await page.getByPlaceholder('Add a new task...').press('Enter'); const newTodo = page.locator('li', { hasText: 'Buy groceries' }); /*await newTodo.getByRole('checkbox').click();*/ /*const pendingCount = await page.locator('text=Pending Tasks:').textContent();console.log(`Status: ${pendingCount}`);  await page.getByRole('button', { name: 'Clear Completed' }).click();*/        }"
+    }
+  }
+}
+</code>
+</pre>
+
+</div>
+
+
 
 
 ---
@@ -1004,7 +1006,7 @@ await page.click('button:has-text("Add")');
 
 **Screenshot: AI investigates the issue**
 
-![AI Investigation Screenshot](screenshots/jenkins-ai-investigation-report.png)
+![Jenkins AI Investigation Console](screenshots/jenkins-ai-investigation-console.png)
 
 </div>
 
@@ -1014,7 +1016,7 @@ await page.click('button:has-text("Add")');
 
 **Screenshot: Notification email**
 
-![AI Investigation Screenshot](screenshots/notification-email-when-test-fail.png)
+![MailHog Investigation Email](screenshots/mailhog-investigation-email.png)
 
 </div>
 
