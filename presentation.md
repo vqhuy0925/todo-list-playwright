@@ -717,6 +717,12 @@ await page.getByRole('button', {name: 'Add'}).click();
 
 </div>
 
+<div style="font-size: 0.85em; background: var(--bg-card); padding: 0.5em 1em; border-radius: 8px; margin-top: 0.5em;">
+
+**Loop ends when:** ✅ Task complete | ⏱️ Timeout | 🔢 Max steps | 💰 Token budget | ❌ Repeated errors
+
+</div>
+
 ---
 
 ## Under the Hood: MCP Tool Calls 🔍
@@ -856,6 +862,29 @@ Now let's see it in action!
 
 ---
 
+## Demo setup 🏗️
+
+<div style="text-align: center; margin: 1.5em 0;">
+
+```
+📋 Jenkins ──► 🎭 Tests ──► ❌ Fail ──► 🔍 Investigator ──┬──► 📧 MailHog
+  (:5555)        │                        (:3500)         │      (:8025)
+                 ▼                           │            │
+            🌐 Todo App ◄────────────────────┘            └──► 📊 Report
+              (:3000)        ✨ Claude AI + MCP
+                              (investigate UI)
+```
+
+</div>
+
+<div style="text-align: center; font-size: 0.9em; color: var(--text-secondary);">
+
+**Start with:** `/workshop-start` · **Stop with:** `/workshop-end`
+
+</div>
+
+---
+
 ## Demo Setup: Two Projects 📁
 
 <div class="comparison">
@@ -953,49 +982,6 @@ Now let's see it in action!
 ⚠️ **Test Challenge**: View mode and Edit mode have different DOM structures!
 
 </div>
-
-</div>
-</div>
-
----
-
-## What This Means for Tests 🧪
-
-<div class="columns">
-<div class="glass-card">
-
-### ❌ Old Tests Break
-
-```
-// Expected simple button
-await page.click('button:has-text("Add")');
-
-// But now it's an icon button!
-// <button><i class="fa-plus"></i></button>
-```
-
-**New elements to test:**
-- Priority dropdown selector
-- Filter state changes
-- Edit mode toggle
-- Color-coded badges
-
-</div>
-<div class="glass-card">
-
-### ✅ AI Discovers Issues
-
-1. **Button has no name**
-   - FontAwesome icon only
-
-2. **New UI patterns untested**
-   - Priority filter changes visibility
-   - Edit mode replaces view mode
-
-3. **Data structure changed**
-   - Tasks now have `priority` field
-
-**AI generates coverage automatically!**
 
 </div>
 </div>
