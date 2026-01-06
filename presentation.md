@@ -501,7 +501,19 @@ style: |
 
 ---
 
-## What if ✨ can actually **SEE your UI**?
+## What if ✨ can actually **DEBUG your test**?
+
+<div style="text-align: center; margin: 1.5em 0; line-height: 1.8;">
+
+<div style="font-size: 1.4em;">👤 You → ✨ → 🤖 → 🎭 → 🌐 Browser → 🎭 → 🤖</div>
+<div style="font-size: 1.5em;">&emsp;&emsp;&emsp;&emsp;&emsp;↑ <span style="opacity: 0.5;">─────────────────────────</span> ↓</div>
+<div style="font-size: 1em; color: var(--text-secondary);">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;🔄 result back to ✨</div>
+
+</div>
+
+---
+
+## First, ✨ needs to **SEE your UI** efficiently
 
 <div class="columns">
 <div style="text-align: center;">
@@ -521,23 +533,11 @@ style: |
 
 <div style="margin-top: 1em; font-size: 0.9em; color: var(--text-secondary);">
 
-Now it sees, it thinks. What if...
+Now it sees, how about acting?
 
 </div>
 
 </div>
-</div>
-
----
-
-## What if ✨ can actually **DEBUG your test**?
-
-<div style="text-align: center; margin: 1.5em 0; line-height: 1.8;">
-
-<div style="font-size: 1.4em;">👤 You → ✨ → 🤖 → 🎭 → 🌐 Browser → 🎭 → 🤖</div>
-<div style="font-size: 1.5em;">&emsp;&emsp;&emsp;&emsp;&emsp;↑ <span style="opacity: 0.5;">─────────────────────────</span> ↓</div>
-<div style="font-size: 1em; color: var(--text-secondary);">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;🔄 result back to ✨</div>
-
 </div>
 
 
@@ -562,26 +562,6 @@ Now it sees, it thinks. What if...
 
 </div>
 
-<div class="columns">
-<div class="glass-card">
-
-### Without MCP ❌
-
-- Custom integration per tool
-- Different APIs, formats
-- Fragile, breaks often
-
-</div>
-<div class="glass-card">
-
-### With MCP ✅
-
-- One standard protocol
-- Any AI ↔ Any tool
-- Plug and play
-
-</div>
-</div>
 
 <div style="text-align: center; margin-top: 1em; font-size: 1em; color: var(--text-secondary);">
 
@@ -591,67 +571,16 @@ Think of MCP as **USB for AI** — one connector, many devices
 
 ---
 
-## MCP Browser Automation Landscape 🌐
-
-<div class="icon-grid" style="margin: 1em 0;">
-
-<div class="icon-box icon-box-blue">
-<div style="font-size: 1.5em;">🎭</div>
-<strong>Playwright MCP</strong><br>
-Microsoft
-</div>
-
-<div class="icon-box icon-box-red">
-<div style="font-size: 1.5em;">🔧</div>
-<strong>DevTools MCP</strong><br>
-Google
-</div>
-
-<div class="icon-box icon-box-green">
-<div style="font-size: 1.5em;">🌐</div>
-<strong>Browser MCP</strong><br>
-Extension
-</div>
-
-<div class="icon-box icon-box-purple">
-<div style="font-size: 1.5em;">🧪</div>
-<strong>Selenium</strong><br>
-Multi-browser
-</div>
-
-<div class="icon-box icon-box-yellow">
-<div style="font-size: 1.5em;">☁️</div>
-<strong>Browserbase</strong><br>
-Cloud
-</div>
-
-<div class="icon-box" style="background: linear-gradient(180deg, #d97706 0%, #92400e 100%); border-color: rgba(251, 191, 36, 0.4);">
-<div style="font-size: 1.5em;">✨</div>
-<strong>Claude in Chrome</strong><br>
-Anthropic
-</div>
-
-</div>
-
-<div style="text-align: center; margin-top: 0.5em; font-size: 1em; color: var(--text-secondary);">
-
-Many options — which one fits our needs?
-
-</div>
-
----
-
-## Why Playwright MCP? 🎭
+## MCP Tool Options 🛠️
 
 <div class="columns">
 <div>
 
 | Tool | Best For |
 |------|----------|
-| **Playwright MCP** | E2E testing, A11y trees |
-| **DevTools MCP** | Performance, debugging |
-| **Claude in Chrome** | Real browser, visual AI |
-| **Browser MCP** | Local automation |
+| **Playwright MCP** (Microsoft) | E2E testing, A11y trees |
+| **DevTools MCP** (Google) | Performance, debugging |
+| **Claude in Chrome** (Anthropic) | Real browser, visual AI |
 | **Selenium MCP** | Multi-browser, legacy |
 | **Browserbase** | Cloud browsers |
 
@@ -666,7 +595,7 @@ Many options — which one fits our needs?
 
 ✅ **Microsoft backed** — reliable
 
-✅ **MCP-native** — designed for AI agents
+✅ **MCP-native** — designed for AI integration
 
 </div>
 </div>
@@ -681,15 +610,19 @@ Now let's see **how** AI uses Playwright MCP...
 
 ## The Loop: See → Think → Act → Repeat 🔄
 
+<div style="font-size: 0.9em; color: var(--text-secondary); margin-bottom: 0.5em;">
+Using our Todo List app as example (http://localhost:3000)
+</div>
+
 <div class="columns">
 <div>
 
 **1️⃣ 🎭 reads browser → ✨**
 
 ```
-button "Add task"
-textbox "Add a new task..."
-checkbox "Buy groceries" [checked]
+checkbox "Watch Netflix" [checked]
+checkbox "Go shopping" [unchecked]
+button "Clear Completed"
 ```
 
 <div style="font-size: 0.85em; color: var(--text-secondary);">A11y Tree: semantic, compact</div>
@@ -699,13 +632,13 @@ checkbox "Buy groceries" [checked]
 
 **2️⃣ You tell ✨ what you want**
 
-> "Add 'Buy milk' and mark it complete"
+> "Check 'Go shopping' then clear completed"
 
 **3️⃣ ✨ generates → 🎭 executes**
 
 ```
-await page.getByRole('textbox').fill('Buy milk');
-await page.getByRole('button', {name: 'Add'}).click();
+await page.locator('li').first().getByRole('checkbox').click();
+await page.getByRole('button', {name: 'Clear Completed'}).click();
 ```
 
 </div>
@@ -714,12 +647,6 @@ await page.getByRole('button', {name: 'Add'}).click();
 <div style="text-align: center; margin-top: 0.8em; font-size: 1.1em;">
 
 **4️⃣** ✨ sees the updated browser state → continues or reports back
-
-</div>
-
-<div style="font-size: 0.85em; background: var(--bg-card); padding: 0.5em 1em; border-radius: 8px; margin-top: 0.5em;">
-
-**Loop ends when:** ✅ Task complete | ⏱️ Timeout | 🔢 Max steps | 💰 Token budget | ❌ Repeated errors
 
 </div>
 
@@ -772,19 +699,19 @@ await page.getByRole('button', {name: 'Add'}).click();
 
 <div style="font-size: 0.85em; margin-bottom: 0.5em;">
 
-<pre style="padding: 1em; border-radius: 8px; overflow-x: auto; background: #1e1e1e; font-size: 0.7em;">
-<code style="color: #9cdcfe; !important;">
-{
-  "method": "tools/call",
-  "params": {
-    "name": "browser_run_code",
-    "arguments": {
-      "code": "async (page) => { await page.goto('http://localhost:3000'); await page.getByPlaceholder('Add a new task...').fill('Buy groceries'); await page.getByPlaceholder('Add a new task...').press('Enter'); const newTodo = page.locator('li', { hasText: 'Buy groceries' }); /*await newTodo.getByRole('checkbox').click();*/ /*const pendingCount = await page.locator('text=Pending Tasks:').textContent();console.log(`Status: ${pendingCount}`);  await page.getByRole('button', { name: 'Clear Completed' }).click();*/        }"
-    }
-  }
+```
+async (page) => {
+  await page.goto('http://localhost:3000');
+  await page.locator('li').first().getByRole('checkbox').click();
+  await page.getByRole('button', { name: 'Clear Completed' }).click();
 }
-</code>
-</pre>
+```
+
+</div>
+
+<div style="font-size: 0.85em; color: var(--text-secondary);">
+
+**Result:** Navigate → Check first task → Clear it
 
 </div>
 
@@ -819,8 +746,8 @@ Now let's see it in action!
 <div>2. 👀 <b>Explorer</b> — "I find what to test"</div>
 <div>3. 👊 <b>Breaker</b> — "I break 1000 ways"</div>
 <div>4. 🌀 <b>Chaos Maker</b> — "I find flaky tests"</div>
-<div>5. 😇 <b>Naive User</b> — "Like your grandma"</div>
-<div>6. 🔍 <b>Investigator</b> — "Why did test fail (bug or test setup)?" <== <b>Today's demo</b></div> 
+<div>5. 😇 <b>Naive User</b> — "I act like your grandma"</div>
+<div>6. 🔍 <b>Investigator</b> — "Is it a bug?" <== <b>Today's demo</b></div> 
 
 </div>
 
@@ -833,23 +760,16 @@ Now let's see it in action!
 <div class="timeline-item">
 <div style="font-size: 2em;">1️⃣</div>
 <div style="font-size: 1.2em; font-weight: bold;">💥 Break It</div>
-<div>Change app code</div>
 </div>
 
 <div class="timeline-item">
 <div style="font-size: 2em;">2️⃣</div>
 <div style="font-size: 1.2em; font-weight: bold;">❌ Test Fails</div>
-<div>Run test, see red</div>
 </div>
 
 <div class="timeline-item">
 <div style="font-size: 2em;">3️⃣</div>
 <div style="font-size: 1.2em; font-weight: bold;">✨ AI Investigates</div>
-</div>
-
-<div class="timeline-item">
-<div style="font-size: 2em;">4️⃣</div>
-<div>✨ explains + recommends</div>
 </div>
 
 </div>
@@ -867,62 +787,24 @@ Now let's see it in action!
 <div style="text-align: center; margin: 1.5em 0;">
 
 ```
-📋 Jenkins ──► 🎭 Tests ──► ❌ Fail ──► 🔍 Investigator ──┬──► 📧 MailHog
+📋 Jenkins ──► 🎭 Tests ──► ❌ Fail ──► 🔍 Investigator ──┬──► 📧 Mail
   (:5555)        │                        (:3500)         │      (:8025)
                  ▼                           │            │
             🌐 Todo App ◄────────────────────┘            └──► 📊 Report
-              (:3000)        ✨ Claude AI + MCP
-                              (investigate UI)
+              (:3000)        ✨ AI + MCP
+                      (investigate UI && test specs)
 ```
-
-</div>
-
-<div style="text-align: center; font-size: 0.9em; color: var(--text-secondary);">
-
-**Start with:** `/workshop-start` · **Stop with:** `/workshop-end`
 
 </div>
 
 ---
 
-## Demo Setup: Two Projects 📁
-
-<div class="comparison">
-<div>
-
-**todo-list** (App)
-
-- The application code
-- Nuxt 3 + Vue 3
-- Run with `npm run dev`
-- **We change code here**
-
-</div>
-<div>
-
-<div class="emoji-medium">
-
-→
-
-</div>
-
-</div>
-<div>
-
-**todo-list-playwright** (Tests)
-
-- Regression tests
-- Run: `npx playwright test`
-- Jenkins: http://localhost:5555/job/todo-list-playwright
-
-</div>
-</div>
-
-<div style="text-align: center; margin-top: 1em;">
-
-**Provide user story to AI, help me analyze the defect**
-
-</div>
+## Demo Setup:
+  URLs:
+  - Todo App: http://localhost:3000
+  - MailHog: http://localhost:8025
+  - Test Investigator: http://localhost:3500/api/health
+  - Jenkins: http://localhost:5555
 
 ---
 ## Baseline: Simple Todo App ✅
@@ -1017,10 +899,7 @@ Now let's see it in action!
 
 **QA Engineers**
 
-Spend time on test **design** not test **maintenance**:
-
-- Write test code
-- Maintain selectors
+Spend time on test **design** not test **maintenance**
 
 </div>
 <div class="icon-box icon-box-purple">
@@ -1032,9 +911,6 @@ Spend time on test **design** not test **maintenance**:
 Tests fix themselves
 when you change code
 
-- No "I broke tests"
-- ✨ updates tests for you, your team review
-- Ship faster
 
 </div>
 <div class="icon-box icon-box-green">
@@ -1043,19 +919,15 @@ when you change code
 
 **Managers**
 
-Significant reduction
-in test maintenance
-
-- Team more productive
-- Faster releases
-- Clear return on investment
+Reduction in test maintenance,
+faster releases
 
 </div>
 </div>
 
 ---
 
-## Give me a number 📊
+## Show me numbers 📊
 
 | Metric | Before | After | Impact |
 |--------|--------|-------|--------|
@@ -1068,36 +940,37 @@ in test maintenance
 
 ---
 
-## 🤖 Token Costs 📊
+## Cost: Pennies Per Task 💰
 
 <div class="columns">
-<div>
+<div class="glass-card" style="text-align: center;">
 
-**Context Usage (200K tokens)**
+### Per Task Cost
 
-| Component | % |
-|-----------|---|
-| 🧠 System prompt | 3% |
-| 🔧 System tools | 7% |
-| 🌉 **MCP tools** | **8%** |
-| 🔄 Auto-compact | 22% |
-
-</div>
-<div>
-
-**What This Costs**
-
-- **Per investigation:** $0.05-0.15
-- **Per test written:** $0.02-0.08
-- **Monthly:** ~$20
-
-<div class="metric-box">
-
-🤖 adds 8% overhead but saves hours!
+| Task | Haiku | Sonnet |
+|------|-------|--------|
+| Investigation | $0.04 | $0.12 |
+| Write test | $0.02 | $0.06 |
+| Fix selector | $0.01 | $0.03 |
 
 </div>
+<div class="glass-card" style="text-align: center;">
+
+### Monthly Estimate
+
+| Usage | Cost | Time Saved |
+|-------|------|------------|
+| Light (Haiku) | ~$5 | ~4 hrs |
+| Medium (Sonnet) | ~$15 | ~8 hrs |
+| Heavy (Sonnet) | ~$30 | ~16 hrs |
 
 </div>
+</div>
+
+<div style="text-align: center; margin-top: 1em; font-size: 0.85em; color: var(--text-secondary);">
+
+*Based on Claude API pricing Jan 2025: Haiku $1/$5, Sonnet $3/$15 per MTok — [claude.com/pricing](https://claude.com/pricing)*
+
 </div>
 
 ---
@@ -1142,44 +1015,6 @@ in test maintenance
 <li><strong>Month 4:</strong> Pattern #4 - Chaos Agent <span class="badge badge-orange">Kill flaky tests</span></li>
 <li><strong>Month 6+:</strong> All Patterns Combined <span class="badge badge-green">Full automation</span></li>
 </ul>
-
----
-
-## Getting Started Today (just 5 minutes) 🚀
-
-<div class="columns">
-<div>
-
-**1️⃣ Install**
-
-```bash
-npm install @playwright/mcp
-```
-
-**2️⃣ Configure** (claude_desktop_config.json)
-
-```
-{ 
-  "mcpServers": {
-    "playwright": {
-      "command": "npx",
-      "args": ["@playwright/mcp"]
-    }
-  }  
-}
-```
-
-</div>
-<div>
-
-**3️⃣ Start Using**
-
-- Open Claude Desktop
-- Say: *"Help me test my app"*
-- Done! ✅
-
-</div>
-</div>
 
 ---
 
@@ -1289,45 +1124,6 @@ Start with non-critical tests first.
 </div>
 </div>
 
-</div>
-
-
----
-
-## MCP vs Commercial Tools 🔄
-
-<div class="columns">
-<div>
-
-### Open-Source MCP Tools 🆓
-
-| Tool | Provider | Strength |
-|------|----------|-------|
-| **Playwright** | Microsoft | E2E Testing |
-| **Chrome DevTools** | Google | Debugging |
-| **Puppeteer** | Community | Scraping |
-| **Selenium** | @angiejones | Multi-browser |
-
-**Pros:** Free, local, customizable
-**Cons:** DIY integration, self-hosted
-
-</div>
-<div>
-
-### Commercial Platforms 💰
-
-| Tool | Strength |
-|------|----------|
-| **TestSprite** | AI-native testing |
-| **Mabl** | Low-code + AI |
-| **Katalon** | Enterprise suite |
-| **Applitools** | Visual AI |
-| **BrowserStack** | Cloud browsers |
-
-**Pros:** Managed, support, CI/CD
-**Cons:** Subscription cost
-
-</div>
 </div>
 
 ---
