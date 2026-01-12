@@ -394,9 +394,9 @@ style: |
 - What is MCP?
 - How AI controls browser
 
-**Part 3: Demo**
-- New code → Test fails
-- AI investigates with MCP
+**Part 3: Live Demo**
+- Run `/investigate` command
+- Watch AI debug in real-time
 
 </div>
 <div>
@@ -407,8 +407,8 @@ style: |
 **Part 5: Get Started**
 - Week 1 plan, ROI numbers
 
-**Reference: 6 Patterns**
-- Details at end of slides
+**What's next?**
+- Workflow integration
 
 </div>
 </div>
@@ -437,17 +437,15 @@ style: |
 
 🕐 If you installed a **thief alarm** to protect your house.
 
-🕐 It **beeps at 3 AM**, you can't ignore it — what if it's real?
+🕐 It **beeps at 3 AM**, you can't ignore.
 
-🕐 So you check cameras, check the alarm, **lose sleep**...
+🕐 So you checking everything...
 
 🕐 Just to realize **it was a cat** ...
 
 </div>
 
 <div style="margin-top: 1.5em; font-size: 1.4em; font-weight: bold; color: var(--accent-orange);">
-
-**Tests are like that thief alarm.**
 
 </div>
 
@@ -461,47 +459,83 @@ style: |
 
 ---
 
+## **Tests are like that thief alarm**
+> *Yesterday, everything was green. What changed?*
+
+<div style="font-size: 0.65em; text-align: left; background: #1a1a2e; padding: 0.8em; border-radius: 8px; font-family: monospace;">
+
+```
+$ npx playwright test
+
+Running 5 tests using 1 worker
+
+  ✓  should display initial tasks (1.2s)
+  ✗  should mark a task as complete (2.1s)
+     Error: Locator.click: Error: strict mode violation
+     Call log: waiting for getByRole('checkbox')
+
+  ✗  should delete a task (1.8s)
+  ✗  should clear completed tasks (1.5s)
+  ✗  should clear all tasks (1.4s)
+
+  1 passed (1.2s)
+  4 failed
+```
+
+</div>
+
+<div style="font-size: 1.1em; color: var(--text-secondary); margin-top: 1em;">
+
+
+</div>
+
+---
+
 ## AI is Changing Everything 🤯
 
 <div class="four-columns">
 <div>
 
 **Before 2022**
-⏰ 30 min/test
+📝 Manual scripting
 😰 High maintenance
 
 </div>
 <div>
 
 **2022: ChatGPT**
-🤯 AI can code!
-🧪 Auto complete test spec. 
+🤯 AI understands and generates tests (code)
+📋 Explain errors
 
 </div>
 
 <div>
 
-**2024: AI Agent**
-🤖 AI interacts with outside world.
-🎯 It runs tests and suggests fixes.
+**2024: AI Agents**
+🤖 AI uses tools:
+`bash` · `browser` · `API` · `database` · `git` · `docker`
+
 </div>
 
 <div>
 
-**2026**
-🤔 What's next?
-🔮 You can imagine...
+**2025: MCP**
+🔌 MCP - Model Context Protocol
+🔧 Any tool, one interface 
+(like USB for AI)
 
 </div>
 </div>
 
-<div style="text-align: center; margin-top: 1.5em; font-size: 1.2em; color: var(--text-secondary);">
+<div style="text-align: center; margin-top: 1em; font-size: 0.9em; color: var(--text-secondary);">
+
+From "AI writes code" → "AI **runs** code and **sees** results"
 
 </div>
 
 ---
 
-## What if ✨ can actually **DEBUG your test**?
+## It possible for ✨ to actually **DEBUG your test**
 
 <div style="text-align: center; margin: 1.5em 0; line-height: 1.8;">
 
@@ -513,7 +547,7 @@ style: |
 
 ---
 
-## First, ✨ needs to **SEE your UI** efficiently
+## Firstly, ✨ needs to **SEE your UI** efficiently
 
 <div class="columns">
 <div style="text-align: center;">
@@ -523,8 +557,6 @@ style: |
 </div>
 <div>
 
-### The Challenge
-
 | Method | What AI Gets |
 |--------|--------------|
 | 📸 Screenshot | Pixels → OCR needed |
@@ -533,40 +565,11 @@ style: |
 
 <div style="margin-top: 1em; font-size: 0.9em; color: var(--text-secondary);">
 
-Now it sees, how about acting?
+Depending on your needs...
 
 </div>
 
 </div>
-</div>
-
-
-
----
-
-## Introducing: MCP 🤖
-
-<div style="text-align: center; margin: 0.5em 0;">
-
-<div style="font-size: 1.2em; margin-bottom: 0.8em;">
-
-**Model Context Protocol** — The universal language for AI ↔ Tools
-
-</div>
-
-<div style="font-size: 1.3em; margin: 1em 0; padding: 0.8em; background: var(--bg-card); border-radius: 12px; display: inline-block;">
-
-👤 You → ✨ AI ←→ 🤖 MCP ←→ 🔧 Any Tool
-
-</div>
-
-</div>
-
-
-<div style="text-align: center; margin-top: 1em; font-size: 1em; color: var(--text-secondary);">
-
-Think of MCP as **USB for AI** — one connector, many devices
-
 </div>
 
 ---
@@ -576,7 +579,7 @@ Think of MCP as **USB for AI** — one connector, many devices
 <div class="columns">
 <div>
 
-| Tool | Best For |
+| Tool | Focus |
 |------|----------|
 | **Playwright MCP** (Microsoft) | E2E testing, A11y trees |
 | **DevTools MCP** (Google) | Performance, debugging |
@@ -589,14 +592,13 @@ Think of MCP as **USB for AI** — one connector, many devices
 
 ### Our Choice: Playwright 🎭
 
-✅ **Built-in A11y Tree** — AI vision
+✅ Built-in A11y Tree — AI vision
 
-✅ **Modern API** — auto-wait
+✅ Modern API — auto-wait
 
-✅ **Microsoft backed** — reliable
+✅ Microsoft backed — reliable
 
-✅ **MCP-native** — designed for AI integration
-
+✅ MCP-native — designed for AI integration
 </div>
 </div>
 
@@ -608,11 +610,9 @@ Now let's see **how** AI uses Playwright MCP...
 
 ---
 
-## The Loop: See → Think → Act → Repeat 🔄
+## Simple Loop: See → Think → Act → Repeat 🔄
 
-<div style="font-size: 0.9em; color: var(--text-secondary); margin-bottom: 0.5em;">
-Using our Todo List app as example (http://localhost:3000)
-</div>
+> /investigate "Todo List" test report: "should mark a task as complete" failed
 
 <div class="columns">
 <div>
@@ -620,9 +620,9 @@ Using our Todo List app as example (http://localhost:3000)
 **1️⃣ 🎭 reads browser → ✨**
 
 ```
-checkbox "Watch Netflix" [checked]
+checkbox "Watch Netflix" [unchecked]
 checkbox "Go shopping" [unchecked]
-button "Clear Completed"
+text "Watch Netflix" (no strikethrough)
 ```
 
 <div style="font-size: 0.85em; color: var(--text-secondary);">A11y Tree: semantic, compact</div>
@@ -630,15 +630,15 @@ button "Clear Completed"
 </div>
 <div>
 
-**2️⃣ You tell ✨ what you want**
+**2️⃣ Test report tells ✨ what failed**
 
-> "Check 'Go shopping' then clear completed"
+> "Checkbox clicked but strikethrough never appeared"
 
 **3️⃣ ✨ generates → 🎭 executes**
 
 ```
-await page.locator('li').first().getByRole('checkbox').click();
-await page.getByRole('button', {name: 'Clear Completed'}).click();
+await page.getByRole('checkbox').first().click();
+// observe: does strikethrough appear?
 ```
 
 </div>
@@ -646,7 +646,8 @@ await page.getByRole('button', {name: 'Clear Completed'}).click();
 
 <div style="text-align: center; margin-top: 0.8em; font-size: 1.1em;">
 
-**4️⃣** ✨ sees the updated browser state → continues or reports back
+**4️⃣** ✨ sees no change
+> → **back to 1️⃣** → reads CSS → **2️⃣** thinks → **3️⃣** inspects styles → **repeat until root cause found** or certain max steps reached
 
 </div>
 
@@ -702,8 +703,8 @@ await page.getByRole('button', {name: 'Clear Completed'}).click();
 ```
 async (page) => {
   await page.goto('http://localhost:3000');
-  await page.locator('li').first().getByRole('checkbox').click();
-  await page.getByRole('button', { name: 'Clear Completed' }).click();
+  // await page.locator('li').first().getByRole('checkbox').click();
+  // await page.getByRole('button', { name: 'Clear Completed' }).click();
 }
 ```
 
@@ -720,36 +721,32 @@ async (page) => {
 
 ---
 
-<!-- _class: lead -->
+## Common AI Testing Patterns 🤖
 
-# Now You Know the Base 🎓
+<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.8em; font-size: 0.9em;">
 
-<div class="emoji-large">
-
-✅
-
-</div>
-
-<div style="font-size: 1.3em; margin: 2em;">
-
-Now let's see it in action!
+<div>1. 🔧 Writer — You describe, I write</div>
+<div>2. 👀 Explorer — I find what to test</div>
+<div>3. 👊 Breaker — I break 1000 ways</div>
+<div>4. 🌀 Chaos Maker — I find flaky tests</div>
+<div>5. 😇 Naive User — I act like your grandma</div>
+<div>6. 🔍 Investigator — Is it a bug? <== <b>Today's demo</b></div>
 
 </div>
 
 ---
 
-## Common AI Testing Patterns 🤖
+<!-- _class: lead -->
 
-<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.8em; font-size: 0.9em;">
+## Enough Theory 📚
 
-<div>1. 🔧 <b>Test Spec Writer</b> — "You describe, I write"</div>
-<div>2. 👀 <b>Explorer</b> — "I find what to test"</div>
-<div>3. 👊 <b>Breaker</b> — "I break 1000 ways"</div>
-<div>4. 🌀 <b>Chaos Maker</b> — "I find flaky tests"</div>
-<div>5. 😇 <b>Naive User</b> — "I act like your grandma"</div>
-<div>6. 🔍 <b>Investigator</b> — "Is it a bug?" <== <b>Today's demo</b></div> 
+<div class="emoji-large">
+
+💥
 
 </div>
+
+# Let's Break Something
 
 ---
 
@@ -759,24 +756,31 @@ Now let's see it in action!
 
 <div class="timeline-item">
 <div style="font-size: 2em;">1️⃣</div>
-<div style="font-size: 1.2em; font-weight: bold;">💥 Break It</div>
+<div style="font-size: 1.1em; font-weight: bold;">Check the app</div>
+<div style="font-size: 0.8em; color: var(--text-secondary);">http://localhost:3000</div>
 </div>
 
 <div class="timeline-item">
 <div style="font-size: 2em;">2️⃣</div>
-<div style="font-size: 1.2em; font-weight: bold;">❌ Test Fails</div>
+<div style="font-size: 1.1em; font-weight: bold;">Run tests</div>
+<div style="font-size: 0.8em; color: var(--text-secondary);">npx playwright test</div>
 </div>
 
 <div class="timeline-item">
 <div style="font-size: 2em;">3️⃣</div>
-<div style="font-size: 1.2em; font-weight: bold;">✨ AI Investigates</div>
+<div style="font-size: 1.1em; font-weight: bold;">AI investigates</div>
+<div style="font-size: 0.8em; color: var(--accent-cyan);">/investigate</div>
 </div>
 
 </div>
 
-<div style="text-align: center; margin-top: 1em; font-size: 0.9em; color: #666;">
+<div style="text-align: center; margin-top: 1.5em;">
 
-*Demo shows Pattern #6: Investigator*
+<div style="font-size: 1.1em; padding: 0.8em; background: var(--bg-card); border-radius: 12px; display: inline-block;">
+
+Watch AI **control the browser** and **discover the root cause** 🔍
+
+</div>
 
 </div>
 
@@ -794,19 +798,15 @@ Now let's see it in action!
               (:3000)        ✨ AI + MCP
                       (investigate UI && test specs)
 ```
-
-</div>
-
----
-
-## Demo Setup:
   URLs:
   - Todo App: http://localhost:3000
   - MailHog: http://localhost:8025
   - Test Investigator: http://localhost:3500/api/health
   - Jenkins: http://localhost:5555
+</div>
 
 ---
+
 ## Baseline: Simple Todo App ✅
 <div style="text-align: center;">
 
@@ -887,6 +887,20 @@ Now let's see it in action!
 ![MailHog Investigation Email](screenshots/mailhog-investigation-email.png)
 
 </div>
+
+---
+
+<!-- _class: lead -->
+
+## It Found Something 🎉
+
+<div class="emoji-large">
+
+✅
+
+</div>
+
+# What Does This Mean for You?
 
 ---
 
@@ -977,15 +991,7 @@ faster releases
 
 <!-- _class: lead -->
 
-## Adoption plan 📅
-
-<div class="emoji-large">
-
-🗺️
-
-</div>
-
-### Dead Simple
+## Ready to Launch? 🚀
 
 ---
 
@@ -1018,12 +1024,6 @@ faster releases
 
 ---
 
-<!-- _class: lead -->
-
-## "But What About…" 🤔
-
----
-
 ## Limitations - Be Honest ⚠️
 
 <div class="columns">
@@ -1032,8 +1032,6 @@ faster releases
 **🤖 Does NOT Handle Well:**
 
 ❌ **Complex visual assertions**
-- Pixel-perfect comparisons
-- Dynamic canvas/charts
 
 ❌ **Non-deterministic content**
 - Real-time data feeds
@@ -1048,24 +1046,22 @@ faster releases
 **Still Needs Human Review:**
 
 ⚠️ **Business logic validation**
-- ✨ doesn't know your domain rules
-
 ⚠️ **Edge case prioritization**
 - ✨ finds many issues, you decide importance
 
 ⚠️ **Security-sensitive tests**
 - Don't expose credentials to ✨
 
-**Rule of thumb:** ✨ = 80% of work, Human = 20% judgment
+**Rule of thumb:** 
+- 80% ✨ work
+- 20% Human judgment
 
 </div>
 </div>
 
 ---
 
-## FAQs ❓
-
-<div style="font-size: 0.75em;">
+## FAQs: Top Concerns ❓
 
 <div class="columns">
 <div>
@@ -1073,57 +1069,94 @@ faster releases
 **❓ Will ✨ replace me?**
 
 <div class="metric-box">
-No. ✨ replaces *tasks*, not *roles*.
+
+No. ✨ replaces **tasks**, not **roles**.
+
 You do creative work, ✨ does repetitive work.
-</div>
 
-**❓ What if ✨ makes mistakes?**
-
-<div class="metric-box">
-Git protects you.
 </div>
 
 **❓ Isn't it expensive?**
 
 <div class="metric-box">
-Cost: $20-50/month
+
+**$20-50/month** — a coffee a day already cost $27/month in Vietnam  ☕
+
 </div>
 
 </div>
 <div>
 
-**❓ Does it work with our setup?**
+**❓ What if ✨ makes mistakes?**
 
 <div class="metric-box">
-✅ Nodejs 21+
-✅ 🎭 (any)
-</div>
 
-**❓ Do I need to learn ✨?**
+Git protects you. Wrong fix? → `git revert` in 10 seconds.
 
-<div class="metric-box">
-No coding skills needed. You speak English.
 </div>
 
 **❓ What if it breaks tests?**
 
 <div class="metric-box">
-✨ suggests, you approve via PR.
-Wrong? `git revert` in 10 seconds.
+
+✨ **suggests**, you **approve** via PR.
+
 Start with non-critical tests first.
+
+</div>
+
+</div>
+</div>
+
+---
+
+## FAQs: Technical Questions 🔧
+
+<div class="columns">
+<div>
+
+**❓ Does it work with our setup?**
+
+<div class="metric-box">
+
+✅ Node.js 21+
+
+✅ Playwright (any version)
+
+✅ Windows, Mac, Linux
+
 </div>
 
 **❓ What about sensitive data?**
 
 <div class="metric-box">
+
 ✅ Use staging environments only
+
 ✅ Never expose prod credentials
-✅ 🤖 runs locally - data stays on your machine
+
+✅ Claude runs locally — data stays on your machine
+
 </div>
 
 </div>
+<div>
+
+**❓ Do I need to learn?**
+
+<div class="metric-box">
+
+Just the basics:
+
+✅ Clear instructions ("write a test for...")
+
+✅ Review what it generates
+
+✅ Guide with feedback
+
 </div>
 
+</div>
 </div>
 
 ---
@@ -1256,142 +1289,5 @@ Start with non-critical tests first.
 <div style="text-align: center; margin-top: 0.5em; font-size: 0.9em;">
 
 📄 **Copy-paste prompts:** `presentation_cheatsheet.md`
-
-</div>
-
----
-
-## Pattern #1: Code Writer 🔧
-
-<div class="columns">
-<div>
-
-**What you say:**
-> "Create a test: user logs in with wrong password, sees error"
-
-⏰ **Before:** 30 min → ⚡ **After:** 30 sec
-
-</div>
-<div>
-
-```
-test('login fails', async ({ page }) => {
-  await page.goto('/login');
-  await page.fill('[data-testid="email"]',
-    'test@example.com');
-  await page.click('button[type="submit"]');
-  await expect(page.locator('.error'))
-    .toContainText('Invalid');
-});
-```
-
-</div>
-</div>
-
----
-
-## Pattern #2: Explorer 👀
-
-<div class="columns">
-<div>
-
-**You tested:** ✅ Happy path
-
-**✨ finds:** ❌ 12 missing test cases
-
-</div>
-<div>
-
-```
-You: "Explore checkout"
-
-✨: [Clicks everything]
-    📋 Found: 3 forms, 2 dead buttons
-    💡 Suggested: 12 new tests
-```
-
-</div>
-</div>
-
----
-
-## Pattern #3: Breaker 👊
-
-**You test:** `'test@test.com'` (1 case)
-
-**✨ tests:** 1000+ variations including:
-- `'test@test..com'`
-- `'💩@test.com'`
-- `'<script>alert(1)</script>'`
-
-🐛 Finds 15 edge cases that crash your app
-
----
-
-## Pattern #4: Chaos Maker 🌀
-
-**Problem:** Test passes Monday, fails Wednesday
-
-**Solution:**
-```
-You: "Run 100x with chaos"
-✨: Failed 7/100 times
-    Root cause: Missing wait for animation
-    Fix provided ✅
-```
-
----
-
-## Pattern #5: Naive User 😇
-
-**Your test:** Perfect path (login → email → password → submit)
-
-**Real user:** Random clicks, double submits, spaces in fields
-
-**✨ finds:** App crashes on double submit, tab order broken
-
----
-
-## Pattern #6: Investigator 🔍
-
-**Problem:** Test failed, you don't know why
-
-**Solution:**
-```
-You: "Test failed. Investigate."
-✨: [Opens browser, compares expected vs actual]
-    🔍 Button text changed: "Add Task" → "Add Item"
-    💡 Fix: Update selector
-```
-
----
-
-## Resources & Citations 📚
-
-<div style="font-size: 0.75em;">
-
-<div class="columns">
-<div>
-
-**Statistics & Research:**
-- [World Quality Report 2022-2023](https://www.itconvergence.com/blog/true-cost-breakdown-of-implementing-and-supporting-test-automation/#:~:text=in%20test%20automation.-,Script%20Maintenance,-Test%20scripts%20require) - 50% maintenance cost
-- [DevOps Survey: IT Disruptions](https://devops.com/survey-it-teams-spend-about-a-third-of-time-responding-to-disruptions/) - 55% teams spend 20+ hrs/week
-
-**Playwright MCP:**
-- [Microsoft: Playwright E2E with AI](https://developer.microsoft.com/blog/the-complete-playwright-end-to-end-story-tools-ai-and-real-world-workflows)
-- [GitHub - microsoft/playwright-mcp](https://github.com/microsoft/playwright-mcp)
-
-</div>
-<div>
-
-**Case Studies:**
-- [SuperAGI: Playwright-MCP Case Study](https://superagi.com/case-study-how-microsofts-playwright-mcp-server-is-transforming-ai-agent-capabilities-in-real-world-scenarios/)
-
-**Community Guides:**
-- [ExecuteAutomation: Playwright + Claude MCP](https://medium.com/executeautomation/make-playwright-ui-testing-smart-with-model-context-protocol-of-claude-ai-18c26892193d)
-- [Modern Test Automation with AI & Playwright MCP](https://kailash-pathak.medium.com/modern-test-automation-with-ai-llm-and-playwright-mcp-model-context-protocol-0c311292c7fb)
-
-</div>
-</div>
 
 </div>
