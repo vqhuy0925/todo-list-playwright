@@ -29,7 +29,10 @@ Playwright E2E tests for the Todo List Vue application. Used in the AI-assisted 
 | Command | Description |
 |---------|-------------|
 | `/verify` | Verify app state with Playwright |
-| `/investigate` | Run AI test failure investigation |
+| `/investigate [report]` | Interactive AI investigation with browser (demo-friendly) |
+| `/jenkins` | Trigger Jenkins build (automated flow with email) |
+| `/investigate-logs` | View AI investigation logs |
+| `/workshop-next-sprint` | Switch to new feature branch (tests will fail) |
 
 ## Manual Startup (Alternative)
 
@@ -238,12 +241,18 @@ If MailHog inbox is empty:
 - [ ] Run `/workshop-start` and verify all 3 services are running
 - [ ] Open http://localhost:8025 to verify MailHog is ready
 
-### Demo Flow
-1. **Show the failing test** - Run `npx playwright test` to see failure
-2. **Trigger Jenkins build** - http://localhost:5555/job/todo-list-playwright/build
-3. **Watch console output** - AI Investigation Results box appears
-4. **Check email** - Open http://localhost:8025 for investigation report
-5. **View full report** - Click "Playwright Report" link in Jenkins build page
+### Demo Flow - Two Options
+
+**Option A: Interactive Demo (Recommended for teaching)**
+1. Run `npx playwright test` to generate report with failures
+2. Run `/investigate` - watch AI navigate browser and discover issues
+3. AI shows findings in human-readable format, takes screenshots
+
+**Option B: Jenkins CI/CD Demo (Shows full integration)**
+1. Trigger Jenkins build - http://localhost:5555/job/todo-list-playwright/build
+2. Watch console output - AI Investigation Results box appears
+3. Check email - http://localhost:8025 for investigation report
+4. View HTML report - Click "Playwright Report" link in Jenkins
 
 ### Quick Recovery
 If something goes wrong during demo:

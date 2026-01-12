@@ -45,23 +45,11 @@ netstat -ano | findstr ":3000 :3500 :8025"
 
 ### 2. Kill Node Processes on Ports
 
-**Option A: PowerShell (Recommended for Windows)**
-```powershell
-# Kill processes on workshop ports (safe - ignores if not found)
-Get-NetTCPConnection -LocalPort 3000 -ErrorAction SilentlyContinue | ForEach-Object { Stop-Process -Id $_.OwningProcess -Force -ErrorAction SilentlyContinue }
-Get-NetTCPConnection -LocalPort 3500 -ErrorAction SilentlyContinue | ForEach-Object { Stop-Process -Id $_.OwningProcess -Force -ErrorAction SilentlyContinue }
-```
-
-**Option B: Git Bash / MSYS2**
+Use the helper script (works reliably from any shell):
 ```bash
-# Kill process on port 3000
-netstat -ano | grep ":3000" | awk '{print $5}' | head -1 | xargs -I {} taskkill //PID {} //F 2>/dev/null || true
-
-# Kill process on port 3500
-netstat -ano | grep ":3500" | awk '{print $5}' | head -1 | xargs -I {} taskkill //PID {} //F 2>/dev/null || true
+powershell -ExecutionPolicy Bypass -File "C:/work/workshop/todo-list-playwright/kill-port.ps1" -Port 3000
+powershell -ExecutionPolicy Bypass -File "C:/work/workshop/todo-list-playwright/kill-port.ps1" -Port 3500
 ```
-
-Note: Use `//PID` and `//F` (double slashes) for taskkill in Git Bash to avoid path conversion issues.
 
 ### 3. Stop MailHog (unless --keep-mailhog)
 If arguments do NOT contain `--keep-mailhog`:

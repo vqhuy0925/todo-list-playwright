@@ -49,45 +49,46 @@ If no model specified, default to `haiku`.
 
 ## Startup Procedure
 
+**IMPORTANT:** Use the TodoWrite tool to create and track progress through these steps. This ensures reliable execution and gives the user visibility into progress.
+
 Execute these commands in order. Use PowerShell for Windows compatibility.
 
 ### 0. Clear Stale Processes (Prevent EADDRINUSE)
-Before starting services, kill any stale processes on workshop ports using PowerShell:
-```powershell
-# Kill processes on workshop ports (safe - ignores if not found)
-Get-NetTCPConnection -LocalPort 3000 -ErrorAction SilentlyContinue | ForEach-Object { Stop-Process -Id $_.OwningProcess -Force -ErrorAction SilentlyContinue }
-Get-NetTCPConnection -LocalPort 3500 -ErrorAction SilentlyContinue | ForEach-Object { Stop-Process -Id $_.OwningProcess -Force -ErrorAction SilentlyContinue }
-```
-
-Or with bash (Git Bash compatible):
+Before starting services, kill any stale processes on workshop ports:
 ```bash
-netstat -ano | grep ":3000" | awk '{print $5}' | head -1 | xargs -I {} taskkill //PID {} //F 2>/dev/null || true
-netstat -ano | grep ":3500" | awk '{print $5}' | head -1 | xargs -I {} taskkill //PID {} //F 2>/dev/null || true
+powershell -ExecutionPolicy Bypass -File "C:/work/workshop/todo-list-playwright/kill-port.ps1" -Port 3000
+powershell -ExecutionPolicy Bypass -File "C:/work/workshop/todo-list-playwright/kill-port.ps1" -Port 3500
 ```
 
-### 1. Start MailHog (Docker)
+### 1. Switch Todo App to master branch
+The demo requires the `master` branch (contains the bug). Switch before starting:
+```bash
+cd C:/work/workshop/todo-list && git checkout master
+```
+
+### 2. Start MailHog (Docker)
 ```bash
 docker start mailhog
 ```
 If container doesn't exist:
 ```bash
-docker run -d -p 1025:1025 -p 8025:8025 --name mailhog mailhog/mailhog
+docker run -d -p 1025:1025 -p 8025:8025 --name mailhog mailhog/mailhog:v1.0.1
 ```
 
-### 2. Start Todo App (Background)
+### 3. Start Todo App (Background)
 ```bash
 cd C:/work/workshop/todo-list && npm run dev
 ```
 Run in background mode. **This is the slowest service to start (~8 seconds).**
 
-### 3. Start Test Investigator (Background)
+### 4. Start Test Investigator (Background)
 Use the selected model:
 ```bash
 cd C:/work/workshop/test-investigator-ai && set CLAUDE_MODEL=<selected-model> && npm start
 ```
 Run in background mode.
 
-### 4. Wait and Verify
+### 5. Wait and Verify
 Wait **10 seconds** (Todo App Vue dev server is slowest to start), then verify each service with PowerShell.
 
 **IMPORTANT:** Use `localhost` (not `127.0.0.1`) for verification - some services bind to IPv6 `[::1]` only, and `localhost` handles both IPv4 and IPv6.
@@ -121,13 +122,20 @@ Workshop Demo Ready
 | Test Investigator | 3500 | [status] |
 | MailHog           | 8025 | [status] |
 
+Todo App Branch: master (working code)
 AI Model: [selected-model]
 
-Quick Commands:
-  npx playwright test --reporter=json,html  # Run tests
-  /investigate                              # Analyze failures
-  /verify                                   # Check app state
-  /workshop-end                             # Stop services
+What's Next:
+  1. Run tests:  npx playwright test --reporter=json,html
+     (Add --headed to watch browser: npx playwright test --headed)
+  2. All tests should PASS (green) on master branch
+  3. Switch to buggy branch:  /workshop-next-sprint
+  4. Run tests again - they will FAIL
+  5. Investigate failures:  /investigate
+
+Other Commands:
+  /verify                 # Check app state
+  /workshop-end           # Stop services
 
 URLs:
   Todo App:          http://localhost:3000
