@@ -590,15 +590,17 @@ Depending on your needs...
 </div>
 <div class="glass-card">
 
-### Our Choice: Playwright 🎭
+### Our Choice: Playwright MCP 🎭
 
-✅ Built-in A11y Tree — AI vision
+✅ Built-in A11y Tree
 
 ✅ Modern API — auto-wait
 
-✅ Microsoft backed — reliable
+✅ Microsoft backed
 
-✅ MCP-native — designed for AI integration
+✅ MCP-native
+
+✅✅ Can run Playwright test spec by browser_run_code tool
 </div>
 </div>
 
