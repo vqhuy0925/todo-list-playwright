@@ -387,48 +387,82 @@ style: |
 <div class="columns">
 <div>
 
-**Part 1: The Problem**
-- Why your time is wasted
+**🤔 The Problem**
+- Why debugging tests wastes time
 
-**Part 2: The Solution**
-- What is MCP?
-- How AI controls browser
+**✨ The Solution**
+- MCP: AI-to-Browser bridge
+- 5 QA Use Cases overview
 
-**Part 3: Live Demo**
-- Run `/investigate` command
-- Watch AI debug in real-time
+**🎬 Live Demo**
+- Use Case 3: Failed Test Investigation
 
 </div>
 <div>
 
-**Part 4: For Your Role**
+**👥 For Your Role**
 - QA, Developer, Manager benefits
 
-**Part 5: Get Started**
-- Week 1 plan, ROI numbers
-
-**What's next?**
-- Workflow integration
+**🚀 Get Started**
+- The Roadmap (5 Use Cases)
+- Week 1 action plan
 
 </div>
+</div>
+
+---
+
+## What is Playwright, Playwright MCP? 🎭
+
+<div class="columns" style="align-items: start;">
+<div>
+
+### Playwright
+
+**End-to-end testing framework** by Microsoft
+
+- Write tests in JS/TS/Python/Java
+- Cross-browser: Chrome, Firefox, Safari
+- Auto-wait, screenshots, tracing
+
+> 🧑‍💻 **You** write code → Playwright runs it
+
+</div>
+<div>
+
+### Playwright MCP
+
+**AI-to-Browser bridge** via Model Context Protocol
+
+- Uses Playwright under the hood
+- AI can see, click, type, navigate, **and run a Playwright test-code snippets**
+
+> ✨ **AI** decides → Playwright MCP executes
+
+</div>
+</div>
+
+<div style="text-align: center; margin-top: 1em; font-size: 0.85em; color: var(--text-secondary);">
+
+**MCP**: Designed for AI · Dynamic Discovery · Stateful · Standardized Schema · 2-way Communication
+
 </div>
 
 ---
 
 <!-- _class: lead -->
 
-## 🤔
+## So, what problem does this solve? 🤔
 
-<div style="font-size: 1.5em; margin: 2em 0;">
+<div style="font-size: 1.2em; color: var(--text-secondary);">
 
-**Who spent more time this week**
-**FIXING tests than WRITING tests?**
+Let's talk about the elephant in the room...
 
 </div>
 
 ---
 
-## Simple Truth
+## Simple Truth Story
 
 <div class="columns" style="align-items: start; gap: 2rem;">
 <div style="flex: 1.2;">
@@ -441,7 +475,7 @@ style: |
 
 🕐 So you checking everything...
 
-🕐 Just to realize **it was a cat** ...
+🕐 Just to realize **it was a cat** 🐱 ...
 
 </div>
 
@@ -489,124 +523,35 @@ Running 5 tests using 1 worker
 
 </div>
 
+
+
 ---
 
-## AI is Changing Everything 🤯
+<!-- _class: lead -->
 
-<div class="four-columns">
-<div>
+## How Does AI work with Playwright MCP? 🔧
 
-**Before 2022**
-📝 Manual scripting
-😰 High maintenance
+<div class="emoji-large">
 
-</div>
-<div>
-
-**2022: ChatGPT**
-🤯 AI understands and generates tests (code)
-📋 Explain errors
+👨‍💻
 
 </div>
 
-<div>
+<div style="font-size: 1.2em;">
 
-**2024: AI Agents**
-🤖 AI uses tools:
-`bash` · `browser` · `API` · `database` · `git` · `docker`
-
-</div>
-
-<div>
-
-**2025: MCP**
-🔌 MCP - Model Context Protocol
-🔧 Any tool, one interface 
-(like USB for AI)
-
-</div>
-</div>
-
-<div style="text-align: center; margin-top: 1em; font-size: 0.9em; color: var(--text-secondary);">
-
-From "AI writes code" → "AI **runs** code and **sees** results"
+Let's dive into the **technical concepts**
 
 </div>
 
 ---
 
-## It possible for ✨ to actually **DEBUG your test**
+## Setup ✨ to **DEBUG your test**
 
 <div style="text-align: center; margin: 1.5em 0; line-height: 1.8;">
 
-<div style="font-size: 1.4em;">👤 You → ✨ → 🤖 → 🎭 → 🌐 Browser → 🎭 → 🤖</div>
-<div style="font-size: 1.5em;">&emsp;&emsp;&emsp;&emsp;&emsp;↑ <span style="opacity: 0.5;">─────────────────────────</span> ↓</div>
-<div style="font-size: 1em; color: var(--text-secondary);">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;🔄 result back to ✨</div>
-
-</div>
-
----
-
-## Firstly, ✨ needs to **SEE your UI** efficiently
-
-<div class="columns">
-<div style="text-align: center;">
-
-![AI Vision Comparison](screenshots/ai-vision-comparison.jpg)
-
-</div>
-<div>
-
-| Method | What AI Gets |
-|--------|--------------|
-| 📸 Screenshot | Pixels → OCR needed |
-| 🌳 Full DOM | `<div class="sc-bdfBwQ">...` |
-| ✅ **A11y Tree** | `button "Add Task"` |
-
-<div style="margin-top: 1em; font-size: 0.9em; color: var(--text-secondary);">
-
-Depending on your needs...
-
-</div>
-
-</div>
-</div>
-
----
-
-## MCP Tool Options 🛠️
-
-<div class="columns">
-<div>
-
-| Tool | Focus |
-|------|----------|
-| **Playwright MCP** (Microsoft) | E2E testing, A11y trees |
-| **DevTools MCP** (Google) | Performance, debugging |
-| **Claude in Chrome** (Anthropic) | Real browser, visual AI |
-| **Selenium MCP** | Multi-browser, legacy |
-| **Browserbase** | Cloud browsers |
-
-</div>
-<div class="glass-card">
-
-### Our Choice: Playwright MCP 🎭
-
-✅ Built-in A11y Tree
-
-✅ Modern API — auto-wait
-
-✅ Microsoft backed
-
-✅ MCP-native
-
-✅✅ Can run Playwright test spec by browser_run_code tool
-</div>
-</div>
-
-<div style="text-align: center; margin-top: 1em; font-size: 1.1em;">
-
-Now let's see **how** AI uses Playwright MCP...
+<div style="font-size: 1.4em;">👤 You → ✨ → 🎭 → 🌐 Browser → 🎭 → ✨</div>
+<div style="font-size: 1.5em;">&emsp;&emsp;&emsp;&emsp;&emsp;↑ <span style="opacity: 0.5;">─────────────────────</span> ↓</div>
+<div style="font-size: 0.85em; color: var(--text-secondary);">✨ Claude &emsp; 🎭 Playwright MCP &emsp; 🌐 Browser</div>
 
 </div>
 
@@ -648,8 +593,7 @@ await page.getByRole('checkbox').first().click();
 
 <div style="text-align: center; margin-top: 0.8em; font-size: 1.1em;">
 
-**4️⃣** ✨ sees no change
-> → **back to 1️⃣** → reads CSS → **2️⃣** thinks → **3️⃣** inspects styles → **repeat until root cause found** or certain max steps reached
+**4️⃣** ✨ sees no change → **repeat loop** until root cause found
 
 </div>
 
@@ -698,41 +642,180 @@ await page.getByRole('checkbox').first().click();
 
 ---
 
-## Example: Multiple Actions in 1 Message 🎯
+## How Does AI "See" Your Web Page? 👁️
 
-<div style="font-size: 0.85em; margin-bottom: 0.5em;">
+<div class="columns">
+<div>
 
-```
-async (page) => {
-  await page.goto('http://localhost:3000');
-  // await page.locator('li').first().getByRole('checkbox').click();
-  // await page.getByRole('button', { name: 'Clear Completed' }).click();
-}
-```
+**3 Ways AI Can Perceive:**
 
-</div>
-
-<div style="font-size: 0.85em; color: var(--text-secondary);">
-
-**Result:** Navigate → Check first task → Clear it
+| Method | What AI Sees |
+|--------|--------------|
+| **Screenshot** | Pixels (like human) |
+| **HTML DOM** | Raw markup (verbose) |
+| **A11y Tree** ✅ | Semantic structure |
 
 </div>
+<div>
 
+**Why A11y Tree Wins:**
 
+```
+button "Add Task" [enabled]
+checkbox "Buy milk" [checked]
+text "Buy milk" [strikethrough]
+list "Tasks" [3 items]
+```
 
+- **Compact**: ~100x smaller than DOM
+- **Semantic**: Roles, states, names
+- **Actionable**: Maps to user intent
+
+</div>
+</div>
+
+<div style="text-align: center; margin-top: 1em; font-size: 0.9em; color: var(--text-secondary);">
+
+`browser_snapshot` returns A11y tree → AI understands page structure instantly
+
+</div>
 
 ---
 
-## Common AI Testing Patterns 🤖
+<!-- _class: lead -->
 
-<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.8em; font-size: 0.9em;">
+## Now, From a QA Perspective... 🎯
 
-<div>1. 🔧 Writer — You describe, I write</div>
-<div>2. 👀 Explorer — I find what to test</div>
-<div>3. 👊 Breaker — I break 1000 ways</div>
-<div>4. 🌀 Chaos Maker — I find flaky tests</div>
-<div>5. 😇 Naive User — I act like your grandma</div>
-<div>6. 🔍 Investigator — Is it a bug? <== <b>Today's demo</b></div>
+<div class="emoji-large">
+
+👩‍💻
+
+</div>
+
+<div style="font-size: 1.2em;">
+
+How can **QA Engineers** leverage AI + Playwright MCP in daily work?
+
+</div>
+
+---
+
+## Playwright MCP Testing Use Cases 🤖
+
+<div class="icon-grid" style="grid-template-columns: repeat(5, 1fr); font-size: 0.85em;">
+
+<div class="icon-box icon-box-purple">
+<div style="font-size: 1.5em;">🔍</div>
+1. Exploratory Testing → Test Plan
+</div>
+
+<div class="icon-box icon-box-blue">
+<div style="font-size: 1.5em;">📝</div>
+2. User Story → Test Plan → Automated Tests
+</div>
+
+<div class="icon-box icon-box-red">
+<div style="font-size: 1.5em;">🐛</div>
+3. Failed Test Investigation
+</div>
+
+<div class="icon-box icon-box-green">
+<div style="font-size: 1.5em;">✅</div>
+4. Bug Retest
+</div>
+
+<div class="icon-box icon-box-orange">
+<div style="font-size: 1.5em;">📋</div>
+5. Bug Logging / Document Issues
+</div>
+
+</div>
+
+<div style="text-align: center; margin-top: 1.5em; font-size: 1.1em;">
+
+Each use case = **AI prompt** + **Playwright MCP browser automation**
+
+</div>
+
+---
+
+<!-- _class: -->
+
+## Use Case 1: Exploratory Testing 🔍
+
+<div class="glass-card" style="font-size: 0.85em;">
+
+**Prompt**:
+Act as QA Engineer. Explore [URL/Feature].
+- Navigate main flows, inspect UI/UX, test edge cases, check accessibility
+- Generate test plan with: Summary, 5-10 test cases (happy path + edge cases), bugs/observations, Playwright snippets
+
+</div>
+
+---
+
+<!-- _class:  -->
+
+## Use Case 2: User Story → Tests 📝
+
+<div class="glass-card" style="font-size: 0.8em;">
+
+**Prompt**:
+Act as QA Lead. Convert user stories [PASTE STORIES] to test suite.
+- Phase 1: Extract acceptance criteria, generate test plan (happy path + 2 edge cases per story)
+- Phase 2: Verify live via Playwright MCP, confirm selectors exist
+- Phase 3: Generate TypeScript test file with POM patterns, getByRole locators
+
+</div>
+
+---
+
+<!-- _class: -->
+
+## Use Case 3: Failed Test Investigation 🐛 <span style="color: var(--accent-cyan);">← Today's Demo!</span>
+
+<div class="glass-card" style="font-size: 0.8em;">
+
+**Prompt**:
+Act as Debugging Specialist. Investigate failing test [FILE + ERROR].
+- Live reproduce the failure
+- Analyze element state (visibility, ARIA, overlays)
+- Check console errors & network (4xx/5xx)
+- Provide: RCA, proposed fix, live verification of fix
+
+</div>
+
+---
+
+<!-- _class: -->
+
+## Use Case 4: Bug Retest ✅
+
+<div class="glass-card" style="font-size: 0.8em;">
+
+**Prompt**:
+Act as QA Engineer. Retest bug [BUG ID + REPRO STEPS].
+- Execute repro steps via Playwright
+- Inspect page state, network calls, DOM
+- Verdict: 'BUG FIXED' or 'BUG PERSISTS' with evidence
+- Bonus: Generate regression test script
+
+</div>
+
+---
+
+<!-- _class: -->
+
+## Use Case 5: Bug Logging 📋
+
+<div class="glass-card" style="font-size: 0.8em;">
+
+**Prompt**:
+Act as QA Engineer. Document bug [DESCRIBE ISSUE].
+- Repro & record steps
+- Collect: console logs, network errors, screenshot
+- Analyze root cause (hidden/disabled/covered element)
+- Generate bug report: title, severity, environment, steps, actual vs expected, technical evidence
 
 </div>
 
@@ -759,19 +842,16 @@ async (page) => {
 <div class="timeline-item">
 <div style="font-size: 2em;">1️⃣</div>
 <div style="font-size: 1.1em; font-weight: bold;">Check the app</div>
-<div style="font-size: 0.8em; color: var(--text-secondary);">http://localhost:3000</div>
 </div>
 
 <div class="timeline-item">
 <div style="font-size: 2em;">2️⃣</div>
 <div style="font-size: 1.1em; font-weight: bold;">Run tests</div>
-<div style="font-size: 0.8em; color: var(--text-secondary);">npx playwright test</div>
 </div>
 
 <div class="timeline-item">
 <div style="font-size: 2em;">3️⃣</div>
 <div style="font-size: 1.1em; font-weight: bold;">AI investigates</div>
-<div style="font-size: 0.8em; color: var(--accent-cyan);">/investigate</div>
 </div>
 
 </div>
@@ -788,110 +868,6 @@ Watch AI **control the browser** and **discover the root cause** 🔍
 
 ---
 
-## Demo setup 🏗️
-
-<div style="text-align: center; margin: 1.5em 0;">
-
-```
-📋 Jenkins ──► 🎭 Tests ──► ❌ Fail ──► 🔍 Investigator ──┬──► 📧 Mail
-  (:5555)        │                        (:3500)         │      (:8025)
-                 ▼                           │            │
-            🌐 Todo App ◄────────────────────┘            └──► 📊 Report
-              (:3000)        ✨ AI + MCP
-                      (investigate UI && test specs)
-```
-  URLs:
-  - Todo App: http://localhost:3000
-  - MailHog: http://localhost:8025
-  - Test Investigator: http://localhost:3500/api/health
-  - Jenkins: http://localhost:5555
-</div>
-
----
-
-## Baseline: Simple Todo App ✅
-<div style="text-align: center;">
-
-![Initial App](screenshots/base_todo_list.png)
-</div>
-
----
-
-## Feature Evolution: Sprint 2 Features 🚀
-
-<div class="columns">
-<div style="text-align: center;">
-
-### Priority Badges
-
-![New App Default](screenshots/new-app-default.png)
-
-</div>
-<div style="text-align: center;">
-
-### Filter Dropdown
-
-![New App Filter](screenshots/new-app-filter.png)
-
-</div>
-</div>
-
-<div style="text-align: center; margin-top: 0.5em; font-size: 0.9em;">
-
-✨ **Color-coded priorities** · **Filtering** · **Edit/Delete icons**
-
-</div>
-
----
-
-## Inline Edit Mode 📝
-
-<div class="columns">
-<div style="text-align: center;">
-
-![Edit Mode](screenshots/new-app-edit-mode.png)
-
-</div>
-<div class="glass-card">
-
-### Edit Workflow
-
-1. Click ✏️ **edit icon**
-2. Modify **task title**
-3. Change **priority** dropdown
-4. Click ✅ **save button**
-
-<div style="margin-top: 1em; padding: 0.8em; background: rgba(239,68,68,0.2); border-radius: 8px;">
-
-⚠️ **Test Challenge**: View mode and Edit mode have different DOM structures!
-
-</div>
-
-</div>
-</div>
-
----
-
-<div style="text-align: center;">
-
-**Screenshot: AI investigates the issue**
-
-![Jenkins AI Investigation Console](screenshots/jenkins-ai-investigation-console.png)
-
-</div>
-
----
-
-<div style="text-align: center;">
-
-**Screenshot: Notification email**
-
-![MailHog Investigation Email](screenshots/mailhog-investigation-email.png)
-
-</div>
-
----
-
 <!-- _class: lead -->
 
 ## It Found Something 🎉
@@ -901,8 +877,6 @@ Watch AI **control the browser** and **discover the root cause** 🔍
 ✅
 
 </div>
-
-# What Does This Mean for You?
 
 ---
 
@@ -952,7 +926,6 @@ faster releases
 | 🎲 Find flaky | Never | Auto | **Catch early** |
 | 🔍 Debug fail | 15 min | 5 min | **3x faster** |
 | ⏰ Maintenance | High | Low | **More test coverage** |
-
 
 ---
 
@@ -1018,10 +991,11 @@ faster releases
 ## The Roadmap 🗓️
 
 <ul class="todo-list">
-<li><strong>Month 1:</strong> Pattern #1 - Code Writer <span class="badge badge-blue">Save 5 hrs/week</span></li>
-<li><strong>Month 2:</strong> Pattern #2 - Explorer <span class="badge badge-purple">Find coverage gaps</span></li>
-<li><strong>Month 4:</strong> Pattern #4 - Chaos Agent <span class="badge badge-orange">Kill flaky tests</span></li>
-<li><strong>Month 6+:</strong> All Patterns Combined <span class="badge badge-green">Full automation</span></li>
+<li><strong>Month 1:</strong> Use Case 3 - Failed Test Investigation 🐛 <span class="badge badge-blue">Quick wins</span></li>
+<li><strong>Month 2:</strong> Use Case 1 - Exploratory Testing 🔍 <span class="badge badge-purple">Find coverage gaps</span></li>
+<li><strong>Month 3:</strong> Use Case 2 - User Story → Tests 📝 <span class="badge badge-cyan">Faster delivery</span></li>
+<li><strong>Month 4:</strong> Use Case 4 & 5 - Bug Retest & Logging ✅📋 <span class="badge badge-orange">Full cycle</span></li>
+<li><strong>Month 12+:</strong> Integrated with event hooks <span class="badge badge-green">Vibe QA</span></li>
 </ul>
 
 ---
@@ -1082,7 +1056,7 @@ You do creative work, ✨ does repetitive work.
 
 <div class="metric-box">
 
-**$20-50/month** — a coffee a day already cost $27/month in Vietnam  ☕
+**From $20/month** — a coffee a day cost $27/month ☕
 
 </div>
 
@@ -1246,44 +1220,38 @@ Just the basics:
 
 ---
 
-## 6 Patterns Quick Reference 📋
+## 5 Use Cases Quick Reference 📋
 
-<div class="icon-grid" style="margin: 1em 0;">
-
-<div class="icon-box icon-box-blue">
-<div style="font-size: 1.8em;">🔧</div>
-<strong>Pattern #1: Code Writer</strong>
-"You describe, I write"
-</div>
+<div class="icon-grid" style="margin: 1em 0; grid-template-columns: repeat(5, 1fr);">
 
 <div class="icon-box icon-box-purple">
-<div style="font-size: 1.8em;">👀</div>
-<strong>Pattern #2: Explorer</strong>
-"I find what to test"
+<div style="font-size: 1.8em;">🔍</div>
+<strong>#1: Exploratory</strong>
+Generate test plans
+</div>
+
+<div class="icon-box icon-box-blue">
+<div style="font-size: 1.8em;">📝</div>
+<strong>#2: User Story</strong>
+→ Automated tests
 </div>
 
 <div class="icon-box icon-box-red">
-<div style="font-size: 1.8em;">👊</div>
-<strong>Pattern #3: Breaker</strong>
-"I break 1000 ways"
-</div>
-
-<div class="icon-box icon-box-orange">
-<div style="font-size: 1.8em;">🌀</div>
-<strong>Pattern #4: Chaos Maker</strong>
-"I find flaky tests"
-</div>
-
-<div class="icon-box icon-box-yellow">
-<div style="font-size: 1.8em;">😇</div>
-<strong>Pattern #5: Naive User</strong>
-"Like your grandma"
+<div style="font-size: 1.8em;">🐛</div>
+<strong>#3: Investigation</strong>
+RCA for failures
 </div>
 
 <div class="icon-box icon-box-green">
-<div style="font-size: 1.8em;">🔍</div>
-<strong>Pattern #6: Investigator</strong>
-"Why did test fail?"
+<div style="font-size: 1.8em;">✅</div>
+<strong>#4: Bug Retest</strong>
+Verify fixes work
+</div>
+
+<div class="icon-box icon-box-orange">
+<div style="font-size: 1.8em;">📋</div>
+<strong>#5: Bug Logging</strong>
+Document issues
 </div>
 
 </div>
