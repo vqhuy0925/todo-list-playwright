@@ -266,6 +266,7 @@ style: |
   }
 
   .badge-blue { background: rgba(34, 211, 238, 0.2); color: #22d3ee; }
+  .badge-cyan { background: rgba(34, 211, 238, 0.2); color: #22d3ee; }
   .badge-purple { background: rgba(139, 92, 246, 0.2); color: #a78bfa; }
   .badge-orange { background: rgba(249, 115, 22, 0.2); color: #fb923c; }
   .badge-green { background: rgba(74, 222, 128, 0.2); color: #4ade80; }
@@ -881,7 +882,7 @@ faster releases
 
 <div style="text-align: center; margin-top: 1em; font-size: 0.85em; color: var(--text-secondary);">
 
-*Based on Claude API pricing Jan 2025: — [claude.com/pricing](https://claude.com/pricing)*
+*Based on Claude API pricing Jan 2026 — [claude.com/pricing](https://claude.com/pricing)*
 
 </div>
 
@@ -1048,7 +1049,7 @@ Start with non-critical tests first.
 
 <div class="metric-box">
 
-✅ Node.js 21+
+✅ Node.js 18+
 
 ✅ Playwright (any version)
 
@@ -1121,12 +1122,6 @@ At least the basics of the technologies and prompting skills. Remember:
 
 <!-- _class: lead -->
 
-# Question? 🙋
-
----
-
-<!-- _class: lead -->
-
 # Key Takeaways 💡
 
 <div class="glass-card" style="text-align: left; padding: 1.5em 2em; max-width: 600px; margin: 1em auto;">
@@ -1173,47 +1168,9 @@ At least the basics of the technologies and prompting skills. Remember:
 
 ---
 
-## 5 Use Cases Quick Reference 📋
+<!-- _class: lead -->
 
-<div class="icon-grid" style="margin: 1em 0; grid-template-columns: repeat(5, 1fr);">
-
-<div class="icon-box icon-box-purple">
-<div style="font-size: 1.8em;">🔍</div>
-<strong>#1: Exploratory</strong>
-Generate test plans
-</div>
-
-<div class="icon-box icon-box-blue">
-<div style="font-size: 1.8em;">📝</div>
-<strong>#2: User Story</strong>
-→ Automated tests
-</div>
-
-<div class="icon-box icon-box-red">
-<div style="font-size: 1.8em;">🐛</div>
-<strong>#3: Investigation</strong>
-RCA for failures
-</div>
-
-<div class="icon-box icon-box-green">
-<div style="font-size: 1.8em;">✅</div>
-<strong>#4: Bug Retest</strong>
-Verify fixes work
-</div>
-
-<div class="icon-box icon-box-orange">
-<div style="font-size: 1.8em;">📋</div>
-<strong>#5: Bug Logging</strong>
-Document issues
-</div>
-
-</div>
-
-<div style="text-align: center; margin-top: 0.5em; font-size: 0.9em;">
-
-📄 **Copy-paste prompts:** `presentation_cheatsheet.md`
-
-</div>
+# Questions? 🙋
 
 ---
 
