@@ -371,7 +371,7 @@ style: |
 
 # Stop Fighting Your Tests 🛑
 
-## With Playright MCP
+## With Playwright MCP
 
 <div class="emoji-large" style="margin: 0.5em 0;">
 
