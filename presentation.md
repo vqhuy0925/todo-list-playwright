@@ -103,6 +103,17 @@ style: |
     text-align: center;
   }
 
+  .center-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+  .center-img img {
+    max-width: 100%;
+    height: auto;
+  }
+
   .four-columns {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -360,7 +371,7 @@ style: |
 
 # Stop Fighting Your Tests 🛑
 
-## Cut Maintenance Cost With Our 3 Friends
+## With Playright MCP
 
 <div class="emoji-large" style="margin: 0.5em 0;">
 
@@ -369,8 +380,6 @@ style: |
 </div>
 
 <div style="font-size: 1.2em; margin-top: 1em;">
-
-**AI** · **MCP** · **Playwright**
 
 </div>
 
@@ -388,7 +397,7 @@ style: |
 <div>
 
 **🤔 The Problem**
-- Why debugging tests wastes time
+- Consume many resource to maintain test-suite
 
 **✨ The Solution**
 - MCP: AI-to-Browser bridge
@@ -419,11 +428,11 @@ style: |
 
 ### Playwright
 
-**End-to-end testing framework** by Microsoft
+**End-to-end testing framework**
 
-- Write tests in JS/TS/Python/Java
-- Cross-browser: Chrome, Firefox, Safari
-- Auto-wait, screenshots, tracing
+- Write tests in JS/TS/Java/...
+- Support: Chrome, Firefox, Safari, ...
+- Auto-wait, screenshots, mock/track/modify network traffic
 
 > 🧑‍💻 **You** write code → Playwright runs it
 
@@ -432,10 +441,11 @@ style: |
 
 ### Playwright MCP
 
-**AI-to-Browser bridge** via Model Context Protocol
+**AI-to-Browser bridge**
 
 - Uses Playwright under the hood
-- AI can see, click, type, navigate, **and run a Playwright test-code snippets**
+- Supports AI to see, click, type, navigate,
+- "Debug style" communication 
 
 > ✨ **AI** decides → Playwright MCP executes
 
@@ -444,7 +454,7 @@ style: |
 
 <div style="text-align: center; margin-top: 1em; font-size: 0.85em; color: var(--text-secondary);">
 
-**MCP**: Designed for AI · Dynamic Discovery · Stateful · Standardized Schema · 2-way Communication
+**MCP**: Dynamic Discovery · Stateful · Standardized Schema · 2-way Communication
 
 </div>
 
@@ -545,19 +555,17 @@ Let's dive into the **technical concepts**
 
 ---
 
-## Setup ✨ to **DEBUG your test**
+## Setup a simple loop for ✨ to **DEBUG your test**
 
-<div style="text-align: center; margin: 1.5em 0; line-height: 1.8;">
+<div class="center-img">
 
-<div style="font-size: 1.4em;">👤 You → ✨ → 🎭 → 🌐 Browser → 🎭 → ✨</div>
-<div style="font-size: 1.5em;">&emsp;&emsp;&emsp;&emsp;&emsp;↑ <span style="opacity: 0.5;">─────────────────────</span> ↓</div>
-<div style="font-size: 0.85em; color: var(--text-secondary);">✨ Claude &emsp; 🎭 Playwright MCP &emsp; 🌐 Browser</div>
+![See → Think → Act Loop](screenshots/simple-loop-see-think-act.png)
 
 </div>
 
 ---
 
-## Simple Loop: See → Think → Act → Repeat 🔄
+## See → Think → Act → Repeat 🔄
 
 > /investigate "Todo List" test report: "should mark a task as complete" failed
 
@@ -594,89 +602,6 @@ await page.getByRole('checkbox').first().click();
 <div style="text-align: center; margin-top: 0.8em; font-size: 1.1em;">
 
 **4️⃣** ✨ sees no change → **repeat loop** until root cause found
-
-</div>
-
----
-
-## Under the Hood: MCP Tool Calls 🔍
-
-<div class="columns">
-<div>
-
-**`browser_run_code`** - The Power Tool
-
-```
-{
-  "name": "browser_run_code",
-  "arguments": {
-    "code": "async (page) => {
-      await page.getByRole('button',
-        {name: 'Add'}).click();
-    }"
-  }
-}
-```
-
-</div>
-<div>
-
-**Other Key Tools:**
-
-| Tool | Purpose |
-|------|---------|
-| `browser_snapshot` | Get A11y tree |
-| `browser_click` | Click elements |
-| `browser_type` | Input text |
-| `browser_navigate` | Go to URL |
-| `browser_wait_for` | Wait for text |
-
-<div style="font-size: 0.8em; margin-top: 0.5em;">
-
-[microsoft/playwright-mcp](https://github.com/microsoft/playwright-mcp)
-
-</div>
-
-</div>
-</div>
-
----
-
-## How Does AI "See" Your Web Page? 👁️
-
-<div class="columns">
-<div>
-
-**3 Ways AI Can Perceive:**
-
-| Method | What AI Sees |
-|--------|--------------|
-| **Screenshot** | Pixels (like human) |
-| **HTML DOM** | Raw markup (verbose) |
-| **A11y Tree** ✅ | Semantic structure |
-
-</div>
-<div>
-
-**Why A11y Tree Wins:**
-
-```
-button "Add Task" [enabled]
-checkbox "Buy milk" [checked]
-text "Buy milk" [strikethrough]
-list "Tasks" [3 items]
-```
-
-- **Compact**: ~100x smaller than DOM
-- **Semantic**: Roles, states, names
-- **Actionable**: Maps to user intent
-
-</div>
-</div>
-
-<div style="text-align: center; margin-top: 1em; font-size: 0.9em; color: var(--text-secondary);">
-
-`browser_snapshot` returns A11y tree → AI understands page structure instantly
 
 </div>
 
@@ -739,32 +664,32 @@ Each use case = **AI prompt** + **Playwright MCP browser automation**
 
 ---
 
-<!-- _class: -->
+## Use Case 1: Exploratory Testing & Test Plan Generation 🔍
 
-## Use Case 1: Exploratory Testing 🔍
+<div class="glass-card" style="font-size: 0.8em;">
 
-<div class="glass-card" style="font-size: 0.85em;">
+**Prompt**: Act as QA Engineer. Explore [URL/Feature]. Navigate main flows, inspect UI/UX, test edge cases, check accessibility.
 
-**Prompt**:
-Act as QA Engineer. Explore [URL/Feature].
-- Navigate main flows, inspect UI/UX, test edge cases, check accessibility
-- Generate test plan with: Summary, 5-10 test cases (happy path + edge cases), bugs/observations, Playwright snippets
+**Output**: Generate test plan with:
+- Summary of application under test
+- 5-10 test cases (happy path + edge cases)
+- Bugs/observations found
+- Playwright snippets for automation
 
 </div>
 
 ---
 
-<!-- _class:  -->
-
-## Use Case 2: User Story → Tests 📝
+## Use Case 2: User Story → Test Plan → Automated Tests 📝
 
 <div class="glass-card" style="font-size: 0.8em;">
 
-**Prompt**:
-Act as QA Lead. Convert user stories [PASTE STORIES] to test suite.
-- Phase 1: Extract acceptance criteria, generate test plan (happy path + 2 edge cases per story)
-- Phase 2: Verify live via Playwright MCP, confirm selectors exist
-- Phase 3: Generate TypeScript test file with POM patterns, getByRole locators
+**Prompt**: Act as QA Lead. Convert user stories [PASTE STORIES] to test suite.
+
+**Phases**:
+- **Phase 1**: Extract acceptance criteria, generate test plan (happy path + 2 edge cases per story)
+- **Phase 2**: Verify live via Playwright MCP, confirm selectors exist
+- **Phase 3**: Generate TypeScript test file with POM patterns, getByRole locators
 
 </div>
 
@@ -787,14 +712,13 @@ Act as Debugging Specialist. Investigate failing test [FILE + ERROR].
 
 ---
 
-<!-- _class: -->
-
-## Use Case 4: Bug Retest ✅
+## Use Case 4: Bug Retest ❌→✅
 
 <div class="glass-card" style="font-size: 0.8em;">
 
-**Prompt**:
-Act as QA Engineer. Retest bug [BUG ID + REPRO STEPS].
+**Prompt**: Act as QA Engineer. Retest bug [BUG ID + REPRO STEPS].
+
+**Steps**:
 - Execute repro steps via Playwright
 - Inspect page state, network calls, DOM
 - Verdict: 'BUG FIXED' or 'BUG PERSISTS' with evidence
@@ -804,15 +728,14 @@ Act as QA Engineer. Retest bug [BUG ID + REPRO STEPS].
 
 ---
 
-<!-- _class: -->
-
-## Use Case 5: Bug Logging 📋
+## Use Case 5: Bug Logging / Document Issues 📋
 
 <div class="glass-card" style="font-size: 0.8em;">
 
-**Prompt**:
-Act as QA Engineer. Document bug [DESCRIBE ISSUE].
-- Repro & record steps
+**Prompt**: Act as QA Engineer. Document bug [DESCRIBE ISSUE].
+
+**Steps**:
+- Reproduce & record steps
 - Collect: console logs, network errors, screenshot
 - Analyze root cause (hidden/disabled/covered element)
 - Generate bug report: title, severity, environment, steps, actual vs expected, technical evidence
@@ -921,10 +844,10 @@ faster releases
 
 | Metric | Before | After | Impact |
 |--------|--------|-------|--------|
-| 📝 Write test | 30 min | 3 min | **10x faster** |
+| 📝 Write test spec | 60 min | ~5 min | **10x faster** |
 | 🔧 Fix selector | 15 min | Auto | **100% auto** |
-| 🎲 Find flaky | Never | Auto | **Catch early** |
-| 🔍 Debug fail | 15 min | 5 min | **3x faster** |
+| 🎲 Find flaky ("random")  | ... | Auto | **Catch early** |
+| 🔍 Debug fail | 15 min | Auto | **Auto** |
 | ⏰ Maintenance | High | Low | **More test coverage** |
 
 ---
@@ -958,7 +881,7 @@ faster releases
 
 <div style="text-align: center; margin-top: 1em; font-size: 0.85em; color: var(--text-secondary);">
 
-*Based on Claude API pricing Jan 2025: Haiku $1/$5, Sonnet $3/$15 per MTok — [claude.com/pricing](https://claude.com/pricing)*
+*Based on Claude API pricing Jan 2025: — [claude.com/pricing](https://claude.com/pricing)*
 
 </div>
 
@@ -995,7 +918,7 @@ faster releases
 <li><strong>Month 2:</strong> Use Case 1 - Exploratory Testing 🔍 <span class="badge badge-purple">Find coverage gaps</span></li>
 <li><strong>Month 3:</strong> Use Case 2 - User Story → Tests 📝 <span class="badge badge-cyan">Faster delivery</span></li>
 <li><strong>Month 4:</strong> Use Case 4 & 5 - Bug Retest & Logging ✅📋 <span class="badge badge-orange">Full cycle</span></li>
-<li><strong>Month 12+:</strong> Integrated with event hooks <span class="badge badge-green">Vibe QA</span></li>
+<li><strong>Month 12+:</strong> Integrated with event hooks <span class="badge badge-green">Autonomous</span></li>
 </ul>
 
 ---
@@ -1056,7 +979,7 @@ You do creative work, ✨ does repetitive work.
 
 <div class="metric-box">
 
-**From $20/month** — a coffee a day cost $27/month ☕
+**From $20/month** — a coffee a day cost $30/month ☕
 
 </div>
 
@@ -1122,7 +1045,7 @@ Start with non-critical tests first.
 
 <div class="metric-box">
 
-Just the basics:
+At least the basics of technologies, and prompting skill. Remember:
 
 ✅ Clear instructions ("write a test for...")
 
@@ -1260,4 +1183,93 @@ Document issues
 
 📄 **Copy-paste prompts:** `presentation_cheatsheet.md`
 
+</div>
+
+---
+
+<!-- _class: lead -->
+
+# Appendix: Technical Deep-Dive 🔧
+
+---
+
+## How Does AI "See" Your Web Page? 👁️
+
+<div class="columns">
+<div>
+
+**3 Ways AI Can Perceive:**
+
+| Method | What AI Sees |
+|--------|--------------|
+| **Screenshot** | Pixels (like human) |
+| **HTML DOM** | Raw markup (verbose) |
+| **A11y Tree** ✅ | Semantic structure |
+
+</div>
+<div>
+
+**Why A11y Tree Wins:**
+
+```
+button "Add Task" [enabled]
+checkbox "Buy milk" [checked]
+text "Buy milk" [strikethrough]
+list "Tasks" [3 items]
+```
+
+- **Compact**: ~100x smaller than DOM
+- **Semantic**: Roles, states, names
+- **Actionable**: Maps to user intent
+
+</div>
+</div>
+
+<div style="text-align: center; margin-top: 1em; font-size: 0.9em; color: var(--text-secondary);">
+
+`browser_snapshot` returns A11y tree → AI understands page structure instantly
+
+</div>
+
+---
+
+## Under the Hood: MCP Tool Calls 🔍
+
+<div class="columns">
+<div>
+
+**`browser_run_code`** - The Power Tool
+
+```
+{
+  "name": "browser_run_code",
+  "arguments": {
+    "code": "async (page) => {
+      await page.getByRole('button',
+        {name: 'Add'}).click();
+    }"
+  }
+}
+```
+
+</div>
+<div>
+
+**Other Key Tools:**
+
+| Tool | Purpose |
+|------|---------|
+| `browser_snapshot` | Get A11y tree |
+| `browser_click` | Click elements |
+| `browser_type` | Input text |
+| `browser_navigate` | Go to URL |
+| `browser_wait_for` | Wait for text |
+
+<div style="font-size: 0.8em; margin-top: 0.5em;">
+
+[microsoft/playwright-mcp](https://github.com/microsoft/playwright-mcp)
+
+</div>
+
+</div>
 </div>

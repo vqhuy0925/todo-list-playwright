@@ -184,6 +184,16 @@ Task tool:
 
 ## Common Issues
 
+### Bash commands on Windows: Use forward slashes
+Claude Code runs Bash via WSL/Git Bash. Backslashes in paths cause parsing errors:
+```bash
+# ❌ WRONG - backslashes fail with "unexpected EOF"
+copy "C:\Users\foo\file.png" "C:\work\dest\"
+
+# ✅ CORRECT - use forward slashes
+cp "C:/Users/foo/file.png" "C:/work/dest/"
+```
+
 ### Tests fail with "connection refused"
 Ensure Todo app is running on port 3000:
 ```bash
