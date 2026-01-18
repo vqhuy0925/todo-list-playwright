@@ -397,7 +397,7 @@ style: |
 <div>
 
 **🤔 The Problem**
-- Consume many resource to maintain test-suite
+- Requires significant resources to maintain test suite
 
 **✨ The Solution**
 - MCP: AI-to-Browser bridge
@@ -431,7 +431,7 @@ style: |
 **End-to-end testing framework**
 
 - Write tests in JS/TS/Java/...
-- Support: Chrome, Firefox, Safari, ...
+- Supports: Chrome, Firefox, Safari, ...
 - Auto-wait, screenshots, mock/track/modify network traffic
 
 > 🧑‍💻 **You** write code → Playwright runs it
@@ -444,8 +444,8 @@ style: |
 **AI-to-Browser bridge**
 
 - Uses Playwright under the hood
-- Supports AI to see, click, type, navigate,
-- "Debug style" communication 
+- Enables AI to see, click, type, navigate
+- Debug-style communication 
 
 > ✨ **AI** decides → Playwright MCP executes
 
@@ -483,7 +483,7 @@ Let's talk about the elephant in the room...
 
 🕐 It **beeps at 3 AM**, you can't ignore.
 
-🕐 So you checking everything...
+🕐 So you check everything...
 
 🕐 Just to realize **it was a cat** 🐱 ...
 
@@ -555,7 +555,7 @@ Let's dive into the **technical concepts**
 
 ---
 
-## Setup a simple loop for ✨ to **DEBUG your test**
+## Set up a simple loop for ✨ to **DEBUG your test**
 
 <div class="center-img">
 
@@ -821,8 +821,8 @@ Spend time on test **design** not test **maintenance**
 
 **Developers**
 
-Tests fix themselves
-when you change code
+Tests adapt automatically
+when code changes
 
 
 </div>
@@ -846,8 +846,8 @@ faster releases
 |--------|--------|-------|--------|
 | 📝 Write test spec | 60 min | ~5 min | **10x faster** |
 | 🔧 Fix selector | 15 min | Auto | **100% auto** |
-| 🎲 Find flaky ("random")  | ... | Auto | **Catch early** |
-| 🔍 Debug fail | 15 min | Auto | **Auto** |
+| 🎲 Detect flaky tests | ... | Auto | **Catch early** |
+| 🔍 Debug failure | 15 min | Auto | **Auto** |
 | ⏰ Maintenance | High | Low | **More test coverage** |
 
 ---
@@ -893,19 +893,49 @@ faster releases
 
 ---
 
-## Week 1: Baby Steps 👶
+## Getting Started with Playwright MCP 🚀
 
-<ul class="todo-list">
-<li><strong>Day 1:</strong> Install Claude Code 📦 <span class="time">5 min</span></li>
-<li><strong>Day 2:</strong> Write first AI-generated test 🤖 <span class="time">15 min</span></li>
-<li><strong>Day 3:</strong> Explore app with AI 🔍 <span class="time">10 min</span></li>
-<li><strong>Day 4:</strong> Fix a failing test 🔧 <span class="time">10 min</span></li>
-<li><strong>Day 5:</strong> Show the team! 🎉 <span class="time">5 min</span></li>
-</ul>
+<div class="columns">
+<div>
 
-<div style="text-align: center; margin-top: 1.5em; font-size: 1.2em;">
+### System Requirements
 
-**That's it. Don't overthink it.** 🎯
+- **Node.js 18+** required
+- MCP-compatible client (Claude Code, VS Code, Cursor, etc.)
+
+### Claude Code CLI
+
+```bash
+claude mcp add playwright \
+  npx @playwright/mcp@latest
+```
+
+</div>
+<div>
+
+### VS Code / Cursor
+
+Add to your MCP settings:
+
+```
+{
+  "mcpServers": {
+    "playwright": {
+      "command": "npx",
+      "args": ["@playwright/mcp@latest"]
+    }
+  }
+}
+```
+
+</div>
+</div>
+
+<div style="text-align: center; margin-top: 1em;">
+
+**Verify installation:** `npx @playwright/mcp@latest --help`
+
+📖 Full docs: [github.com/microsoft/playwright-mcp](https://github.com/microsoft/playwright-mcp)
 
 </div>
 
@@ -1041,11 +1071,11 @@ Start with non-critical tests first.
 </div>
 <div>
 
-**❓ Do I need to learn?**
+**❓ What do I need to learn?**
 
 <div class="metric-box">
 
-At least the basics of technologies, and prompting skill. Remember:
+At least the basics of the technologies and prompting skills. Remember:
 
 ✅ Clear instructions ("write a test for...")
 
@@ -1107,7 +1137,7 @@ At least the basics of technologies, and prompting skill. Remember:
 
 ✅ **AI investigates** test failures visually
 
-✅ **Priority + Edit features** = realistic regression
+✅ **See exactly** what AI sees and does
 
 ✅ **$20/month** for 10x faster maintenance
 
