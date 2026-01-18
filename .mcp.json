@@ -1,0 +1,18 @@
+{
+  "mcpServers": {
+    "playwright": {
+      "command": "cmd",
+      "args": [
+        "/c",
+        "npx",
+        "-y",
+        "--registry",
+        "https://registry.npmjs.org/",
+        "@playwright/mcp",
+        "--browser",
+        "chrome",
+        "--ignore-https-errors"
+      ]
+    }
+  }
+}
