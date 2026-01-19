@@ -398,27 +398,20 @@ style: |
 <div>
 
 **🤔 The Problem**
-- Requires significant resources to maintain test suite
+- Slow feedback loop
+- Requires significant resources to create and maintain automation test
 
 **✨ The Solution**
 - MCP: AI-to-Browser bridge
-- 5 QA Use Cases overview
 
 **🎬 Live Demo**
-- Use Case 3: Failed Test Investigation
 
 </div>
 <div>
 
-**👥 For Your Role**
-- QA, Developer, Manager benefits
-
-**🚀 Get Started**
-- The Roadmap (5 Use Cases)
-- Week 1 action plan
-
 </div>
 </div>
+
 
 ---
 
@@ -461,80 +454,56 @@ style: |
 
 ---
 
-<!-- _class: lead -->
+## Different applications Playwright / Playwright MCP
 
-## So, what problem does this solve? 🤔
-
-<div style="font-size: 1.2em; color: var(--text-secondary);">
-
-Let's talk about the elephant in the room...
-
-</div>
 
 ---
 
-## Simple Truth Story
+## Setup
 
-<div class="columns" style="align-items: start; gap: 2rem;">
-<div style="flex: 1.2;">
+<div class="columns">
+<div>
 
-<div style="font-size: 1.1em; line-height: 1.8;">
+### System Requirements
 
-🕐 If you installed a **thief alarm** to protect your house.
+- **Node.js 18+** required
+- MCP-compatible client (Claude Code, VS Code, Cursor, etc.)
 
-🕐 It **beeps at 3 AM**, you can't ignore.
+### Claude Code CLI
 
-🕐 So you check everything...
-
-🕐 Just to realize **it was a cat** 🐱 ...
-
-</div>
-
-<div style="margin-top: 1.5em; font-size: 1.4em; font-weight: bold; color: var(--accent-orange);">
-
-</div>
-
-</div>
-<div style="flex: 1;">
-
-![Sleepless developer at 3 AM](screenshots/sleepless-man-3am.jpg)
-
-</div>
-</div>
-
----
-
-## **Tests are like that thief alarm**
-> *Yesterday, everything was green. What changed?*
-
-<div style="font-size: 0.65em; text-align: left; background: #1a1a2e; padding: 0.8em; border-radius: 8px; font-family: monospace;">
-
-```
-$ npx playwright test
-
-Running 5 tests using 1 worker
-
-  ✓  should display initial tasks (1.2s)
-  ✗  should mark a task as complete (2.1s)
-     Error: Locator.click: Error: strict mode violation
-     Call log: waiting for getByRole('checkbox')
-
-  ✗  should delete a task (1.8s)
-  ✗  should clear completed tasks (1.5s)
-  ✗  should clear all tasks (1.4s)
-
-  1 passed (1.2s)
-  4 failed
+```bash
+claude mcp add playwright \
+  npx @playwright/mcp@latest
 ```
 
 </div>
+<div>
 
-<div style="font-size: 1.1em; color: var(--text-secondary); margin-top: 1em;">
+### VS Code / Cursor
 
+Add to your MCP settings:
+
+```
+{
+  "mcpServers": {
+    "playwright": {
+      "command": "npx",
+      "args": ["@playwright/mcp@latest"]
+    }
+  }
+}
+```
 
 </div>
+</div>
 
+<div style="text-align: center; margin-top: 1em;">
 
+**Verify installation:** `npx @playwright/mcp@latest --help`
+
+📖 Full docs: [github.com/microsoft/playwright-mcp](https://github.com/microsoft/playwright-mcp)
+
+</div>
 
 ---
 
@@ -553,6 +522,7 @@ Running 5 tests using 1 worker
 Let's dive into the **technical concepts**
 
 </div>
+
 
 ---
 
@@ -608,42 +578,26 @@ await page.getByRole('checkbox').first().click();
 
 ---
 
-<!-- _class: lead -->
-
-## Now, From a QA Perspective... 🎯
-
-<div class="emoji-large">
-
-👩‍💻
-
-</div>
-
-<div style="font-size: 1.2em;">
-
-How can **QA Engineers** leverage AI + Playwright MCP in daily work?
-
-</div>
-
----
-
 ## Playwright MCP Testing Use Cases 🤖
 
 <div class="icon-grid" style="grid-template-columns: repeat(5, 1fr); font-size: 0.85em;">
 
+
+<div class="icon-box icon-box-red">
+<div style="font-size: 1.5em;">🐛</div>
+1. Failed Test Investigation
+</div>
+
 <div class="icon-box icon-box-purple">
 <div style="font-size: 1.5em;">🔍</div>
-1. Exploratory Testing → Test Plan
+2. Exploratory Testing → Test Plan
 </div>
 
 <div class="icon-box icon-box-blue">
 <div style="font-size: 1.5em;">📝</div>
-2. User Story → Test Plan → Automated Tests
+3. User Story → Test Plan → Automated Tests
 </div>
 
-<div class="icon-box icon-box-red">
-<div style="font-size: 1.5em;">🐛</div>
-3. Failed Test Investigation
-</div>
 
 <div class="icon-box icon-box-green">
 <div style="font-size: 1.5em;">✅</div>
@@ -662,6 +616,56 @@ How can **QA Engineers** leverage AI + Playwright MCP in daily work?
 Each use case = **AI prompt** + **Playwright MCP browser automation**
 
 </div>
+
+---
+
+## *Yesterday, everything was green. What changed?*
+
+<div style="font-size: 0.65em; text-align: left; background: #1a1a2e; padding: 0.8em; border-radius: 8px; font-family: monospace;">
+
+```
+$ npx playwright test
+
+Running 5 tests using 1 worker
+
+  ✓  should display initial tasks (1.2s)
+  ✗  should mark a task as complete (2.1s)
+     Error: Locator.click: Error: strict mode violation
+     Call log: waiting for getByRole('checkbox')
+
+  ✗  should delete a task (1.8s)
+  ✗  should clear completed tasks (1.5s)
+  ✗  should clear all tasks (1.4s)
+
+  1 passed (1.2s)
+  4 failed
+```
+
+</div>
+
+<div style="font-size: 1.1em; color: var(--text-secondary); margin-top: 1em;">
+
+
+</div>
+
+---
+
+<!-- _class: lead -->
+
+## Now, From a QA Perspective... 🎯
+
+<div class="emoji-large">
+
+👩‍💻
+
+</div>
+
+<div style="font-size: 1.2em;">
+
+How can **QA Engineers** leverage AI + Playwright MCP in daily work?
+
+</div>
+
 
 ---
 
@@ -698,7 +702,7 @@ Each use case = **AI prompt** + **Playwright MCP browser automation**
 
 <!-- _class: -->
 
-## Use Case 3: Failed Test Investigation 🐛 <span style="color: var(--accent-cyan);">← Today's Demo!</span>
+## Use Case 3: Failed Test Investigation 🐛
 
 <div class="glass-card" style="font-size: 0.8em;">
 
@@ -743,214 +747,32 @@ Act as Debugging Specialist. Investigate failing test [FILE + ERROR].
 
 </div>
 
----
-
-<!-- _class: lead -->
-
-## Enough Theory 📚
-
-<div class="emoji-large">
-
-💥
-
-</div>
-
-# Let's Break Something
-
----
-
-## Demo Plan 📋
-
-<div class="timeline">
-
-<div class="timeline-item">
-<div style="font-size: 2em;">1️⃣</div>
-<div style="font-size: 1.1em; font-weight: bold;">Check the app</div>
-</div>
-
-<div class="timeline-item">
-<div style="font-size: 2em;">2️⃣</div>
-<div style="font-size: 1.1em; font-weight: bold;">Run tests</div>
-</div>
-
-<div class="timeline-item">
-<div style="font-size: 2em;">3️⃣</div>
-<div style="font-size: 1.1em; font-weight: bold;">AI investigates</div>
-</div>
-
-</div>
-
-<div style="text-align: center; margin-top: 1.5em;">
-
-<div style="font-size: 1.1em; padding: 0.8em; background: var(--bg-card); border-radius: 12px; display: inline-block;">
-
-Watch AI **control the browser** and **discover the root cause** 🔍
-
-</div>
-
-</div>
-
----
-
-<!-- _class: lead -->
-
-## It Found Something 🎉
-
-<div class="emoji-large">
-
-✅
-
-</div>
 
 ---
 
 ## What This Means for You 👥
 
-<div class="three-columns">
-<div class="icon-box icon-box-blue">
-
-<div style="font-size: 2em;">🧪</div>
-
-**QA Engineers**
-
-Spend time on test **design** not test **maintenance**
-
-</div>
+<div class="two-columns">
 <div class="icon-box icon-box-purple">
 
 <div style="font-size: 2em;">💻</div>
 
 **Developers**
 
-Tests adapt automatically
-when code changes
-
-
-</div>
-<div class="icon-box icon-box-green">
-
-<div style="font-size: 2em;">📊</div>
-
-**Managers**
-
-Reduction in test maintenance,
-faster releases
+Earlier feedback loop
 
 </div>
 </div>
+<div class="icon-box icon-box-blue">
 
----
+<div style="font-size: 2em;">🧪</div>
 
-## Show me numbers 📊
+**QA Engineers**
 
-| Metric | Before | After | Impact |
-|--------|--------|-------|--------|
-| 📝 Write test spec | 60 min | ~5 min | **10x faster** |
-| 🔧 Fix selector | 15 min | Auto | **100% auto** |
-| 🎲 Detect flaky tests | ... | Auto | **Catch early** |
-| 🔍 Debug failure | 15 min | Auto | **Auto** |
-| ⏰ Maintenance | High | Low | **More test coverage** |
-
----
-
-## Cost: Pennies Per Task 💰
-
-<div class="columns">
-<div class="glass-card" style="text-align: center;">
-
-### Per Task Cost
-
-| Task | Haiku | Sonnet |
-|------|-------|--------|
-| Investigation | $0.04 | $0.12 |
-| Write test | $0.02 | $0.06 |
-| Fix selector | $0.01 | $0.03 |
-
-</div>
-<div class="glass-card" style="text-align: center;">
-
-### Monthly Estimate
-
-| Usage | Cost | Time Saved |
-|-------|------|------------|
-| Light (Haiku) | ~$5 | ~4 hrs |
-| Medium (Sonnet) | ~$15 | ~8 hrs |
-| Heavy (Sonnet) | ~$30 | ~16 hrs |
-
-</div>
-</div>
-
-<div style="text-align: center; margin-top: 1em; font-size: 0.85em; color: var(--text-secondary);">
-
-*Based on Claude API pricing Jan 2026 — [claude.com/pricing](https://claude.com/pricing)*
+Spend less time on testing process
 
 </div>
 
----
-
-<!-- _class: lead -->
-
-## Ready to Launch? 🚀
-
----
-
-## Getting Started with Playwright MCP 🚀
-
-<div class="columns">
-<div>
-
-### System Requirements
-
-- **Node.js 18+** required
-- MCP-compatible client (Claude Code, VS Code, Cursor, etc.)
-
-### Claude Code CLI
-
-```bash
-claude mcp add playwright \
-  npx @playwright/mcp@latest
-```
-
-</div>
-<div>
-
-### VS Code / Cursor
-
-Add to your MCP settings:
-
-```
-{
-  "mcpServers": {
-    "playwright": {
-      "command": "npx",
-      "args": ["@playwright/mcp@latest"]
-    }
-  }
-}
-```
-
-</div>
-</div>
-
-<div style="text-align: center; margin-top: 1em;">
-
-**Verify installation:** `npx @playwright/mcp@latest --help`
-
-📖 Full docs: [github.com/microsoft/playwright-mcp](https://github.com/microsoft/playwright-mcp)
-
-</div>
-
----
-
-## The Roadmap 🗓️
-
-<ul class="todo-list">
-<li><strong>Month 1:</strong> Use Case 3 - Failed Test Investigation 🐛 <span class="badge badge-blue">Quick wins</span></li>
-<li><strong>Month 2:</strong> Use Case 1 - Exploratory Testing 🔍 <span class="badge badge-purple">Find coverage gaps</span></li>
-<li><strong>Month 3:</strong> Use Case 2 - User Story → Tests 📝 <span class="badge badge-cyan">Faster delivery</span></li>
-<li><strong>Month 4:</strong> Use Case 4 & 5 - Bug Retest & Logging ✅📋 <span class="badge badge-orange">Full cycle</span></li>
-<li><strong>Month 12+:</strong> Integrated with event hooks <span class="badge badge-green">Autonomous</span></li>
-</ul>
 
 ---
 
@@ -991,162 +813,10 @@ Add to your MCP settings:
 
 ---
 
-## FAQs: Top Concerns ❓
-
-<div class="columns">
-<div>
-
-**❓ Will ✨ replace me?**
-
-<div class="metric-box">
-
-No. ✨ replaces **tasks**, not **roles**.
-
-You do creative work, ✨ does repetitive work.
-
-</div>
-
-**❓ Isn't it expensive?**
-
-<div class="metric-box">
-
-**From $20/month** — a coffee a day cost $30/month ☕
-
-</div>
-
-</div>
-<div>
-
-**❓ What if ✨ makes mistakes?**
-
-<div class="metric-box">
-
-Git protects you. Wrong fix? → `git revert` in 10 seconds.
-
-</div>
-
-**❓ What if it breaks tests?**
-
-<div class="metric-box">
-
-✨ **suggests**, you **approve** via PR.
-
-Start with non-critical tests first.
-
-</div>
-
-</div>
-</div>
-
----
-
-## FAQs: Technical Questions 🔧
-
-<div class="columns">
-<div>
-
-**❓ Does it work with our setup?**
-
-<div class="metric-box">
-
-✅ Node.js 18+
-
-✅ Playwright (any version)
-
-✅ Windows, Mac, Linux
-
-</div>
-
-**❓ What about sensitive data?**
-
-<div class="metric-box">
-
-✅ Use staging environments only
-
-✅ Never expose prod credentials
-
-✅ Claude runs locally — data stays on your machine
-
-</div>
-
-</div>
-<div>
-
-**❓ What do I need to learn?**
-
-<div class="metric-box">
-
-At least the basics of the technologies and prompting skills. Remember:
-
-✅ Clear instructions ("write a test for...")
-
-✅ Review what it generates
-
-✅ Guide with feedback
-
-</div>
-
-</div>
-</div>
-
----
-
-## MCP Resources & Links 🔗
-
-<div class="columns">
-<div>
-
-**Official Repositories:**
-- 🎭 [microsoft/playwright-mcp](https://github.com/microsoft/playwright-mcp)
-- 🔧 [ChromeDevTools/chrome-devtools-mcp](https://github.com/ChromeDevTools/chrome-devtools-mcp)
-- 🌐 [BrowserMCP/mcp](https://github.com/BrowserMCP/mcp)
-- ☁️ [browserbase/mcp-server-browserbase](https://github.com/browserbase/mcp-server-browserbase)
-- 🧪 [angiejones/mcp-selenium](https://github.com/angiejones/mcp-selenium)
-
-</div>
-<div>
-
-**Getting Started:**
-- [browsermcp.io](https://browsermcp.io/) - Chrome extension
-- [browserbase.com/mcp](https://www.browserbase.com/mcp) - Cloud option
-- [mcp.so](https://mcp.so/) - MCP directory
-
-**Key Blog Posts:**
-- [Addy Osmani: DevTools MCP](https://addyosmani.com/blog/devtools-mcp/)
-- [MS Blog: Playwright E2E + AI](https://developer.microsoft.com/blog/the-complete-playwright-end-to-end-story-tools-ai-and-real-world-workflows)
-
-</div>
-</div>
-
----
-
 <!-- _class: lead -->
 
-# Key Takeaways 💡
+# Questions? 🙋
 
-<div class="glass-card" style="text-align: left; padding: 1.5em 2em; max-width: 600px; margin: 1em auto;">
-
-<div style="font-size: 1.1em; line-height: 2;">
-
-✅ **MCP** bridges AI ↔ Browser automation
-
-✅ **AI investigates** test failures visually
-
-✅ **See exactly** what AI sees and does
-
-✅ **$20/month** for 10x faster maintenance
-
-✅ **Start Monday** → results by Tuesday
-
-</div>
-
-</div>
-
-<div style="font-size: 1.5em; font-weight: bold; margin-top: 1em;">
-
-**Start small** → **Learn** → **Scale** ✨
-
-</div>
 
 ---
 
@@ -1166,97 +836,3 @@ At least the basics of the technologies and prompting skills. Remember:
 
 </div>
 
----
-
-<!-- _class: lead -->
-
-# Questions? 🙋
-
----
-
-<!-- _class: lead -->
-
-# Appendix: Technical Deep-Dive 🔧
-
----
-
-## How Does AI "See" Your Web Page? 👁️
-
-<div class="columns">
-<div>
-
-**3 Ways AI Can Perceive:**
-
-| Method | What AI Sees |
-|--------|--------------|
-| **Screenshot** | Pixels (like human) |
-| **HTML DOM** | Raw markup (verbose) |
-| **A11y Tree** ✅ | Semantic structure |
-
-</div>
-<div>
-
-**Why A11y Tree Wins:**
-
-```
-button "Add Task" [enabled]
-checkbox "Buy milk" [checked]
-text "Buy milk" [strikethrough]
-list "Tasks" [3 items]
-```
-
-- **Compact**: ~100x smaller than DOM
-- **Semantic**: Roles, states, names
-- **Actionable**: Maps to user intent
-
-</div>
-</div>
-
-<div style="text-align: center; margin-top: 1em; font-size: 0.9em; color: var(--text-secondary);">
-
-`browser_snapshot` returns A11y tree → AI understands page structure instantly
-
-</div>
-
----
-
-## Under the Hood: MCP Tool Calls 🔍
-
-<div class="columns">
-<div>
-
-**`browser_run_code`** - The Power Tool
-
-```
-{
-  "name": "browser_run_code",
-  "arguments": {
-    "code": "async (page) => {
-      await page.getByRole('button',
-        {name: 'Add'}).click();
-    }"
-  }
-}
-```
-
-</div>
-<div>
-
-**Other Key Tools:**
-
-| Tool | Purpose |
-|------|---------|
-| `browser_snapshot` | Get A11y tree |
-| `browser_click` | Click elements |
-| `browser_type` | Input text |
-| `browser_navigate` | Go to URL |
-| `browser_wait_for` | Wait for text |
-
-<div style="font-size: 0.8em; margin-top: 0.5em;">
-
-[microsoft/playwright-mcp](https://github.com/microsoft/playwright-mcp)
-
-</div>
-
-</div>
-</div>
