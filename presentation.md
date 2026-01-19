@@ -394,8 +394,6 @@ style: |
 
 ## Today's Journey 🗺️
 
-<div class="columns">
-<div>
 
 **🤔 The Problem**
 - Slow feedback loop
@@ -405,12 +403,6 @@ style: |
 - MCP: AI-to-Browser bridge
 
 **🎬 Live Demo**
-
-</div>
-<div>
-
-</div>
-</div>
 
 
 ---
@@ -652,32 +644,18 @@ Each use case = **AI prompt** + **Playwright MCP browser automation**
 
 ---
 
-## *Yesterday, everything was green. What changed?*
+<!-- _class: -->
 
-<div style="font-size: 0.65em; text-align: left; background: #1a1a2e; padding: 0.8em; border-radius: 8px; font-family: monospace;">
+## Use Case 1: Failed Test Investigation 🐛
 
-```
-$ npx playwright test
+<div class="glass-card" style="font-size: 0.8em;">
 
-Running 5 tests using 1 worker
-
-  ✓  should display initial tasks (1.2s)
-  ✗  should mark a task as complete (2.1s)
-     Error: Locator.click: Error: strict mode violation
-     Call log: waiting for getByRole('checkbox')
-
-  ✗  should delete a task (1.8s)
-  ✗  should clear completed tasks (1.5s)
-  ✗  should clear all tasks (1.4s)
-
-  1 passed (1.2s)
-  4 failed
-```
-
-</div>
-
-<div style="font-size: 1.1em; color: var(--text-secondary); margin-top: 1em;">
-
+**Prompt**:
+Act as Debugging Specialist. Investigate failing test [FILE + ERROR].
+- Live reproduce the failure
+- Analyze element state (visibility, ARIA, overlays)
+- Check console errors & network (4xx/5xx)
+- Provide: RCA, proposed fix, live verification of fix
 
 </div>
 
@@ -702,7 +680,7 @@ How can **QA Engineers** leverage AI + Playwright MCP in daily work?
 
 ---
 
-## Use Case 1: Exploratory Testing & Test Plan Generation 🔍
+## Use Case 2: Exploratory Testing & Test Plan Generation 🔍
 
 <div class="glass-card" style="font-size: 0.8em;">
 
@@ -718,7 +696,7 @@ How can **QA Engineers** leverage AI + Playwright MCP in daily work?
 
 ---
 
-## Use Case 2: User Story → Test Plan → Automated Tests 📝
+## Use Case 3: User Story → Test Plan → Automated Tests 📝
 
 <div class="glass-card" style="font-size: 0.8em;">
 
@@ -728,23 +706,6 @@ How can **QA Engineers** leverage AI + Playwright MCP in daily work?
 - **Phase 1**: Extract acceptance criteria, generate test plan (happy path + 2 edge cases per story)
 - **Phase 2**: Verify live via Playwright MCP, confirm selectors exist
 - **Phase 3**: Generate TypeScript test file with POM patterns, getByRole locators
-
-</div>
-
----
-
-<!-- _class: -->
-
-## Use Case 3: Failed Test Investigation 🐛
-
-<div class="glass-card" style="font-size: 0.8em;">
-
-**Prompt**:
-Act as Debugging Specialist. Investigate failing test [FILE + ERROR].
-- Live reproduce the failure
-- Analyze element state (visibility, ARIA, overlays)
-- Check console errors & network (4xx/5xx)
-- Provide: RCA, proposed fix, live verification of fix
 
 </div>
 
@@ -805,7 +766,6 @@ Spend less time on testing process
 
 </div>
 </div>
-
 
 ---
 
