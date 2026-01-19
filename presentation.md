@@ -454,8 +454,42 @@ style: |
 
 ---
 
-## Different applications Playwright / Playwright MCP
+## Different Applications: Playwright / MCP 🎯
 
+<div class="columns" style="align-items: start;">
+<div>
+
+### Use **Playwright** for:
+
+- Regression testing
+- Complex assertion criteria
+- Complex mock APIs
+- Stable applications
+- Fixed test steps
+
+> 📋 Deterministic
+
+</div>
+<div>
+
+### Use **Playwright MCP** for:
+
+- Exploring features
+- Reproducing bugs
+- Rapidly changing UIs
+- Debugging
+- Prototyping tests
+
+> 🧠 Adaptive
+
+</div>
+</div>
+
+<div style="text-align: center; margin-top: 1em; font-size: 0.9em;">
+
+💡 **Best practice**: Use MCP to *generate*, Playwright to *run* regression suites
+
+</div>
 
 ---
 
@@ -564,7 +598,6 @@ text "Watch Netflix" (no strikethrough)
 
 ```
 await page.getByRole('checkbox').first().click();
-// observe: does strikethrough appear?
 ```
 
 </div>
@@ -752,7 +785,7 @@ Act as Debugging Specialist. Investigate failing test [FILE + ERROR].
 
 ## What This Means for You 👥
 
-<div class="two-columns">
+<div class="columns">
 <div class="icon-box icon-box-purple">
 
 <div style="font-size: 2em;">💻</div>
@@ -762,7 +795,6 @@ Act as Debugging Specialist. Investigate failing test [FILE + ERROR].
 Earlier feedback loop
 
 </div>
-</div>
 <div class="icon-box icon-box-blue">
 
 <div style="font-size: 2em;">🧪</div>
@@ -771,6 +803,7 @@ Earlier feedback loop
 
 Spend less time on testing process
 
+</div>
 </div>
 
 
