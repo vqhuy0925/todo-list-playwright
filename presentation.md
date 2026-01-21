@@ -744,6 +744,291 @@ How can **QA Engineers** leverage AI + Playwright MCP in daily work?
 
 ---
 
+<!-- _class: lead -->
+
+# Beyond Prompts: Commands 🎯
+
+<div class="emoji-large">
+
+⚙️
+
+</div>
+
+<div style="font-size: 1.2em;">
+
+Structured workflows for **repeatable quality**
+
+</div>
+
+---
+
+## What Are Commands? 🤔
+
+<div class="columns" style="font-size: 0.9em;">
+<div>
+
+### Traditional Prompts 💬
+
+**Ad-hoc instructions to AI**
+
+- "Generate test cases for this feature"
+- "Help me debug this test"
+- Flexible but **inconsistent**
+- Requires expertise to craft
+- Results vary between runs
+
+> 🎲 **One-off** interactions
+
+</div>
+<div>
+
+### Commands ⚙️
+
+**Structured, repeatable workflows**
+
+- Pre-defined multi-step process
+- Built-in knowledge base
+- Consistent output format
+- Quality checks included
+- Version controlled
+
+> 🔄 **Systematic** process
+
+</div>
+</div>
+
+<div style="text-align: center; margin-top: 0.7em; font-size: 0.85em;">
+
+💡 **Think:** Prompts = Manual testing · Commands = Automated testing
+
+</div>
+
+---
+
+## Why Commands Over Prompts? 🎯
+
+<div class="columns" style="gap: 0.8rem; font-size: 0.75em;">
+<div class="glass-card" style="padding: 0.8em;">
+
+### Benefits
+✅ **Consistency** - Same process
+✅ **Knowledge** - Team expertise
+✅ **Onboarding** - Instant practices
+✅ **Quality** - Built-in validation
+✅ **Scalability** - Repeat
+
+</div>
+<div class="glass-card" style="padding: 0.8em;">
+
+### Example Commands
+**`/qa-test-plan-generation`**
+Story → Test plan
+
+**`/qa-implement-automation-tests`**
+Plan → TypeScript tests
+
+**`/qa-run-test-with-mcp`**
+Execute & debug
+
+</div>
+</div>
+
+---
+
+<!-- _class: compact -->
+
+## Example: Test Plan Generation Command 🔄
+
+<div style="font-size: 0.75em;">
+
+<div class="glass-card" style="background: var(--bg-card); padding: 1em; margin-bottom: 0.8em;">
+
+### Phase 1: Prerequisites
+
+**Step 1:** Read `sofia-test/CLAUDE.md`
+**Step 2:** Read `CLAUDE.md` (Azure DevOps section)
+**Step 3:** Read `CLAUDE_KNOWLEDGE_BASE.md`
+**Step 4:** Read `CLAUDE_AUTOMATION_BEST_PRACTICE.md`
+
+</div>
+
+<div class="columns" style="gap: 0.8rem;">
+<div>
+
+<div class="glass-card" style="padding: 0.8em;">
+
+### Phase 2: Data Collection
+
+- `/read-workitems <story-id>`
+- `az repos pr show` (parallel)
+- Glob search page objects
+- Glob search existing tests
+- Glob search frontend components
+
+</div>
+
+<div class="glass-card" style="padding: 0.8em; margin-top: 0.8em;">
+
+### Phase 3: Analysis & Test Generation
+
+- Analyze data (reference Knowledge Base)
+- Generate test cases (reference Best Practices)
+
+</div>
+
+</div>
+<div>
+
+<div class="glass-card" style="padding: 0.8em;">
+
+### Phase 4: Document Creation
+
+- Create test plan markdown file
+
+</div>
+
+<div class="glass-card" style="padding: 0.8em; margin-top: 0.8em;">
+
+### Phase 5: Follow-up Actions
+
+- Get user approval
+- Create Azure DevOps test cases (optional)
+- Implement automation tests (optional)
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+---
+
+<!-- _class: compact -->
+
+## Example: MCP Testing Command
+
+<div style="font-size: 0.75em;">
+
+<div class="glass-card" style="background: var(--bg-card); padding: 1em; margin-bottom: 0.8em;">
+
+**Phase 0: Prerequisites** - Read `sofia-test/CLAUDE.md` + `MCP_GUIDE.md`
+
+</div>
+
+<div class="glass-card" style="padding: 0.5em; margin-bottom: 0.4em;">
+
+**Phase 1: Setup** - `pwsh Mcp-Setup.ps1 "$ARGUMENTS"` - Parse input, Fetch work item, Authenticate
+
+</div>
+
+<div style="text-align: center; margin: 0.3em 0; font-weight: bold;">
+
+↓ Mode Selection ↓
+
+</div>
+
+<div class="three-columns" style="gap: 0.5rem; font-size: 0.95em;">
+
+<div class="glass-card" style="padding: 0.5em;">
+
+**Bug Retest** `bug:12345`
+
+1. Fetch Bug
+2. Parse Steps
+3. Execute with MCP
+4. Report (Fixed/Still bugs)
+
+</div>
+
+<div class="glass-card" style="padding: 0.5em;">
+
+**Test Plan** `plan.md`
+
+1. Parse Plan
+2. Extract TCs
+3. Execute Each TC
+4. Report (Pass/Fail Rate)
+
+</div>
+
+<div class="glass-card" style="padding: 0.5em;">
+
+**Exploratory** `explore:123`
+
+1. Fetch Story
+2. Parse ACs
+3. Create Plan & Explore
+4. Report (Coverage/Bugs)
+
+</div>
+
+</div>
+
+</div>
+
+---
+
+<!-- _class: compact -->
+
+## Example: Implement Automation Tests Workflow
+
+<div style="font-size: 0.58em; line-height: 1.3;">
+
+<div class="glass-card" style="padding: 0.5em; margin-bottom: 0.5em;">
+
+📚 **Step 0: Read Files (Parallel)** - CLAUDE.md, KNOWLEDGE_BASE.md, BEST_PRACTICE.md
+
+</div>
+
+<div class="glass-card" style="padding: 0.5em; margin-bottom: 0.5em;">
+
+🔧 **Step 1: Parse Input** - `pwsh Implement-AutomationTests.ps1` → Auto-detect Work Item/Test Plan → Output JSON
+
+</div>
+
+<div class="glass-card" style="padding: 0.5em; margin-bottom: 0.5em;">
+
+❓ **Step 2: Ask Clarifications** - Review unclear items → Ask user → ⏸️ WAIT FOR RESPONSE
+
+</div>
+
+<div class="columns" style="gap: 0.6rem; margin-bottom: 0.5em;">
+<div class="glass-card" style="padding: 0.5em;">
+
+🔍 **Step 3: Research & Plan (Parallel)**
+- Explore: Find patterns, similar tests, page objects
+- Present plan & approach → ⏸️ WAIT FOR APPROVAL
+
+</div>
+<div class="glass-card" style="padding: 0.5em;">
+
+⚙️ **Step 4: Implement (Parallel Agents)**
+- Agent 1: Page Objects (methods, localization)
+- Agent 2: Test Files (step() helper, assertions)
+
+</div>
+</div>
+
+<div class="columns" style="gap: 0.6rem;">
+<div class="glass-card" style="padding: 0.5em;">
+
+✅ **Step 5: Run & Verify**
+yarn format → test:e2e → Fix → Re-run
+
+</div>
+<div class="glass-card" style="padding: 0.5em;">
+
+📊 **Step 6: Present Results**
+Files, Tests (Pass/Fail), Methods, Next steps
+
+</div>
+</div>
+
+</div>
+
+---
+
 ## What This Means for You 👥
 
 <div class="columns">
@@ -828,4 +1113,3 @@ Spend less time on testing process
 **Let's make testing fun again**
 
 </div>
-
