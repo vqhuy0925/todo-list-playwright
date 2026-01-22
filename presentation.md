@@ -253,7 +253,7 @@ style: |
   .todo-list .time {
     margin-left: auto;
     color: #10B981;
-    font-size: 0.85em;
+    font-size: 0.78em;
     font-weight: 500;
   }
 
@@ -438,7 +438,7 @@ style: |
 </div>
 </div>
 
-<div style="text-align: center; margin-top: 1em; font-size: 0.85em; color: var(--text-secondary);">
+<div style="text-align: center; margin-top: 1em; font-size: 0.78em; color: var(--text-secondary);">
 
 **MCP**: Dynamic Discovery · Stateful · Standardized Schema · 2-way Communication
 
@@ -564,7 +564,7 @@ Let's dive into the **technical concepts**
 
 ## See → Think → Act → Repeat 🔄
 
-> /investigate "Todo List" test report: "should mark a task as complete" failed
+> /investigate "Todo List" test report: "should clear completed tasks" failed
 
 <div class="columns">
 <div>
@@ -572,24 +572,24 @@ Let's dive into the **technical concepts**
 **1️⃣ 🎭 reads browser → ✨**
 
 ```
-checkbox "Watch Netflix" [unchecked]
-checkbox "Go shopping" [unchecked]
-text "Watch Netflix" (no strikethrough)
+list: 0 items
+button "Clear Completed"
+button "Clear All"
 ```
 
-<div style="font-size: 0.85em; color: var(--text-secondary);">A11y Tree: semantic, compact</div>
+<div style="font-size: 0.78em; color: var(--text-secondary);">A11y Tree: semantic + compact = fewer tokens, faster AI reasoning</div>
 
 </div>
 <div>
 
 **2️⃣ Test report tells ✨ what failed**
 
-> "Checkbox clicked but strikethrough never appeared"
+> "Expected 3 items, Received 0 after Clear Completed"
 
 **3️⃣ ✨ generates → 🎭 executes**
 
 ```
-await page.getByRole('checkbox').first().click();
+await page.getByRole('button', { name: 'Clear Completed' }).click();
 ```
 
 </div>
@@ -597,7 +597,7 @@ await page.getByRole('checkbox').first().click();
 
 <div style="text-align: center; margin-top: 0.8em; font-size: 1.1em;">
 
-**4️⃣** ✨ sees no change → **repeat loop** until root cause found
+**4️⃣** ✨ sees 0 items → **repeat loop** until root cause found
 
 </div>
 
@@ -605,7 +605,7 @@ await page.getByRole('checkbox').first().click();
 
 ## Playwright MCP Testing Use Cases 🤖
 
-<div class="icon-grid" style="grid-template-columns: repeat(5, 1fr); font-size: 0.85em;">
+<div class="icon-grid" style="grid-template-columns: repeat(5, 1fr); font-size: 0.78em;">
 
 
 <div class="icon-box icon-box-red">
@@ -644,9 +644,67 @@ Each use case = **AI prompt** + **Playwright MCP browser automation**
 
 ---
 
+<!-- _class: lead -->
+
+# 🎬 Live Demo Time!
+
+<div class="emoji-large">
+
+✨ 🎭 🧪
+
+</div>
+
+<div style="font-size: 1.2em; margin-top: 1em;">
+
+
+</div>
+
+---
+
+## Use Case 1: Failed Test Investigation  (1/2) 🐛
+
+<div class="columns">
+<div>
+
+### Scenario
+
+**Test report says:**
+> "should clear completed tasks" - FAILED
+> Expected 3 items, Received 0 after Clear Completed
+
+<div style="margin-top: 1em;">
+
+**Our mission:**
+- Reproduce the failure live
+- Find the root cause
+- Propose a fix
+
+</div>
+
+</div>
+<div style="font-size: 0.85em;">
+
+### The AI Loop ✨
+
+**🔍 SEE** → A11y snapshot
+`list: 4 items, button "Clear Completed"`
+
+**🧠 THINK** → Reasoning
+"Click Clear Completed, check result..."
+
+**🎯 ACT** → Execute & observe
+`Click → list: 0 items`
+
+→ **Bug:** clears ALL, not just completed!
+
+</div>
+</div>
+
+---
+
 <!-- _class: -->
 
-## Use Case 1: Failed Test Investigation 🐛
+## Use Case 1: Failed Test Investigation (2/2)
 
 <div class="glass-card" style="font-size: 0.8em;">
 
@@ -741,7 +799,6 @@ How can **QA Engineers** leverage AI + Playwright MCP in daily work?
 
 </div>
 
-
 ---
 
 <!-- _class: lead -->
@@ -797,7 +854,7 @@ Structured workflows for **repeatable quality**
 </div>
 </div>
 
-<div style="text-align: center; margin-top: 0.7em; font-size: 0.85em;">
+<div style="text-align: center; margin-top: 0.7em; font-size: 0.78em;">
 
 💡 **Think:** Prompts = Manual testing · Commands = Automated testing
 
@@ -835,30 +892,21 @@ Execute & debug
 
 ---
 
-<!-- _class: compact -->
+## Example: Test Plan Generation Command 🔄 (1/2)
 
-## Example: Test Plan Generation Command 🔄
-
-<div style="font-size: 0.75em;">
-
-<div class="glass-card" style="background: var(--bg-card); padding: 1em; margin-bottom: 0.8em;">
-
-### Phase 1: Prerequisites
-
-**Step 1:** Read `sofia-test/CLAUDE.md`
-**Step 2:** Read `CLAUDE.md` (Azure DevOps section)
-**Step 3:** Read `CLAUDE_KNOWLEDGE_BASE.md`
-**Step 4:** Read `CLAUDE_AUTOMATION_BEST_PRACTICE.md`
-
-</div>
-
-<div class="columns" style="gap: 0.8rem;">
+<div class="columns">
 <div>
 
-<div class="glass-card" style="padding: 0.8em;">
+### 📚 Phase 1: Prerequisites
+- Read `sofia-test/CLAUDE.md`
+- Read `CLAUDE.md` (Azure DevOps section)
+- Read `CLAUDE_KNOWLEDGE_BASE.md`
+- Read `CLAUDE_AUTOMATION_BEST_PRACTICE.md`
 
-### Phase 2: Data Collection
+</div>
+<div>
 
+### 🔍 Phase 2: Data Collection
 - `/read-workitems <story-id>`
 - `az repos pr show` (parallel)
 - Glob search page objects
@@ -866,165 +914,134 @@ Execute & debug
 - Glob search frontend components
 
 </div>
+</div>
 
-<div class="glass-card" style="padding: 0.8em; margin-top: 0.8em;">
+---
 
-### Phase 3: Analysis & Test Generation
+## Example: Test Plan Generation Command 🔄 (2/2)
 
+<div class="columns">
+<div>
+
+### 🧠 Phase 3: Analysis & Test Generation
 - Analyze data (reference Knowledge Base)
 - Generate test cases (reference Best Practices)
 
-</div>
+### 📝 Phase 4: Document Creation
+- Create test plan markdown file
 
 </div>
 <div>
 
-<div class="glass-card" style="padding: 0.8em;">
-
-### Phase 4: Document Creation
-
-- Create test plan markdown file
-
-</div>
-
-<div class="glass-card" style="padding: 0.8em; margin-top: 0.8em;">
-
-### Phase 5: Follow-up Actions
-
+### 🚀 Phase 5: Follow-up Actions
 - Get user approval
 - Create Azure DevOps test cases (optional)
 - Implement automation tests (optional)
 
 </div>
-
-</div>
-</div>
-
 </div>
 
 ---
 
-<!-- _class: compact -->
+## Example: MCP Testing Command 🎭 (1/2)
 
-## Example: MCP Testing Command
+<div class="columns">
+<div>
 
-<div style="font-size: 0.75em;">
+### 📚 Phase 0: Prerequisites
+Read `sofia-test/CLAUDE.md` + `MCP_GUIDE.md`
 
-<div class="glass-card" style="background: var(--bg-card); padding: 1em; margin-bottom: 0.8em;">
-
-**Phase 0: Prerequisites** - Read `sofia-test/CLAUDE.md` + `MCP_GUIDE.md`
-
-</div>
-
-<div class="glass-card" style="padding: 0.5em; margin-bottom: 0.4em;">
-
-**Phase 1: Setup** - `pwsh Mcp-Setup.ps1 "$ARGUMENTS"` - Parse input, Fetch work item, Authenticate
+### 🔧 Phase 1: Setup
+`pwsh Mcp-Setup.ps1 "$ARGUMENTS"`
+→ Parse input, Fetch work item, Authenticate
 
 </div>
+<div>
 
-<div style="text-align: center; margin: 0.3em 0; font-weight: bold;">
-
-↓ Mode Selection ↓
-
-</div>
-
-<div class="three-columns" style="gap: 0.5rem; font-size: 0.95em;">
-
-<div class="glass-card" style="padding: 0.5em;">
-
-**Bug Retest** `bug:12345`
-
+### 🐛 Mode: Bug Retest `bug:12345`
 1. Fetch Bug
 2. Parse Steps
 3. Execute with MCP
 4. Report (Fixed/Still bugs)
 
 </div>
+</div>
 
-<div class="glass-card" style="padding: 0.5em;">
+---
 
-**Test Plan** `plan.md`
+## Example: MCP Testing Command 🎭 (2/2)
 
+<div class="columns">
+<div>
+
+### 📋 Mode: Test Plan `plan.md`
 1. Parse Plan
 2. Extract TCs
 3. Execute Each TC
 4. Report (Pass/Fail Rate)
 
 </div>
+<div>
 
-<div class="glass-card" style="padding: 0.5em;">
-
-**Exploratory** `explore:123`
-
+### 🔍 Mode: Exploratory `explore:123`
 1. Fetch Story
 2. Parse ACs
 3. Create Plan & Explore
 4. Report (Coverage/Bugs)
 
 </div>
-
-</div>
-
 </div>
 
 ---
 
-<!-- _class: compact -->
+## Example: Implement Automation Tests Workflow ⚙️ (1/2)
 
-## Example: Implement Automation Tests Workflow
+<div class="columns">
+<div>
 
-<div style="font-size: 0.58em; line-height: 1.3;">
+### 📚 Step 0: Read Files (Parallel)
+CLAUDE.md, KNOWLEDGE_BASE.md, BEST_PRACTICE.md
 
-<div class="glass-card" style="padding: 0.5em; margin-bottom: 0.5em;">
-
-📚 **Step 0: Read Files (Parallel)** - CLAUDE.md, KNOWLEDGE_BASE.md, BEST_PRACTICE.md
-
-</div>
-
-<div class="glass-card" style="padding: 0.5em; margin-bottom: 0.5em;">
-
-🔧 **Step 1: Parse Input** - `pwsh Implement-AutomationTests.ps1` → Auto-detect Work Item/Test Plan → Output JSON
+### 🔧 Step 1: Parse Input
+`pwsh Implement-AutomationTests.ps1`
+→ Auto-detect Work Item/Test Plan → Output JSON
 
 </div>
+<div>
 
-<div class="glass-card" style="padding: 0.5em; margin-bottom: 0.5em;">
+### ❓ Step 2: Ask Clarifications
+Review unclear items → Ask user → ⏸️ WAIT FOR RESPONSE
 
-❓ **Step 2: Ask Clarifications** - Review unclear items → Ask user → ⏸️ WAIT FOR RESPONSE
-
-</div>
-
-<div class="columns" style="gap: 0.6rem; margin-bottom: 0.5em;">
-<div class="glass-card" style="padding: 0.5em;">
-
-🔍 **Step 3: Research & Plan (Parallel)**
+### 🔍 Step 3: Research & Plan (Parallel)
 - Explore: Find patterns, similar tests, page objects
 - Present plan & approach → ⏸️ WAIT FOR APPROVAL
 
 </div>
-<div class="glass-card" style="padding: 0.5em;">
+</div>
 
-⚙️ **Step 4: Implement (Parallel Agents)**
+---
+
+## Example: Implement Automation Tests Workflow ⚙️ (2/2)
+
+<div class="columns">
+<div>
+
+### ⚙️ Step 4: Implement (Parallel Agents)
 - Agent 1: Page Objects (methods, localization)
 - Agent 2: Test Files (step() helper, assertions)
 
-</div>
-</div>
 
-<div class="columns" style="gap: 0.6rem;">
-<div class="glass-card" style="padding: 0.5em;">
 
-✅ **Step 5: Run & Verify**
+</div>
+<div>
+
+### ✅ Step 5: Run & Verify
 yarn format → test:e2e → Fix → Re-run
 
-</div>
-<div class="glass-card" style="padding: 0.5em;">
-
-📊 **Step 6: Present Results**
+### 📊 Step 6: Present Results
 Files, Tests (Pass/Fail), Methods, Next steps
 
 </div>
-</div>
-
 </div>
 
 ---
