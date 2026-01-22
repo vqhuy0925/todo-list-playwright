@@ -661,7 +661,34 @@ Each use case = **AI prompt** + **Playwright MCP browser automation**
 
 ---
 
-## Use Case 1: Failed Test Investigation  (1/2) 🐛
+## Use Case 1: Failed Test Investigation (1/3) 🐛
+
+<div class="columns" style="gap: 2rem; align-items: center; justify-items: center;">
+<div style="text-align: center; display: flex; flex-direction: column; align-items: center;">
+
+### Initial State
+
+![h:340](screenshots/todo-initial-state.png)
+
+</div>
+<div style="text-align: center; display: flex; flex-direction: column; align-items: center;">
+
+### Changed State
+
+![h:340](screenshots/todo-changed-state.png)
+
+</div>
+</div>
+
+<div style="text-align: center; font-size: 0.9em;">
+
+**New features:** Priority levels · Filter · Edit task → **Tests may break!**
+
+</div>
+
+---
+
+## Use Case 1: Failed Test Investigation (2/3) 🐛
 
 <div class="columns">
 <div>
@@ -704,7 +731,7 @@ Each use case = **AI prompt** + **Playwright MCP browser automation**
 
 <!-- _class: -->
 
-## Use Case 1: Failed Test Investigation (2/2)
+## Use Case 1: Failed Test Investigation (3/3) 🐛
 
 <div class="glass-card" style="font-size: 0.8em;">
 
